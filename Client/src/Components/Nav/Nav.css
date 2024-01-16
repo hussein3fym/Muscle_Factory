@@ -1,0 +1,37 @@
+.navbar {
+  background-color: #171819;
+}
+
+.navbar-nav a {
+  color: white;
+  font-size: 21px;
+  font-family: Bebas Neue;
+  font-weight: 700;
+  line-height: 24px;
+  word-wrap: break-word;
+}
+.navbar-nav {
+  gap: 10px;
+  display: flex;
+}
+
+.nav-button {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #bd2020;
+  color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #890808;
+}
+
+.nav-link.signin {
+  color: #bd2020;
+}
+.nav-item.active {
+  color: red; /* Adjust the color as needed */
+}
