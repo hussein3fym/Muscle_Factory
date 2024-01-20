@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import "./Login.css";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -17,25 +18,28 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h2>Reset Password</h2>
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2 className="login-title">Reset Password</h2>
         <h4>
           Enter your email in the form below and we'll send you instructions for
           creating a new one.
         </h4>
-        <label>
+        <label className="login-label">
           Email:
           <input
             type="email"
             name="email"
+            className="login-input"
             value={email}
             onChange={handleChange}
             required
           />
         </label>
         <br />
-        <button type="submit">Send Password Reset Email</button>
+        <button type="submit" className="login-button">
+          Send Password Reset Email
+        </button>
       </form>
     </div>
   );

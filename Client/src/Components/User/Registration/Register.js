@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import "./Login.css";
+import { Link } from "react-router-dom";
+
 // import RegisterImage from "./../../Assets/image-bg-FAU.png";
 
 const Register = () => {
@@ -41,64 +43,83 @@ const Register = () => {
   };
 
   return (
-    <div>
-      {/* <img
-        src={RegisterImage}
-        alt="Fitness & Health"
-        className="Register-img"
-      /> */}
-      <form className="login-box" onSubmit={handleSubmit}>
-        <h2>Register</h2>
-        <h1>Already have an account? Log In </h1>
-        <label>
-          Username:
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2 className="login-title">Create an Account</h2>
+        <h4>
+          Already have an account ?
+          <Link to="/Login" className="Link-register">
+            Log In
+          </Link>
+        </h4>
+        <label className="login-label">
+          Name:
           <input
             type="text"
             name="username"
+            required
+            className="login-input"
             value={formData.username}
             onChange={handleChange}
           />
         </label>
         <br />
 
-        <label>
+        <label className="login-label">
           Email:
           <input
             type="email"
             name="email"
+            required
+            className="login-input"
             value={formData.email}
             onChange={handleChange}
           />
         </label>
         <br />
 
-        <label>
+        <label className="login-label">
           Password:
           <input
             type="password"
             name="password"
+            required
+            className="login-input"
             value={formData.password}
             onChange={handleChange}
           />
         </label>
         <br />
 
-        <label>
+        <label className="login-label">
           Confirm Password:
           <input
             type="password"
             name="confirmPassword"
+            required
+            className="login-input"
             value={formData.confirmPassword}
             onChange={handleChange}
           />
         </label>
         <br />
 
-        <button type="submit">Create Account</button>
-        <hr />
-        <h4>Or</h4>
-        <button onClick={handleGoogleLogin}>Google</button>
-        <button onClick={handleFacebookLogin}>Facebook</button>
+        <button type="submit" className="login-button">
+          Create Account
+        </button>
+        <h4>or</h4>
+
+        <div className="login-alter">
+          <button onClick={handleGoogleLogin} className="google-login">
+            Google
+          </button>
+          <button onClick={handleFacebookLogin} className="facebook-login">
+            Facebook
+          </button>
+          <Link to="/TrainerLogin">
+            <button className="trainer-login">I am Trainer</button>
+          </Link>
+        </div>
       </form>
     </div>
   );

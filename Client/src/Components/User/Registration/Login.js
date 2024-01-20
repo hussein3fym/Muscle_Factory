@@ -32,40 +32,56 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <h1>Don't have an account? Register </h1>
-        <label>
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2 className="login-title">Login</h2>
+        <h4>
+          Don't have an account ?
+          <Link to="/Register" className="Link-register">
+            Register
+          </Link>
+        </h4>
+        <label className="login-label">
           Email:
           <input
             type="email"
             name="email"
+            required
+            className="login-input"
             value={formData.email}
             onChange={handleChange}
           />
         </label>
         <br />
 
-        <label>
+        <label className="login-label">
           Password:
           <input
             type="password"
             name="password"
+            required
+            className="login-input"
             value={formData.password}
             onChange={handleChange}
           />
         </label>
-        <Link to="/ResetPassword">
-          <button>Forget Password</button>
-        </Link>
-        <br />
-
-        <button type="submit">Log in</button>
-        <hr />
-        <h4>Or</h4>
-        <button onClick={handleGoogleLogin}>Google</button>
-        <button onClick={handleFacebookLogin}>Facebook</button>
+        <div className="forget-password">
+          <Link to="/ResetPassword" className="Link-Login">
+            Forget Password?
+          </Link>
+        </div>
+        <button type="submit" className="login-button">
+          Log in
+        </button>
+        <h4>or</h4>
+        <div className="login-alter">
+          <button onClick={handleGoogleLogin} className="google-login">
+            Google
+          </button>
+          <button onClick={handleFacebookLogin} className="facebook-login">
+            Facebook
+          </button>
+        </div>
       </form>
     </div>
   );
