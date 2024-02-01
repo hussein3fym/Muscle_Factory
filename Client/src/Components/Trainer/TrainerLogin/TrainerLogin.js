@@ -8,6 +8,7 @@ const TrainerLogin = () => {
     password: "",
     Age: "",
     experience: "",
+    specialization: "",
     gender: "",
   });
 
@@ -82,6 +83,17 @@ const TrainerLogin = () => {
             required
             className="login-input"
             value={formData.experience}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="login-label">
+          Your Specialization:
+          <input
+            type="text"
+            name="specialization"
+            required
+            className="login-input"
+            value={formData.specialization}
             onChange={handleChange}
           />
         </label>

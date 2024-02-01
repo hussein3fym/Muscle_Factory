@@ -1,0 +1,67 @@
+{
+  "trainers": [
+    {
+      "id": 1,
+      "name": "Trainer One",
+      "email": "trainer.one@example.com",
+      "age": "20",
+      "experience": "3 years",
+      "gender": "male",
+      "specialization": "Strength Training"
+    },
+    {
+      "id": 2,
+      "name": "Trainer Two",
+      "email": "trainer.two@example.com",
+      "age": "25",
+      "experience": "5 years",
+      "gender": "female",
+      "specialization": "Cardiovascular Exercise"
+    },
+    {
+      "id": 3,
+      "name": "Trainer Three",
+      "email": "trainer.three@example.com",
+      "age": "30",
+      "experience": "8 years",
+      "gender": "male",
+      "specialization": "Yoga"
+    },
+    {
+      "id": 4,
+      "name": "Trainer Four",
+      "email": "trainer.four@example.com",
+      "age": "28",
+      "experience": "6 years",
+      "gender": "female",
+      "specialization": "CrossFit"
+    },
+    {
+      "id": 5,
+      "name": "Trainer Five",
+      "email": "trainer.five@example.com",
+      "age": "22",
+      "experience": "4 years",
+      "gender": "male",
+      "specialization": "Pilates"
+    },
+    {
+      "id": 6,
+      "name": "Trainer Six",
+      "email": "trainer.six@example.com",
+      "age": "32",
+      "experience": "10 years",
+      "gender": "female",
+      "specialization": "Martial Arts"
+    },
+    {
+      "id": 7,
+      "name": "Trainer Seven",
+      "email": "trainer.seven@example.com",
+      "age": "26",
+      "experience": "7 years",
+      "gender": "male",
+      "specialization": "Functional Training"
+    }
+  ]
+}

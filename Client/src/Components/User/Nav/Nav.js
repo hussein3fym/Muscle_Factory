@@ -18,44 +18,32 @@ const Nav = () => {
                 location.pathname === "/" ? "active" : ""
               }`}
             >
-              <Link to="/" className="nav-link" activeClassName="active">
+              <Link to="/" className="nav-link">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/blog" className="nav-link" activeClassName="active">
+              <Link to="/blog" className="nav-link">
                 Blog
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/workout" className="nav-link" activeClassName="active">
+              <Link to="/Workout" className="nav-link">
                 Workout
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="/Nutrition"
-                className="nav-link"
-                activeClassName="active"
-              >
+              <Link to="/Nutrition" className="nav-link">
                 Nutrition
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="/find-gym"
-                className="nav-link"
-                activeClassName="active"
-              >
+              <Link to="/find-gym" className="nav-link">
                 Find Gym
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="/about-us"
-                className="nav-link"
-                activeClassName="active"
-              >
+              <Link to="/about-us" className="nav-link">
                 About Us
               </Link>
             </li>

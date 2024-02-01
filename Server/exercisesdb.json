@@ -1,0 +1,40 @@
+{
+  "exercises": [
+    {
+      "id": 10,
+      "exerciseName": "Exercise Ten",
+      "equipment": "Equipment Ten",
+      "targetMuscle": "Muscle Ten",
+      "secondaryMuscle": "Secondary Muscle Ten",
+      "trainerName": "Trainer Ten",
+      "instructions": "Instructions for Exercise Ten",
+      "video": "video-ten.mp4",
+      "image": "image-ten.jpg",
+      "level": "Advanced"
+    },
+    {
+      "id": 2,
+      "exerciseName": "Exercise Two",
+      "equipment": "Equipment Two8",
+      "targetMuscle": "Muscle Two",
+      "secondaryMuscle": "Secondary Muscle Two",
+      "trainerName": "Trainer Two",
+      "instructions": "Instructions for Exercise Two",
+      "video": "video-two.mp4",
+      "image": "image-two.jpg",
+      "level": "Intermediate"
+    },
+    {
+      "id": 10,
+      "exerciseName": "Exercise Ten",
+      "equipment": "Equipment Ten",
+      "targetMuscle": "Muscle Ten",
+      "secondaryMuscle": "Secondary Muscle Ten",
+      "trainerName": "Trainer Ten",
+      "instructions": "Instructions for Exercise Ten",
+      "video": "video-ten.mp4",
+      "image": "image-ten.jpg",
+      "level": "Advanced"
+    }
+  ]
+}
