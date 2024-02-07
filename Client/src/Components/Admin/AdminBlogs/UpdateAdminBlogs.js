@@ -2,54 +2,53 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const UpdateBlog = () => {
+const UpdateAdminBlogs = () => {
   const { id } = useParams();
-  const [blogs, setBlogs] = useState({
+  const [adminBlogs, setAdminBlogs] = useState({
     title: "",
     description: "",
     image: null,
     videoUrl: "",
   });
-
   useEffect(() => {
     axios
-      .get(`http://localhost:4300/blogs/${id} `)
-      .then((res) => setBlogs(res.data))
+      .get(`http://localhost:4301/adminBlogs/${id} `)
+      .then((res) => setAdminBlogs(res.data))
       .catch((error) => console.error("Error fetching blogs:", error));
   }, [id]);
-
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "image" || name === "video") {
-      setBlogs((prevData) => ({
+      setAdminBlogs((prevData) => ({
         ...prevData,
         [name]: files[0], // Access the file from the files array
       }));
     } else {
-      setBlogs((prevData) => ({ ...prevData, [name]: value }));
+      setAdminBlogs((prevData) => ({ ...prevData, [name]: value }));
     }
   };
 
   const handleUpdate = (event) => {
     event.preventDefault();
     axios
-      .put(`http://localhost:4300/blogs/${id}`, blogs)
+      .put(`http://localhost:4301/adminBlogs/${id}`, adminBlogs)
       .then((res) => {
         console.log(res.data);
       })
       .catch((error) => console.error("Error updating blog:", error));
   };
   return (
-    <div className="d-flex w-100 vh-100 justify-content-center align-items-center bg-light">
-      <div className="w-50 border bg-white shadow px-5 pt-3 pb-5 rounded">
-        <h1>Update Blog</h1>
+    <div className=" app  ">
+      <div className=" BMcontainer ">
+        <h1 BMtitle>Update Blog</h1>
         <form onSubmit={handleUpdate}>
           <label>
             Blog Title
             <input
               type="text"
               name="title"
-              value={blogs.title}
+              className="BMinput"
+              value={adminBlogs.title}
               onChange={handleChange}
             />
           </label>
@@ -58,9 +57,9 @@ const UpdateBlog = () => {
             Blog Description
             <input
               type="text"
-              className="form-control"
               name="description"
-              value={blogs.description}
+              className="BMinput"
+              value={adminBlogs.description}
               onChange={handleChange}
             />
           </label>
@@ -69,7 +68,7 @@ const UpdateBlog = () => {
             Blog Image
             <input
               type="file"
-              className="form-control"
+              className="BMinput"
               name="image"
               onChange={handleChange}
             />
@@ -79,9 +78,9 @@ const UpdateBlog = () => {
             Video Url *OPtional
             <input
               type="text"
-              className="form-control"
+              className="BMinput"
               name="videoUrl"
-              value={blogs.videoUrl}
+              value={adminBlogs.videoUrl}
               onChange={handleChange}
             />
           </label>
@@ -93,4 +92,5 @@ const UpdateBlog = () => {
     </div>
   );
 };
-export default UpdateBlog;
+
+export default UpdateAdminBlogs;

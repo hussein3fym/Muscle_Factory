@@ -1,5 +1,12 @@
 {
-  "blogs": [
+  "adminBlogs": [
+    {
+      "id": 1,
+      "title": "Sample Blog 1101",
+      "description": "Description for Sample Blog 1",
+      "image": "path/to/image1.jpg",
+      "videoUrl": "https://www.example.com/video1"
+    },
     {
       "id": 2,
       "title": "Sample Blog 2",
@@ -9,7 +16,7 @@
     },
     {
       "id": 3,
-      "title": "Sample Blog 30",
+      "title": "Sample Blog 3",
       "description": "Description for Sample Blog 3",
       "image": "path/to/image3.jpg",
       "videoUrl": "https://www.example.com/video3"
@@ -34,20 +41,6 @@
       "description": "Description for Sample Blog 6",
       "image": "path/to/image6.jpg",
       "videoUrl": "https://www.example.com/video6"
-    },
-    {
-      "id": 7,
-      "title": "Sample Blog 7",
-      "description": "Description for Sample Blog 7",
-      "image": "path/to/image7.jpg",
-      "videoUrl": "https://www.example.com/video7"
-    },
-    {
-      "id": 8,
-      "title": "Sample Blog 8",
-      "description": "Description for Sample Blog 8",
-      "image": "path/to/image8.jpg",
-      "videoUrl": "https://www.example.com/video8"
     }
   ]
 }

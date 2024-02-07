@@ -116,7 +116,7 @@ const Register = () => {
           <button onClick={handleFacebookLogin} className="facebook-login">
             Facebook
           </button>
-          <Link to="/TrainerLogin">
+          <Link to="/TrainerRegistration">
             <button className="trainer-login">I am Trainer</button>
           </Link>
         </div>

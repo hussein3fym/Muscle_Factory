@@ -73,7 +73,7 @@ const AddBlog = () => {
             Add Blog
           </button>
           <Link to="/BlogForm" className="btn btn-primary">
-            View Blog
+            View Blogs
           </Link>
         </form>
       </div>

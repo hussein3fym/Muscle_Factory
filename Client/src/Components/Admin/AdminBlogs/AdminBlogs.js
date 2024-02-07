@@ -1,36 +1,38 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-const BlogForm = () => {
-  const [blogs, setBlogs] = useState([]);
+const AdminBlogs = () => {
+  const [adminBlogs, setAdminBlogs] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:4300/blogs")
-      .then((res) => setBlogs(res.data))
+      .get("http://localhost:4301/adminBlogs")
+      .then((res) => setAdminBlogs(res.data))
       .catch((error) => console.error("Error fetching blogs:", error));
   }, []);
-  const handleDelete = (blogId) => {
+
+  const handleDelete = (adminBlogId) => {
     const confirm = window.confirm("Would you like to delete?");
     if (confirm) {
       axios
-        .delete("http://localhost:4300/blogs/" + blogId)
+        .delete("http://localhost:4301/adminBlogs/" + adminBlogId)
         .then((res) => {
-          setBlogs(blogs.filter((blog) => blog.id !== blogId));
+          setAdminBlogs(
+            adminBlogs.filter((adminBlog) => adminBlog.id !== adminBlogId)
+          );
         })
         .catch((error) => console.error("Error deleting blog:", error));
     }
-    console.log(`Deleted Blog with ID: ${blogId}`);
+    console.log(`Deleted Blog with ID: ${adminBlogId}`);
   };
-  const handleView = (blogId) => {
-    console.log(`View User Details with ID:${blogId}`);
+  const handleView = (adminBlogId) => {
+    console.log(`View User Details with ID:${adminBlogId}`);
   };
-
   return (
-    <div className="FormContainer d-flex flex-column justify-content-center align-items-center bg-light vh-100">
+    <div>
       <h1 className="t-TrainerForm">Blog Form</h1>
       <div className="w-75 rounded bg-white border shadow p-4 table-body">
-        <h2>See the BLOGS By Trainers</h2>
+        <h2>See the BLOGS By Admins</h2>
         <table>
           <thead>
             <tr>
@@ -42,30 +44,30 @@ const BlogForm = () => {
             </tr>
           </thead>
           <tbody>
-            {blogs.map((blog, i) => (
+            {adminBlogs.map((adminBlog, i) => (
               <tr key={i}>
-                <td>{blog.id}</td>
-                <td>{blog.title}</td>
-                <td>{blog.image}</td>
-                <td>{blog.videoUrl}</td>
+                <td>{adminBlog.id}</td>
+                <td>{adminBlog.title}</td>
+                <td>{adminBlog.image}</td>
+                <td>{adminBlog.videoUrl}</td>
                 <td>
                   <div className="buttons-container">
                     <Link
-                      to={`/ViewBlog/${blog.id}`}
+                      to={`/ViewAdminBlogs/${adminBlog.id}`}
                       className="btn btn-info"
-                      onClick={() => handleView(blog.id)}
+                      onClick={() => handleView(adminBlog.id)}
                     >
                       View
                     </Link>
 
                     <Link
-                      to={`/UpdateBlog/${blog.id}`}
+                      to={`/UpdateAdminBlogs/${adminBlog.id}`}
                       className="btn btn-warning"
                     >
                       Update
                     </Link>
                     <button
-                      onClick={() => handleDelete(blog.id)}
+                      onClick={() => handleDelete(adminBlog.id)}
                       className="btn btn-danger"
                     >
                       Delete
@@ -80,4 +82,5 @@ const BlogForm = () => {
     </div>
   );
 };
-export default BlogForm;
+
+export default AdminBlogs;

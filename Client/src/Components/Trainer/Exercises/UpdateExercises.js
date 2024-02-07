@@ -29,30 +29,10 @@ const UpdateExercises = () => {
 
   const handleUpdate = async (event) => {
     event.preventDefault();
-
     try {
-      const formData = new FormData();
-      formData.append("exerciseName", exerciseData.exerciseName);
-      formData.append("equipment", exerciseData.equipment);
-      formData.append("targetMuscle", exerciseData.targetMuscle);
-      formData.append("secondaryMuscle", exerciseData.secondaryMuscle);
-      formData.append("instructions", exerciseData.instructions);
-      formData.append("level", exerciseData.level);
-
-      // Append the video file if it exists
-      if (exerciseData.video instanceof File) {
-        formData.append("video", exerciseData.video);
-      }
-
-      // Append the image file if it exists
-      if (exerciseData.image instanceof File) {
-        formData.append("image", exerciseData.image);
-      }
-
-      // Send the updated exercise data to the server
       const response = await axios.put(
         `http://localhost:4200/exercises/${id}`,
-        formData
+        exerciseData
       );
       console.log(response.data);
     } catch (error) {
