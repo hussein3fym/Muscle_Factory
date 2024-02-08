@@ -13,15 +13,17 @@ const ViewBlog = () => {
   }, [id]);
 
   return (
-    <div className=" d-flex flex-column justify-content-center align-items-center bg-light vh-100 ">
-      <h1>View Blog</h1>
-      <div className="w-50 border bg-white shadow px-5 pt-3 pb-5 rounded">
-        <h2>See the BLOGS</h2>
-        <p>ID:{blogs.id}</p>
-        <p>Title:{blogs.title}</p>
-        <p>Description:{blogs.description}</p>
-        <p>Image:{blogs.image}</p>
-        <p>Video:{blogs.videoUrl}</p>
+    <div className="app">
+      <div className="BMcontainer">
+        <h1 lassName="BMtitle">View Blog Post</h1>
+        <div>
+          <h2>See the BLOGS</h2>
+          <p>ID:{blogs.id}</p>
+          <p>Title:{blogs.title}</p>
+          <p>Description:{blogs.description}</p>
+          <p>Image:{blogs.image}</p>
+          <p>Video:{blogs.videoUrl}</p>
+        </div>
       </div>
     </div>
   );

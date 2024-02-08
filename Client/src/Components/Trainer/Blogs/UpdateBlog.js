@@ -40,9 +40,9 @@ const UpdateBlog = () => {
       .catch((error) => console.error("Error updating blog:", error));
   };
   return (
-    <div className="d-flex w-100 vh-100 justify-content-center align-items-center bg-light">
-      <div className="w-50 border bg-white shadow px-5 pt-3 pb-5 rounded">
-        <h1>Update Blog</h1>
+    <div className="app">
+      <div className="BMcontainer">
+        <h1 lassName="BMtitle">Update</h1>
         <form onSubmit={handleUpdate}>
           <label>
             Blog Title
@@ -51,6 +51,7 @@ const UpdateBlog = () => {
               name="title"
               value={blogs.title}
               onChange={handleChange}
+              className="BMinput"
             />
           </label>
 
@@ -58,10 +59,10 @@ const UpdateBlog = () => {
             Blog Description
             <input
               type="text"
-              className="form-control"
               name="description"
               value={blogs.description}
               onChange={handleChange}
+              className="BMinput"
             />
           </label>
 
@@ -69,7 +70,7 @@ const UpdateBlog = () => {
             Blog Image
             <input
               type="file"
-              className="form-control"
+              className="BMinput"
               name="image"
               onChange={handleChange}
             />
@@ -79,7 +80,7 @@ const UpdateBlog = () => {
             Video Url *OPtional
             <input
               type="text"
-              className="form-control"
+              className="BMinput"
               name="videoUrl"
               value={blogs.videoUrl}
               onChange={handleChange}
