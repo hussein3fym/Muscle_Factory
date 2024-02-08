@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const UpdateExercises = () => {
+const AdminUpdateExercises = () => {
   const { id } = useParams();
-  const [exerciseData, setExerciseData] = useState({
+  const [adminExerciseData, setAdminExerciseData] = useState({
     exerciseName: "",
     equipment: "",
     targetMuscle: "",
@@ -14,32 +14,30 @@ const UpdateExercises = () => {
     image: null,
     level: "",
   });
-
   useEffect(() => {
     axios
-      .get(`http://localhost:4200/exercises/${id}`)
-      .then((res) => setExerciseData(res.data))
+      .get(`http://localhost:4201/AdminExercises/${id}`)
+      .then((res) => setAdminExerciseData(res.data))
       .catch((error) => console.error("Error fetching exercise:", error));
   }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setExerciseData((prevData) => ({ ...prevData, [name]: value }));
+    setAdminExerciseData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleUpdate = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:4200/exercises/${id}`,
-        exerciseData
+        `http://localhost:4201/AdminExercises/${id}`,
+        adminExerciseData
       );
       console.log(response.data);
     } catch (error) {
       console.error("Error updating exercise:", error);
     }
   };
-
   return (
     <div className="app">
       <div className="BMcontainer">
@@ -51,7 +49,7 @@ const UpdateExercises = () => {
               type="text"
               className="BMinput"
               name="exerciseName"
-              value={exerciseData.exerciseName}
+              value={adminExerciseData.exerciseName}
               onChange={handleChange}
             />
           </label>
@@ -61,7 +59,7 @@ const UpdateExercises = () => {
               type="text"
               className="BMinput"
               name="equipment"
-              value={exerciseData.equipment}
+              value={adminExerciseData.equipment}
               onChange={handleChange}
             />
           </label>
@@ -71,7 +69,7 @@ const UpdateExercises = () => {
               type="text"
               className="BMinput"
               name="targetMuscle"
-              value={exerciseData.targetMuscle}
+              value={adminExerciseData.targetMuscle}
               onChange={handleChange}
             />
           </label>
@@ -81,7 +79,7 @@ const UpdateExercises = () => {
               type="text"
               className="BMinput"
               name="secondaryMuscle"
-              value={exerciseData.secondaryMuscle}
+              value={adminExerciseData.secondaryMuscle}
               onChange={handleChange}
             />
           </label>
@@ -90,7 +88,7 @@ const UpdateExercises = () => {
             <textarea
               name="instructions"
               className="BMinput"
-              value={exerciseData.instructions}
+              value={adminExerciseData.instructions}
               onChange={handleChange}
             />
           </label>
@@ -121,7 +119,7 @@ const UpdateExercises = () => {
             <select
               name="level"
               className="BMinput"
-              value={exerciseData.level}
+              value={adminExerciseData.level}
               onChange={handleChange}
             >
               <option value="" disabled>
@@ -132,7 +130,7 @@ const UpdateExercises = () => {
               <option value="Advanced">Advanced</option>
             </select>
           </label>
-          <button type="submit" className="btn btn-primary BMsubBtn">
+          <button type="submit" className="btn btn-primary">
             Submit
           </button>
         </form>
@@ -140,4 +138,5 @@ const UpdateExercises = () => {
     </div>
   );
 };
-export default UpdateExercises;
+
+export default AdminUpdateExercises;

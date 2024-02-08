@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const UpdateExercises = () => {
-  const { id } = useParams();
-  const [exerciseData, setExerciseData] = useState({
+const AdminAddExercises = () => {
+  const [adminExerciseData, setAdminExerciseData] = useState({
     exerciseName: "",
     equipment: "",
     targetMuscle: "",
@@ -14,44 +12,26 @@ const UpdateExercises = () => {
     image: null,
     level: "",
   });
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:4200/exercises/${id}`)
-      .then((res) => setExerciseData(res.data))
-      .catch((error) => console.error("Error fetching exercise:", error));
-  }, [id]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setExerciseData((prevData) => ({ ...prevData, [name]: value }));
+    setAdminExerciseData((prevData) => ({ ...prevData, [name]: value }));
   };
-
-  const handleUpdate = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.put(
-        `http://localhost:4200/exercises/${id}`,
-        exerciseData
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error updating exercise:", error);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", adminExerciseData);
   };
-
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 lassName="BMtitle">Update</h1>
-        <form onSubmit={handleUpdate}>
+        <h1 lassName="BMtitle">Welcome Admin Add your Exercises</h1>
+        <form onSubmit={handleSubmit}>
           <label>
             Exercise Name
             <input
-              type="text"
+              type="text "
               className="BMinput"
               name="exerciseName"
-              value={exerciseData.exerciseName}
+              value={adminExerciseData.exerciseName}
               onChange={handleChange}
             />
           </label>
@@ -61,7 +41,7 @@ const UpdateExercises = () => {
               type="text"
               className="BMinput"
               name="equipment"
-              value={exerciseData.equipment}
+              value={adminExerciseData.equipment}
               onChange={handleChange}
             />
           </label>
@@ -71,7 +51,7 @@ const UpdateExercises = () => {
               type="text"
               className="BMinput"
               name="targetMuscle"
-              value={exerciseData.targetMuscle}
+              value={adminExerciseData.targetMuscle}
               onChange={handleChange}
             />
           </label>
@@ -79,9 +59,9 @@ const UpdateExercises = () => {
             Secondary Muscle
             <input
               type="text"
-              className="BMinput"
               name="secondaryMuscle"
-              value={exerciseData.secondaryMuscle}
+              className="BMinput"
+              value={adminExerciseData.secondaryMuscle}
               onChange={handleChange}
             />
           </label>
@@ -90,7 +70,7 @@ const UpdateExercises = () => {
             <textarea
               name="instructions"
               className="BMinput"
-              value={exerciseData.instructions}
+              value={adminExerciseData.instructions}
               onChange={handleChange}
             />
           </label>
@@ -101,10 +81,10 @@ const UpdateExercises = () => {
               className="BMinput"
               name="video"
               accept="video/*"
+              value={adminExerciseData.video}
               onChange={handleChange}
             />
           </label>
-
           <label>
             Upload Image or GIF:
             <input
@@ -112,6 +92,7 @@ const UpdateExercises = () => {
               className="BMinput"
               name="image"
               accept="image/*,image/gif"
+              value={adminExerciseData.image}
               onChange={handleChange}
             />
           </label>
@@ -121,7 +102,7 @@ const UpdateExercises = () => {
             <select
               name="level"
               className="BMinput"
-              value={exerciseData.level}
+              value={adminExerciseData.level}
               onChange={handleChange}
             >
               <option value="" disabled>
@@ -132,12 +113,16 @@ const UpdateExercises = () => {
               <option value="Advanced">Advanced</option>
             </select>
           </label>
-          <button type="submit" className="btn btn-primary BMsubBtn">
-            Submit
-          </button>
+          <br />
+
+          <button type="submit">Submit</button>
+          <Link to="/AdminExercisesForm" className="btn btn bg-primary">
+            See all exercises
+          </Link>
         </form>
       </div>
     </div>
   );
 };
-export default UpdateExercises;
+
+export default AdminAddExercises;

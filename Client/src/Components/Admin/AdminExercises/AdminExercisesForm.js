@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import "./ExercisesForm.css";
 
-const ExercisesForm = () => {
-  const [exercises, setExercise] = useState([]);
+const AdminExercisesForm = () => {
+  const [adminExercise, setAdminExercise] = useState([]);
   useEffect(() => {
     axios
-      .get("  http://localhost:4200/exercises")
-      .then((res) => setExercise(res.data))
+      .get("  http://localhost:4201/AdminExercises")
+      .then((res) => setAdminExercise(res.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
 
-  const handleDelete = (exerciseId) => {
+  const handleDelete = (adminExerciseId) => {
     const confirm = window.confirm("Would you like to delete?");
     if (confirm) {
       axios
-        .delete(" http://localhost:4200/exercises/" + exerciseId)
+        .delete(" http://localhost:4201/AdminExercises/" + adminExerciseId)
         .then((res) => {
-          setExercise(
-            exercises.filter((exercise) => exercise.id !== exerciseId)
+          setAdminExercise(
+            adminExercise.filter(
+              (adminExercise) => adminExercise.id !== adminExerciseId
+            )
           );
         })
         .catch((error) => console.error("Error deleting trainer:", error));
     }
-    console.log(`Deleted Trainer with ID: ${exerciseId}`);
+    console.log(`Deleted Trainer with ID: ${adminExerciseId}`);
   };
-  const handleView = (exerciseId) => {
-    console.log(`View User Details with ID:${exerciseId}`);
+  const handleView = (adminExerciseId) => {
+    console.log(`View User Details with ID:${adminExerciseId}`);
   };
   return (
     <div className="FormContainer d-flex flex-column justify-content-center align-items-center bg-light vh-100">
-      <h1 className="t-TrainerForm">Muscle Factory SQUAD</h1>
-
+      <h1 className="t-TrainerForm">Muscle Factory ADMIN Exercises</h1>
       <div className="w-75 rounded bg-white border shadow p-4 table-body">
         <h2>Exercises</h2>
         <table>
@@ -48,34 +48,34 @@ const ExercisesForm = () => {
             </tr>
           </thead>
           <tbody>
-            {exercises.map((exercise, i) => (
+            {adminExercise.map((adminExercise, i) => (
               <tr key={i}>
-                <td>{exercise.id}</td>
-                <td>{exercise.exerciseName}</td>
-                <td>{exercise.equipment}</td>
-                <td>{exercise.targetMuscle}</td>
-                <td>{exercise.secondaryMuscle}</td>
-                <td>{exercise.level}</td>
+                <td>{adminExercise.id}</td>
+                <td>{adminExercise.exerciseName}</td>
+                <td>{adminExercise.equipment}</td>
+                <td>{adminExercise.targetMuscle}</td>
+                <td>{adminExercise.secondaryMuscle}</td>
+                <td>{adminExercise.level}</td>
 
                 <td>
                   <div className="buttons-container">
                     <Link
-                      to={`/ViewExercises/${exercise.id}`}
+                      to={`/AdminViewExercises/${adminExercise.id}`}
                       className="btn btn-sm btn-primary me-2"
-                      onClick={() => handleView(exercise.id)}
+                      onClick={() => handleView(adminExercise.id)}
                     >
                       View
                     </Link>
                     <Link
-                      to={`/UpdateExercises/${exercise.id}`}
+                      to={`/AdminUpdateExercises/${adminExercise.id}`}
                       className="btn btn-sm btn-success me-2"
-                      onClick={() => handleView(exercise.id)}
+                      onClick={() => handleView(adminExercise.id)}
                     >
                       Update
                     </Link>
                     <button
                       className="btn btn-sm btn-danger me-2"
-                      onClick={() => handleDelete(exercise.id)}
+                      onClick={() => handleDelete(adminExercise.id)}
                     >
                       Delete
                     </button>
@@ -89,4 +89,5 @@ const ExercisesForm = () => {
     </div>
   );
 };
-export default ExercisesForm;
+
+export default AdminExercisesForm;

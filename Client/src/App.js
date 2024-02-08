@@ -26,7 +26,10 @@ import AdminBlogs from "./Components/Admin/AdminBlogs/AdminBlogs";
 import UpdateAdminBlogs from "./Components/Admin/AdminBlogs/UpdateAdminBlogs";
 import ViewAdminBlogs from "./Components/Admin/AdminBlogs/ViewAdminBlogs";
 import AddAdminBlogs from "./Components/Admin/AdminBlogs/AddAdminBlogs";
-
+import AdminAddExercises from "./Components/Admin/AdminExercises/AdminAddExercises";
+import AdminExercisesForm from "./Components/Admin/AdminExercises/AdminExercisesForm";
+import AdminViewExercises from "./Components/Admin/AdminExercises/AdminViewExercises";
+import AdminUpdateExercises from "./Components/Admin/AdminExercises/AdminUpdateExercises";
 /* Trainer View */
 
 import TrainerRegistration from "./Components/Trainer/TrainerLogin/TrainerRegistration";
@@ -77,6 +80,16 @@ function App() {
         <Route path="/ViewAdminBlogs/:id" element={<ViewAdminBlogs />} />
         <Route path="/AddAdminBlogs" element={<AddAdminBlogs />} />
         <Route path="/Blog" element={<Blog />} />
+        <Route path="/AdminAddExercises" element={<AdminAddExercises />} />
+        <Route path="/AdminExercisesForm" element={<AdminExercisesForm />} />
+        <Route
+          path="/AdminViewExercises/:id"
+          element={<AdminViewExercises />}
+        />
+        <Route
+          path="/AdminUpdateExercises/:id"
+          element={<AdminUpdateExercises />}
+        />
       </Routes>
     </BrowserRouter>
   );

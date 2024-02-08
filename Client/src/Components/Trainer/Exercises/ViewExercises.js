@@ -13,17 +13,19 @@ const ViewExercises = () => {
       .catch((error) => console.error("Error fetching users:", error));
   }, [id]);
   return (
-    <div className=" d-flex flex-column justify-content-center align-items-center bg-light vh-100 ">
-      <h1>Exercises Details</h1>
-      <div className="w-50 border bg-white shadow px-5 pt-3 pb-5 rounded">
-        <h4> Exercise Name: {exercises.exerciseName}</h4>
-        <p> The Equipment: {exercises.equipment} </p>
-        <p> Target Muscle: {exercises.targetMuscle} </p>
-        <p> Secondary Muscle:{exercises.secondaryMuscle} </p>
-        <p> Instructions:{exercises.instructions} </p>
-        <p> Video:{exercises.video} </p>
-        <p> Image:{exercises.image} </p>
-        <p> Level Suggestion:{exercises.level} </p>
+    <div className="app">
+      <div className="BMcontainer">
+        <h1 lassName="BMtitle">Welcome Trainer</h1>
+        <div>
+          <h4> Exercise Name: {exercises.exerciseName}</h4>
+          <p> The Equipment: {exercises.equipment} </p>
+          <p> Target Muscle: {exercises.targetMuscle} </p>
+          <p> Secondary Muscle:{exercises.secondaryMuscle} </p>
+          <p> Instructions:{exercises.instructions} </p>
+          <p> Video:{exercises.video} </p>
+          <p> Image:{exercises.image} </p>
+          <p> Level Suggestion:{exercises.level} </p>
+        </div>
       </div>
     </div>
   );
