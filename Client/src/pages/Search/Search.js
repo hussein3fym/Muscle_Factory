@@ -1,22 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { exerciseOptions } from "./../../Utils/fetchData";
 
 const Search = () => {
   const [search, setSearch] = useState("");
+  const [exercise, setExercise] = useState([]);
+  const [bodyParts, setBodyParts] = useState([]);
+
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      const bodyPartsData = await fetchData(
+        "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
+        exerciseOptions
+      );
+      setBodyParts(["all", ...bodyPartsData]);
+    };
+    fetchExercisesData();
+  }, []);
 
   const handleSearchSubmit = async (event) => {
     event.preventDefault(); // Prevents the form from submitting and reloading the page
     if (search) {
-      try {
-        const exercisesData = await fetchData(
-          "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
-          exerciseOptions
-        );
-        console.log(exercisesData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      const exercisesData = await fetchData(
+        "https://exercisedb.p.rapidapi.com/exercises",
+        exerciseOptions
+      );
+      const searchedExercises = exercisesData.filter(
+        (exercise) =>
+          exercise.name.toLowerCase().includes(search) ||
+          exercise.target.toLowerCase().includes(search) ||
+          exercise.equipment.toLowerCase().includes(search) ||
+          exercise.bodyPart.toLowerCase().includes(search)
+      );
+      setSearch("");
+      setExercise(searchedExercises);
     }
   };
 
@@ -41,8 +58,21 @@ const Search = () => {
         />
         <button type="submit">Search</button>
       </form>
+      <div>
+        {bodyParts.map((bodyPart, index) => (
+          <button key={index} onClick={() => setSearch(bodyPart.toLowerCase())}>
+            {bodyPart}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default Search;
+
+/*  console.log(exercisesData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+       */

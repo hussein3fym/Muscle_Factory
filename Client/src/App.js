@@ -30,6 +30,7 @@ import AdminAddExercises from "./Components/Admin/AdminExercises/AdminAddExercis
 import AdminExercisesForm from "./Components/Admin/AdminExercises/AdminExercisesForm";
 import AdminViewExercises from "./Components/Admin/AdminExercises/AdminViewExercises";
 import AdminUpdateExercises from "./Components/Admin/AdminExercises/AdminUpdateExercises";
+import AllExercises from "./Components/Admin/Dashboard/Exercises/AllExercises";
 /* Trainer View */
 
 import TrainerRegistration from "./Components/Trainer/TrainerLogin/TrainerRegistration";
@@ -90,6 +91,7 @@ function App() {
           path="/AdminUpdateExercises/:id"
           element={<AdminUpdateExercises />}
         />
+        <Route path="/AllExercises" element={<AllExercises />} />
       </Routes>
     </BrowserRouter>
   );
