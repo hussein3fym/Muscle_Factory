@@ -31,6 +31,8 @@ import AdminExercisesForm from "./Components/Admin/AdminExercises/AdminExercises
 import AdminViewExercises from "./Components/Admin/AdminExercises/AdminViewExercises";
 import AdminUpdateExercises from "./Components/Admin/AdminExercises/AdminUpdateExercises";
 import AllExercises from "./Components/Admin/Dashboard/Exercises/AllExercises";
+import AllBlogs from "./Components/Admin/Dashboard/Blogs/AllBlogs";
+import Dashboard from "./Scenes/Dashboard/Dashboard";
 /* Trainer View */
 
 import TrainerRegistration from "./Components/Trainer/TrainerLogin/TrainerRegistration";
@@ -92,6 +94,8 @@ function App() {
           element={<AdminUpdateExercises />}
         />
         <Route path="/AllExercises" element={<AllExercises />} />
+        <Route path="/AllBlogs" element={<AllBlogs />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

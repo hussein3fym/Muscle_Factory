@@ -15,7 +15,7 @@ const ViewExercises = () => {
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 lassName="BMtitle">Welcome Trainer</h1>
+        <h1 className="BMtitle">Welcome Trainer</h1>
         <div>
           <h4> Exercise Name: {exercises.exerciseName}</h4>
           <p> The Equipment: {exercises.equipment} </p>

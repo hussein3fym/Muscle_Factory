@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const AdminAddExercises = () => {
-  const [adminExerciseData, setAdminExerciseData] = useState({
+  const [adminExercise, setAdminExercise] = useState({
     exerciseName: "",
     equipment: "",
     targetMuscle: "",
@@ -14,16 +14,16 @@ const AdminAddExercises = () => {
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setAdminExerciseData((prevData) => ({ ...prevData, [name]: value }));
+    setAdminExercise((prevData) => ({ ...prevData, [name]: value }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", adminExerciseData);
+    console.log("Form submitted:", adminExercise);
   };
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 lassName="BMtitle">Welcome Admin Add your Exercises</h1>
+        <h1 className="BMtitle">Welcome Admin Add your Exercises</h1>
         <form onSubmit={handleSubmit}>
           <label>
             Exercise Name
@@ -31,7 +31,7 @@ const AdminAddExercises = () => {
               type="text "
               className="BMinput"
               name="exerciseName"
-              value={adminExerciseData.exerciseName}
+              value={adminExercise.exerciseName}
               onChange={handleChange}
             />
           </label>
@@ -41,7 +41,7 @@ const AdminAddExercises = () => {
               type="text"
               className="BMinput"
               name="equipment"
-              value={adminExerciseData.equipment}
+              value={adminExercise.equipment}
               onChange={handleChange}
             />
           </label>
@@ -51,7 +51,7 @@ const AdminAddExercises = () => {
               type="text"
               className="BMinput"
               name="targetMuscle"
-              value={adminExerciseData.targetMuscle}
+              value={adminExercise.targetMuscle}
               onChange={handleChange}
             />
           </label>
@@ -61,7 +61,7 @@ const AdminAddExercises = () => {
               type="text"
               name="secondaryMuscle"
               className="BMinput"
-              value={adminExerciseData.secondaryMuscle}
+              value={adminExercise.secondaryMuscle}
               onChange={handleChange}
             />
           </label>
@@ -70,7 +70,7 @@ const AdminAddExercises = () => {
             <textarea
               name="instructions"
               className="BMinput"
-              value={adminExerciseData.instructions}
+              value={adminExercise.instructions}
               onChange={handleChange}
             />
           </label>
@@ -81,7 +81,7 @@ const AdminAddExercises = () => {
               className="BMinput"
               name="video"
               accept="video/*"
-              value={adminExerciseData.video}
+              value={adminExercise.video}
               onChange={handleChange}
             />
           </label>
@@ -92,7 +92,7 @@ const AdminAddExercises = () => {
               className="BMinput"
               name="image"
               accept="image/*,image/gif"
-              value={adminExerciseData.image}
+              value={adminExercise.image}
               onChange={handleChange}
             />
           </label>
@@ -102,7 +102,7 @@ const AdminAddExercises = () => {
             <select
               name="level"
               className="BMinput"
-              value={adminExerciseData.level}
+              value={adminExercise.level}
               onChange={handleChange}
             >
               <option value="" disabled>

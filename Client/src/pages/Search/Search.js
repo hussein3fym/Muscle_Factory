@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { exerciseOptions } from "./../../Utils/fetchData";
-
-const Search = () => {
+import HorizontalScrollbar from "./../Scrollbar/HorizontalScrollbar";
+const Search = ({ setExercise, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState("");
-  const [exercise, setExercise] = useState([]);
   const [bodyParts, setBodyParts] = useState([]);
 
   useEffect(() => {
@@ -65,14 +64,15 @@ const Search = () => {
           </button>
         ))}
       </div>
+      <div>
+        <HorizontalScrollbar
+          data={bodyParts}
+          bodyPart={bodyPart}
+          setBodyPart={setBodyPart}
+        />
+      </div>
     </div>
   );
 };
 
 export default Search;
-
-/*  console.log(exercisesData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-       */

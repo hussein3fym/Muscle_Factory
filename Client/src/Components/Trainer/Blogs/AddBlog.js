@@ -20,7 +20,7 @@ const AddBlog = () => {
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 lassName="BMtitle">Add a new Blog Post</h1>
+        <h1 className="BMtitle">Add a new Blog Post</h1>
         <div>
           <form onSubmit={handleSubmit}>
             <label>

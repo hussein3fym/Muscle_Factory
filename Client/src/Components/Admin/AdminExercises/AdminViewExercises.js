@@ -14,7 +14,7 @@ const AdminViewExercises = () => {
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 lassName="BMtitle">Welcome Trainer</h1>
+        <h1 className="BMtitle">Welcome Trainer</h1>
         <div>
           <h4> Exercise Name: {adminExerciseData.exerciseName}</h4>
           <p> The Equipment: {adminExerciseData.equipment} </p>

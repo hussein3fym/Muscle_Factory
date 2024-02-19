@@ -41,7 +41,7 @@ const AdminUpdateExercises = () => {
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 lassName="BMtitle">Update</h1>
+        <h1 className="BMtitle">Update</h1>
         <form onSubmit={handleUpdate}>
           <label>
             Exercise Name

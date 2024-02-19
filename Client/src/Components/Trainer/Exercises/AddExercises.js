@@ -24,7 +24,7 @@ const AddExercises = () => {
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 lassName="BMtitle">Welcome Trainer Add Exercises</h1>
+        <h1 className="BMtitle">Welcome Trainer Add Exercises</h1>
         <form onSubmit={handleSubmit}>
           <label>
             Exercise Name
