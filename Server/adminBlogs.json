@@ -1,13 +1,6 @@
 {
   "adminBlogs": [
     {
-      "id": 1,
-      "title": "Sample Blog 1101",
-      "description": "Description for Sample Blog 1",
-      "image": "path/to/image1.jpg",
-      "videoUrl": "https://www.example.com/video1"
-    },
-    {
       "id": 2,
       "title": "Sample Blog 2",
       "description": "Description for Sample Blog 2",

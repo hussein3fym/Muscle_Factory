@@ -15,7 +15,7 @@ const ViewBlog = () => {
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 className="BMtitle">View Blog Post</h1>
+        <h1 className="BMtitle">View Blog Post by Trainer</h1>
         <div>
           <h2>See the BLOGS</h2>
           <p>ID:{blogs.id}</p>

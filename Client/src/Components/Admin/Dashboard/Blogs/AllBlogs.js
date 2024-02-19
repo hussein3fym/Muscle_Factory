@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const AllBlogs = () => {
+  // State for blogs by Trainer
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
     axios
@@ -25,12 +26,38 @@ const AllBlogs = () => {
   const handleView = (blogId) => {
     console.log(`View User Details with ID:${blogId}`);
   };
+  //////////////////////////////////////////////////////
+  const [adminBlogs, setAdminBlogs] = useState([]);
+  // Fetch blogs by admin
+  useEffect(() => {
+    axios
+      .get("http://localhost:4301/adminBlogs")
+      .then((res) => setAdminBlogs(res.data))
+      .catch((error) => console.error("Error fetching admin blogs:", error));
+  }, []);
+  const handleDeleteAdmin = (adminBlogId) => {
+    const confirm = window.confirm("Would you like to delete?");
+    if (confirm) {
+      axios
+        .delete("http://localhost:4301/adminBlogs/" + adminBlogId)
+        .then((res) => {
+          setAdminBlogs(
+            adminBlogs.filter((adminBlog) => adminBlog.id !== adminBlogId)
+          );
+        })
+        .catch((error) => console.error("Error deleting admin blog:", error));
+    }
+    console.log(`Deleted Blog with ID: ${adminBlogId}`);
+  };
+  const handleViewAdmin = (adminBlogId) => {
+    console.log(`View User Details with ID:${adminBlogId}`);
+  };
 
   return (
     <div className="FormContainer d-flex flex-column justify-content-center align-items-center bg-light vh-100">
-      <h1 className="t-TrainerForm">Blog Form</h1>
+      <h1 className="t-TrainerForm">See All BLOGS</h1>
       <div className="w-75 rounded bg-white border shadow p-4 table-body">
-        <h2>See All BLOGS </h2>
+        <h2> Blogs by Trainer </h2>
         <table>
           <thead>
             <tr>
@@ -66,6 +93,54 @@ const AllBlogs = () => {
                     </Link>
                     <button
                       onClick={() => handleDelete(blog.id)}
+                      className="btn btn-danger"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="w-75 rounded bg-white border shadow p-4 table-body">
+        <h2> BLOGS By Admins</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Image</th>
+              <th>Video Url</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {adminBlogs.map((adminBlog, i) => (
+              <tr key={i}>
+                <td>{adminBlog.id}</td>
+                <td>{adminBlog.title}</td>
+                <td>{adminBlog.image}</td>
+                <td>{adminBlog.videoUrl}</td>
+                <td>
+                  <div className="buttons-container">
+                    <Link
+                      to={`/ViewAdminBlogs/${adminBlog.id}`}
+                      className="btn btn-info"
+                      onClick={() => handleViewAdmin(adminBlog.id)}
+                    >
+                      View
+                    </Link>
+
+                    <Link
+                      to={`/UpdateAdminBlogs/${adminBlog.id}`}
+                      className="btn btn-warning"
+                    >
+                      Update
+                    </Link>
+                    <button
+                      onClick={() => handleDeleteAdmin(adminBlog.id)}
                       className="btn btn-danger"
                     >
                       Delete
