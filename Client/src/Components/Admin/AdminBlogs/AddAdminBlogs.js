@@ -1,27 +1,53 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./AdminBlogs.css";
+import axios from "axios";
 
 const AddAdminBlogs = () => {
   const [adminBlogs, setAdminBlogs] = useState({
-    title: "",
-    description: "",
-    image: null,
-    videoUrl: "",
+    AdminId: '', 
+    Title: '',
+    BlogText: '',
+    VideoURL: '',
+    Image: null,
   });
+  
+
+  
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setAdminBlogs((prevData) => ({ ...prevData, [name]: value }));
+    const { name, value, files } = e.target;
+    setAdminBlogs((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", adminBlogs);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('AdminId', adminBlogs.AdminId);
+      formDataToSend.append('Title', adminBlogs.Title);
+      formDataToSend.append('BlogText', adminBlogs.BlogText);
+      formDataToSend.append('VideoURL', adminBlogs.VideoURL);
+      formDataToSend.append('Image', adminBlogs.Image);
+
+      const response = await axios.post('https://localhost:7095/api/Blogs/CreateBlog', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log('Blog created successfully:', response.data);
+    } catch (error) {
+      console.error('Error creating blog:', error);
+    }
   };
 
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 lassName="BMtitle">Welcome ADMIN</h1>
+        <h1 className="BMtitle">Welcome ADMIN</h1>
         <div>
           <form onSubmit={handleSubmit}>
             <label>
@@ -30,8 +56,8 @@ const AddAdminBlogs = () => {
                 type="text"
                 className="BMinput"
                 placeholder="Enter Blog Title"
-                name="title"
-                value={adminBlogs.title}
+                name="Title"
+                value={adminBlogs.Title}
                 onChange={handleChange}
               />
             </label>
@@ -42,8 +68,8 @@ const AddAdminBlogs = () => {
                 type="text"
                 className="BMinput"
                 placeholder="Enter Blog Description"
-                name="description"
-                value={adminBlogs.description}
+                name="BlogText"
+                value={adminBlogs.BlogText} 
                 onChange={handleChange}
               />
             </label>
@@ -54,24 +80,38 @@ const AddAdminBlogs = () => {
                 type="file"
                 className="BMinput"
                 placeholder="Enter Blog Image"
-                name="image"
-                value={adminBlogs.image}
+                name="Image"
+                 accept="image/*" 
+                 onChange={handleChange} 
+              />
+            </label>
+           
+
+            <label>
+              Video URL *optional
+              <input
+                type="text"
+                className="BMinput"
+                placeholder="Enter Video Url"
+                name="VideoURL"
+                value={adminBlogs.VideoURL}
                 onChange={handleChange}
               />
             </label>
 
             <label>
-              Video Url *optional
+              Admin ID
               <input
                 type="text"
                 className="BMinput"
-                placeholder="Enter Video Url"
-                name="videoUrl"
-                value={adminBlogs.videoUrl}
+                placeholder="Enter Your ID"
+                name="AdminId"
+                value={adminBlogs.AdminId}
                 onChange={handleChange}
               />
             </label>
-            <button type="submit" className="btn btn-success AD_button">
+            <br/>
+            <button type="submit" onClick ={handleSubmit}className="btn btn-success AD_button">
               Add Blog
             </button>
             <Link to="/AdminBlogs" className="btn btn-success AD_button">

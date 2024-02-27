@@ -6,7 +6,7 @@ const AdminBlogs = () => {
   const [adminBlogs, setAdminBlogs] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:4301/adminBlogs")
+      .get("https://localhost:7095/api/Blogs/AdminBlogs")
       .then((res) => setAdminBlogs(res.data))
       .catch((error) => console.error("Error fetching blogs:", error));
   }, []);
@@ -15,7 +15,7 @@ const AdminBlogs = () => {
     const confirm = window.confirm("Would you like to delete?");
     if (confirm) {
       axios
-        .delete("http://localhost:4301/adminBlogs/" + adminBlogId)
+        .delete("https://localhost:7095/api/Blogs/" + adminBlogId)
         .then((res) => {
           setAdminBlogs(
             adminBlogs.filter((adminBlog) => adminBlog.id !== adminBlogId)
@@ -30,7 +30,6 @@ const AdminBlogs = () => {
   };
   return (
     <div>
-      <h1 className="t-TrainerForm">Blog Form</h1>
       <div className="w-75 rounded bg-white border shadow p-4 table-body">
         <h2>See the BLOGS By Admins</h2>
         <table>
@@ -44,30 +43,36 @@ const AdminBlogs = () => {
             </tr>
           </thead>
           <tbody>
-            {adminBlogs.map((adminBlog, i) => (
+            {adminBlogs.map((adminBlogs, i) => (
               <tr key={i}>
-                <td>{adminBlog.id}</td>
-                <td>{adminBlog.title}</td>
-                <td>{adminBlog.image}</td>
-                <td>{adminBlog.videoUrl}</td>
+                <td>{adminBlogs.id}</td>
+                <td>{adminBlogs.title}</td>
+                <td> 
+        <div>
+          
+            <img  src={`data:image/jpeg;base64,${adminBlogs.image}`}  style={{ maxWidth: "1000px"}}/>
+          
+        </div>
+      </td>
+                <td>{adminBlogs.videoURL}</td>
                 <td>
                   <div className="buttons-container">
                     <Link
-                      to={`/ViewAdminBlogs/${adminBlog.id}`}
+                      to={`/ViewAdminBlogs/${adminBlogs.id}`}
                       className="btn btn-info"
-                      onClick={() => handleView(adminBlog.id)}
+                      onClick={() => handleView(adminBlogs.id)}
                     >
                       View
                     </Link>
 
                     <Link
-                      to={`/UpdateAdminBlogs/${adminBlog.id}`}
+                      to={`/UpdateAdminBlogs/${adminBlogs.id}`}
                       className="btn btn-warning"
                     >
                       Update
                     </Link>
                     <button
-                      onClick={() => handleDelete(adminBlog.id)}
+                      onClick={() => handleDelete(adminBlogs.id)}
                       className="btn btn-danger"
                     >
                       Delete

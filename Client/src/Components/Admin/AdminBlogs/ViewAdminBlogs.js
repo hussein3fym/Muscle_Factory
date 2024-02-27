@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import ReactPlayer from 'react-player'
 
 const ViewAdminBlogs = () => {
   const [adminBlogs, setAdminBlogs] = useState({});
@@ -8,7 +9,7 @@ const ViewAdminBlogs = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4301/adminBlogs/${id}`)
+      .get(`https://localhost:7095/api/Blogs/GetBlog/${id}`)
       .then((res) => setAdminBlogs(res.data))
       .catch((error) => {
         console.error("Error fetching blogs:", error);
@@ -30,13 +31,16 @@ const ViewAdminBlogs = () => {
           <h2>See the BLOGS</h2>
           <p className="BMinput">ID: {adminBlogs.id || "Loading..."}</p>
           <p className="BMinput">Title: {adminBlogs.title || "Loading..."}</p>
+          <div>
+          
+            <img  src={`data:image/jpeg;base64,${adminBlogs.image}`}  style={{ maxWidth: "400px"}}/>
+          
+        </div>
           <p className="BMinput">
-            Description: {adminBlogs.description || "Loading..."}
+            Description: {adminBlogs.blogText || "Loading..."}
           </p>
-          <p className="BMinput">Image: {adminBlogs.image || "Loading..."}</p>
-          <p className="BMinput">
-            Video: {adminBlogs.videoUrl || "Loading..."}
-          </p>
+          
+          <ReactPlayer url={adminBlogs.videoURL} />
         </div>
       </div>
     </div>
