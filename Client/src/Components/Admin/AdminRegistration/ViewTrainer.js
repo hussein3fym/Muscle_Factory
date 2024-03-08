@@ -7,7 +7,7 @@ const ViewTrainer = () => {
 
   useEffect(() => {
     axios
-      .get("  http://localhost:4000/trainers/" + id)
+      .get("  https://localhost:7095/api/Trainers/" + id)
       .then((res) => setTrainer(res.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, [id]);

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import "./../AdminBlogs/AdminCreation.css";
 
 const AdminAddExercises = () => {
-  const [adminExercise, setAdminExercise] = useState({
+  const [adminExerciseData, setAdminExerciseData] = useState({
     exerciseName: "",
     equipment: "",
     targetMuscle: "",
@@ -12,97 +15,127 @@ const AdminAddExercises = () => {
     image: null,
     level: "",
   });
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setAdminExercise((prevData) => ({ ...prevData, [name]: value }));
+    const { name, value, files } = e.target;
+    if (name === "video" || name === "image") {
+      setAdminExerciseData((prevData) => ({ ...prevData, [name]: files[0] }));
+    } else {
+      setAdminExerciseData((prevData) => ({ ...prevData, [name]: value }));
+    }
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", adminExercise);
+    try {
+      const formData = new FormData();
+      formData.append("userid", adminExerciseData.userid);
+      formData.append("exerciseName", adminExerciseData.exerciseName);
+      formData.append("equipment", adminExerciseData.equipment);
+      formData.append("targetMuscle", adminExerciseData.targetMuscle);
+      formData.append("secondaryMuscle", adminExerciseData.secondaryMuscle);
+      formData.append("instructions", adminExerciseData.instructions);
+      formData.append("level", adminExerciseData.level);
+      formData.append("video", adminExerciseData.video);
+      formData.append("image", adminExerciseData.image);
+
+      const response = await axios.post(
+        "https://localhost:7095/api/Exercises/CreateByAdmin",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Form submitted:", response.data);
+      toast.success("Exercise created successfully");
+    } catch (error) {
+      console.log("Error in submitting form:", error);
+      toast.error("Failed to create exercise");
+    }
   };
+
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 className="BMtitle">Welcome Admin Add your Exercises</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
+    <div>
+      <div>
+        <h1 className="Users">Welcome Admin Add your Exercises</h1>
+        <form onSubmit={handleSubmit} className="Creation-form">
+          <label className="Creation">
             Exercise Name
             <input
               type="text "
-              className="BMinput"
+              required
+              className="Input"
               name="exerciseName"
-              value={adminExercise.exerciseName}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
+            ID
+            <input name="userid" className="Input" onChange={handleChange} />
+          </label>
+          <label className="Creation">
             The Equipment
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="equipment"
-              value={adminExercise.equipment}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Target Muscle
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="targetMuscle"
-              value={adminExercise.targetMuscle}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Secondary Muscle
             <input
               type="text"
+              className="Input"
               name="secondaryMuscle"
-              className="BMinput"
-              value={adminExercise.secondaryMuscle}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Instructions
             <textarea
               name="instructions"
-              className="BMinput"
-              value={adminExercise.instructions}
+              className="Textarea"
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Upload Video:
             <input
               type="file"
-              className="BMinput"
+              className="Input"
               name="video"
               accept="video/*"
-              value={adminExercise.video}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Upload Image or GIF:
             <input
               type="file"
-              className="BMinput"
+              className="Input"
               name="image"
               accept="image/*,image/gif"
-              value={adminExercise.image}
               onChange={handleChange}
             />
           </label>
-
-          <label>
+          <label className="Creation">
             Level Suggestion:
             <select
               name="level"
-              className="BMinput"
-              value={adminExercise.level}
+              className="Input"
+              value={adminExerciseData.level}
               onChange={handleChange}
             >
               <option value="" disabled>
@@ -113,10 +146,10 @@ const AdminAddExercises = () => {
               <option value="Advanced">Advanced</option>
             </select>
           </label>
-          <br />
-
-          <button type="submit">Submit</button>
-          <Link to="/AdminExercisesForm" className="btn btn bg-primary">
+          <button type="submit" className="AdminButton" onClick={handleSubmit}>
+            Add Exercise
+          </button>
+          <Link to="/AdminExercisesForm" className="AdminLink">
             See all exercises
           </Link>
         </form>

@@ -1,12 +1,9 @@
 import React from "react";
-import SideBar from "../Global/SideBar";
-import TopBar from "../Global/TopBar";
 
 const Dashboard = () => {
   return (
     <div>
-      <TopBar />
-      <SideBar />
+      <h1>Dashboard</h1>
     </div>
   );
 };

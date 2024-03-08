@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 /* User View */
 
 import Home from "./Components/User/Home/Home";
-import Nav from "./Components/User/Nav/Nav";
 import Register from "./Components/User/Registration/Register";
 import Login from "./Components/User/Registration/Login";
 import ResetPassword from "./Components/User/Registration/ResetPassword";
@@ -47,57 +47,126 @@ import ExercisesForm from "./Components/Trainer/Exercises/ExercisesForm";
 import ViewExercises from "./Components/Trainer/Exercises/ViewExercises";
 import UpdateExercises from "./Components/Trainer/Exercises/UpdateExercises";
 
+/* Main App */
+import PageNotFound from "./pages/PageNotFound";
+import UserLayout from "./Components/User/UserLayout/UserLayout";
+import TrainerLayout from "./Components/Trainer/TrainerLayout/TrainerLayout";
+import AdminLayout from "./Components/Admin/AdminLayout/AdminLayout";
+import GlobalStyles from "./Styles/GlobalStyles";
+
 function App() {
   return (
-    <BrowserRouter>
-      <Nav />
+    <>
+      <GlobalStyles />
+      <BrowserRouter>
+        <Routes>
+          {/* User View */}
+          <Route element={<UserLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/Workout" element={<Workout />} />
+            <Route
+              path="/CaloriesCalculator"
+              element={<CaloriesCalculator />}
+            />
+            <Route path="/BMI" element={<BMI />} />
+            <Route path="/BMR" element={<BMR />} />
+            <Route path="/Search" element={<Search />} />
+            <Route path="/Ask" element={<Ask />} />
+            <Route path="/Blog" element={<Blog />} />
+          </Route>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/ResetPassword" element={<ResetPassword />} />
-        <Route path="/Workout" element={<Workout />} />
-        <Route path="/TrainerRegistration" element={<TrainerRegistration />} />
-        <Route path="/TrainerLogin" element={<TrainerLogin />} />
-        <Route path="/ResetTrainerPass" element={<ResetTrainerPass />} />
-        <Route path="/UserForm" element={<UserForm />} />
-        <Route path="/TrainerForm" element={<TrainerForm />} />
-        <Route path="/ViewUser/:id" element={<ViewUser />} />
-        <Route path="/ViewTrainer/:id" element={<ViewTrainer />} />
-        <Route path="/AddExercises" element={<AddExercises />} />
-        <Route path="/ExercisesForm" element={<ExercisesForm />} />
-        <Route path="/ViewExercises/:id" element={<ViewExercises />} />
-        <Route path="/UpdateExercises/:id" element={<UpdateExercises />} />
-        <Route path="/CaloriesCalculator" element={<CaloriesCalculator />} />
-        <Route path="/BMI" element={<BMI />} />
-        <Route path="/BMR" element={<BMR />} />
-        <Route path="/AddBlog" element={<AddBlog />} />
-        <Route path="/BlogForm" element={<BlogForm />} />
-        <Route path="/ViewBlog/:id" element={<ViewBlog />} />
-        <Route path="/UpdateBlog/:id" element={<UpdateBlog />} />
-        <Route path="/Search" element={<Search />} />
-        <Route path="/Ask" element={<Ask />} />
-        <Route path="/AdminBlogs" element={<AdminBlogs />} />
-        <Route path="/UpdateAdminBlogs/:id" element={<UpdateAdminBlogs />} />
-        <Route path="/ViewAdminBlogs/:id" element={<ViewAdminBlogs />} />
-        <Route path="/AddAdminBlogs" element={<AddAdminBlogs />} />
-        <Route path="/Blog" element={<Blog />} />
-        <Route path="/AdminAddExercises" element={<AdminAddExercises />} />
-        <Route path="/AdminExercisesForm" element={<AdminExercisesForm />} />
-        <Route
-          path="/AdminViewExercises/:id"
-          element={<AdminViewExercises />}
-        />
-        <Route
-          path="/AdminUpdateExercises/:id"
-          element={<AdminUpdateExercises />}
-        />
-        <Route path="/AllExercises" element={<AllExercises />} />
-        <Route path="/AllBlogs" element={<AllBlogs />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+          {/* Trainer view */}
+          <Route element={<TrainerLayout />}>
+            {/* Trainer Blogs */}
+            <Route path="/AddBlog" element={<AddBlog />} />
+            <Route path="/BlogForm" element={<BlogForm />} />
+            <Route path="/ViewBlog/:id" element={<ViewBlog />} />
+            <Route path="/UpdateBlog/:id" element={<UpdateBlog />} />
+            {/* Trainer Exercises */}
+            <Route path="/AddExercises" element={<AddExercises />} />
+            <Route path="/ExercisesForm" element={<ExercisesForm />} />
+            <Route path="/ViewExercises/:id" element={<ViewExercises />} />
+            <Route path="/UpdateExercises/:id" element={<UpdateExercises />} />
+          </Route>
+
+          {/* Admin View */}
+          <Route element={<AdminLayout />}>
+            {/* Auth */}
+            <Route path="/UserForm" element={<UserForm />} />
+            <Route path="/TrainerForm" element={<TrainerForm />} />
+            <Route path="/ViewUser/:id" element={<ViewUser />} />
+            <Route path="/ViewTrainer/:id" element={<ViewTrainer />} />
+            {/* Admin Blogs */}
+            <Route path="/AdminBlogs" element={<AdminBlogs />} />
+            <Route
+              path="/UpdateAdminBlogs/:id"
+              element={<UpdateAdminBlogs />}
+            />
+            <Route path="/ViewAdminBlogs/:id" element={<ViewAdminBlogs />} />
+            <Route path="/AddAdminBlogs" element={<AddAdminBlogs />} />
+            <Route path="/AllBlogs" element={<AllBlogs />} />
+            {/* Admin Exercises */}
+            <Route path="/AdminAddExercises" element={<AdminAddExercises />} />
+            <Route
+              path="/AdminExercisesForm"
+              element={<AdminExercisesForm />}
+            />
+            <Route
+              path="/AdminViewExercises/:id"
+              element={<AdminViewExercises />}
+            />
+            <Route
+              path="/AdminUpdateExercises/:id"
+              element={<AdminUpdateExercises />}
+            />
+            <Route path="/AllExercises" element={<AllExercises />} />
+            {/* Dashboard */}
+            <Route path="/Dashboard" element={<Dashboard />} />
+            {/* Trainer View inside Admin Dashboard */}
+            {/* Trainer Blogs */}
+            <Route path="/AddBlog" element={<AddBlog />} />
+            <Route path="/BlogForm" element={<BlogForm />} />
+            <Route path="/ViewBlog/:id" element={<ViewBlog />} />
+            <Route path="/UpdateBlog/:id" element={<UpdateBlog />} />
+            {/* Trainer Exercises */}
+            <Route path="/ExercisesForm" element={<ExercisesForm />} />
+          </Route>
+
+          {/* Auth */}
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/ResetPassword" element={<ResetPassword />} />
+          <Route
+            path="/TrainerRegistration"
+            element={<TrainerRegistration />}
+          />
+          <Route path="/TrainerLogin" element={<TrainerLogin />} />
+          <Route path="/ResetTrainerPass" element={<ResetTrainerPass />} />
+
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "var(--color-grey-0)",
+            color: "var(--color-grey-700)",
+          },
+        }}
+      />
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./ExercisesForm.css";
+import axios from "axios";
 
 const AddExercises = () => {
   const [exerciseData, setExerciseData] = useState({
@@ -13,12 +14,39 @@ const AddExercises = () => {
     image: null,
     level: "",
   });
-  const handleChange = (e) => {
+  /*const handleChange = (e) => {
     const { name, value } = e.target;
     setExerciseData((prevData) => ({ ...prevData, [name]: value }));
+  };*/
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === "video" || name === "image") {
+      setExerciseData((prevData) => ({ ...prevData, [name]: files[0] }));
+    } else {
+      setExerciseData((prevData) => ({ ...prevData, [name]: value }));
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("trainerid", exerciseData.trainerid);
+    formData.append("exerciseName", exerciseData.exerciseName);
+    formData.append("equipment", exerciseData.equipment);
+    formData.append("targetMuscle", exerciseData.targetMuscle);
+    formData.append("secondaryMuscle", exerciseData.secondaryMuscle);
+    formData.append("instructions", exerciseData.instructions);
+    formData.append("level", exerciseData.level);
+    formData.append("video", exerciseData.video);
+    formData.append("image", exerciseData.image);
+    axios.post(
+      "https://localhost:7095/api/Exercises/CreateByTrainer",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     console.log("Form submitted:", exerciseData);
   };
   return (
@@ -27,12 +55,22 @@ const AddExercises = () => {
         <h1 className="BMtitle">Welcome Trainer Add Exercises</h1>
         <form onSubmit={handleSubmit}>
           <label>
+            ID
+            <input
+              //type="text "
+              className="BMinput"
+              name="trainerid"
+              // value={adminExerciseData.UserId}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
             Exercise Name
             <input
               type="text "
               className="BMinput"
               name="exerciseName"
-              value={exerciseData.exerciseName}
+              //value={exerciseData.exerciseName}
               onChange={handleChange}
             />
           </label>
@@ -42,7 +80,7 @@ const AddExercises = () => {
               type="text"
               className="BMinput"
               name="equipment"
-              value={exerciseData.equipment}
+              //value={exerciseData.equipment}
               onChange={handleChange}
             />
           </label>
@@ -52,7 +90,7 @@ const AddExercises = () => {
               type="text"
               className="BMinput"
               name="targetMuscle"
-              value={exerciseData.targetMuscle}
+              //value={exerciseData.targetMuscle}
               onChange={handleChange}
             />
           </label>
@@ -62,7 +100,7 @@ const AddExercises = () => {
               type="text"
               name="secondaryMuscle"
               className="BMinput"
-              value={exerciseData.secondaryMuscle}
+              //value={exerciseData.secondaryMuscle}
               onChange={handleChange}
             />
           </label>
@@ -71,7 +109,7 @@ const AddExercises = () => {
             <textarea
               name="instructions"
               className="BMinput"
-              value={exerciseData.instructions}
+              //value={exerciseData.instructions}
               onChange={handleChange}
             />
           </label>
@@ -82,7 +120,7 @@ const AddExercises = () => {
               className="BMinput"
               name="video"
               accept="video/*"
-              value={exerciseData.video}
+              //value={exerciseData.video}
               onChange={handleChange}
             />
           </label>
@@ -93,7 +131,7 @@ const AddExercises = () => {
               className="BMinput"
               name="image"
               accept="image/*,image/gif"
-              value={exerciseData.image}
+              // value={exerciseData.image}
               onChange={handleChange}
             />
           </label>

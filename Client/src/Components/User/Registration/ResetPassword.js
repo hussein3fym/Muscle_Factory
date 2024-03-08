@@ -19,7 +19,7 @@ const ResetPassword = () => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
+      <form onSubmit={handleSubmit} className="loginForm">
         <h2 className="login-title">Reset Password</h2>
         <h4>
           Enter your email in the form below and we'll send you instructions for

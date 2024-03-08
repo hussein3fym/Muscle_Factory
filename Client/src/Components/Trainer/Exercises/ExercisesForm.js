@@ -7,7 +7,7 @@ const ExercisesForm = () => {
   const [exercises, setExercise] = useState([]);
   useEffect(() => {
     axios
-      .get("  http://localhost:4200/exercises")
+      .get("  https://localhost:7095/api/Exercises/GetByTrainerId?TrainerId=4")
       .then((res) => setExercise(res.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
@@ -16,7 +16,7 @@ const ExercisesForm = () => {
     const confirm = window.confirm("Would you like to delete?");
     if (confirm) {
       axios
-        .delete(" http://localhost:4200/exercises/" + exerciseId)
+        .delete(" https://localhost:7095/api/Exercises/" + exerciseId)
         .then((res) => {
           setExercise(
             exercises.filter((exercise) => exercise.id !== exerciseId)

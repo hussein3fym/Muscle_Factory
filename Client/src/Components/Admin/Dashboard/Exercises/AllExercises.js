@@ -1,36 +1,35 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import toast from "react-hot-toast";
 const AllExercises = () => {
   const [exercises, setExercise] = useState([]);
   useEffect(() => {
     axios
-      .get("  http://localhost:4200/exercises")
+      .get("  https://localhost:7095/api/Exercises/ExercisesOfTrainers")
       .then((res) => setExercise(res.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
 
   const handleDelete = (exerciseId) => {
-    const confirm = window.confirm("Would you like to delete?");
-    if (confirm) {
-      axios
-        .delete(" http://localhost:4200/exercises/" + exerciseId)
-        .then((res) => {
-          setExercise(
-            exercises.filter((exercise) => exercise.id !== exerciseId)
-          );
-        })
-        .catch((error) => console.error("Error deleting trainer:", error));
-    }
+    axios
+      .delete(" https://localhost:7095/api/Exercises/" + exerciseId)
+      .then(() => {
+        setExercise(exercises.filter((exercise) => exercise.id !== exerciseId));
+        toast.success("Exercise Deleted Successfully");
+      })
+      .catch(() => {
+        toast.error("Error Deleting Exercise");
+      });
+
     console.log(`Deleted Trainer with ID: ${exerciseId}`);
   };
   const handleView = (exerciseId) => {
     console.log(`View User Details with ID:${exerciseId}`);
   };
   return (
-    <div className="FormContainer d-flex flex-column justify-content-center align-items-center bg-light vh-100">
-      <h1 className="t-TrainerForm">All Exercises</h1>
+    <div>
+      <h1 className="Users">All Exercises by Trainers</h1>
       <div className="w-75 rounded bg-white border shadow p-4 table-body">
         <h2>Exercises</h2>
         <table>

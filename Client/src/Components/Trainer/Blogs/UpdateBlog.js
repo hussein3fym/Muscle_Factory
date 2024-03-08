@@ -6,43 +6,57 @@ const UpdateBlog = () => {
   const { id } = useParams();
   const [blogs, setBlogs] = useState({
     title: "",
-    description: "",
+    blogText: "",
     image: null,
-    videoUrl: "",
+    videoURL: "",
   });
 
+  const [isImageChanged, setIsImageChanged] = useState(false);
   useEffect(() => {
     axios
-      .get(`http://localhost:4300/blogs/${id} `)
+      .get(`https://localhost:7095/api/Blogs/GetBlog/${id} `)
       .then((res) => setBlogs(res.data))
       .catch((error) => console.error("Error fetching blogs:", error));
   }, [id]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === "image" || name === "video") {
-      setBlogs((prevData) => ({
-        ...prevData,
-        [name]: files[0], // Access the file from the files array
-      }));
-    } else {
-      setBlogs((prevData) => ({ ...prevData, [name]: value }));
+    if (name === "image") {
+      setIsImageChanged(true);
     }
+    setBlogs((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
   };
 
-  const handleUpdate = (event) => {
+  const handleUpdate = async (event) => {
     event.preventDefault();
-    axios
-      .put(`http://localhost:4300/blogs/${id}`, blogs)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => console.error("Error updating blog:", error));
+    const formData = new FormData();
+    formData.append("Title", blogs.title);
+    formData.append("BlogText", blogs.blogText);
+    formData.append("VideoUrl", blogs.videoURL);
+    formData.append("Image", blogs.image);
+
+    try {
+      const res = await axios.put(
+        `https://localhost:7095/api/Blogs/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.error("Error updating blog:", error);
+    }
   };
   return (
     <div className="app">
       <div className="BMcontainer">
-        <h1 className="BMtitle">Update</h1>
+        <h1 lassName="BMtitle">Update</h1>
         <form onSubmit={handleUpdate}>
           <label>
             Blog Title
@@ -59,8 +73,8 @@ const UpdateBlog = () => {
             Blog Description
             <input
               type="text"
-              name="description"
-              value={blogs.description}
+              name="blogText"
+              value={blogs.blogText}
               onChange={handleChange}
               className="BMinput"
             />
@@ -74,6 +88,14 @@ const UpdateBlog = () => {
               name="image"
               onChange={handleChange}
             />
+            {!isImageChanged && blogs.image && (
+              <img
+                src={`data:image/jpeg;base64,${blogs.image}`}
+                style={{ maxWidth: "100px" }}
+                alt="Blog Image"
+              />
+            )}
+            {isImageChanged && <p>Image has been changed</p>}
           </label>
 
           <label>
@@ -81,8 +103,8 @@ const UpdateBlog = () => {
             <input
               type="text"
               className="BMinput"
-              name="videoUrl"
-              value={blogs.videoUrl}
+              name="videoURL"
+              value={blogs.videoURL}
               onChange={handleChange}
             />
           </label>

@@ -31,7 +31,7 @@ const TrainerLogin = () => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form ">
+      <form onSubmit={handleSubmit} className="loginForm ">
         <h2 className="login-title">Welcome Coach</h2>
         <h4>
           Don't have an account ?

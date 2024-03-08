@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import "./../AdminBlogs/AdminCreation.css";
 
 const AdminUpdateExercises = () => {
   const { id } = useParams();
@@ -16,111 +18,160 @@ const AdminUpdateExercises = () => {
   });
   useEffect(() => {
     axios
-      .get(`http://localhost:4201/AdminExercises/${id}`)
+      .get(`https://localhost:7095/api/Exercises/${id}`)
       .then((res) => setAdminExerciseData(res.data))
       .catch((error) => console.error("Error fetching exercise:", error));
   }, [id]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setAdminExerciseData((prevData) => ({ ...prevData, [name]: value }));
+  const handleFileChange = (e) => {
+    const { name, value, files } = e.target;
+    setAdminExerciseData((prevData) => ({
+      ...prevData,
+      [name]: files && files.length > 0 ? files[0] : value,
+    }));
   };
 
   const handleUpdate = async (event) => {
     event.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append("exerciseName", adminExerciseData.exerciseName);
+      formData.append("equipment", adminExerciseData.equipment);
+      formData.append("targetMuscle", adminExerciseData.targetMuscle);
+      formData.append("secondaryMuscle", adminExerciseData.secondaryMuscle);
+      formData.append("instructions", adminExerciseData.instructions);
+      formData.append("level", adminExerciseData.level);
+      formData.append("video", adminExerciseData.video);
+      formData.append("image", adminExerciseData.image);
+
       const response = await axios.put(
-        `http://localhost:4201/AdminExercises/${id}`,
-        adminExerciseData
+        `https://localhost:7095/api/Exercises/${id}`,
+        formData /*adminExerciseData,*/,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       console.log(response.data);
+      toast.success("Exercise updated successfully");
     } catch (error) {
       console.error("Error updating exercise:", error);
+      toast.error("Exercise update failed");
     }
   };
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 className="BMtitle">Update</h1>
-        <form onSubmit={handleUpdate}>
-          <label>
+    <div>
+      <div>
+        <h1 className="Users">Update</h1>
+        <form onSubmit={handleUpdate} className="Creation-form">
+          <label className="Creation">
             Exercise Name
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="exerciseName"
               value={adminExerciseData.exerciseName}
-              onChange={handleChange}
+              onChange={(e) =>
+                setAdminExerciseData({
+                  ...adminExerciseData,
+                  exerciseName: e.target.value,
+                })
+              }
             />
           </label>
-          <label>
+          <label className="Creation">
             The Equipment
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="equipment"
               value={adminExerciseData.equipment}
-              onChange={handleChange}
+              onChange={(e) =>
+                setAdminExerciseData({
+                  ...adminExerciseData,
+                  equipment: e.target.value,
+                })
+              }
             />
           </label>
-          <label>
+          <label className="Creation">
             Target Muscle
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="targetMuscle"
               value={adminExerciseData.targetMuscle}
-              onChange={handleChange}
+              onChange={(e) =>
+                setAdminExerciseData({
+                  ...adminExerciseData,
+                  targetMuscle: e.target.value,
+                })
+              }
             />
           </label>
-          <label>
+          <label className="Creation">
             Secondary Muscle
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="secondaryMuscle"
               value={adminExerciseData.secondaryMuscle}
-              onChange={handleChange}
+              onChange={(e) =>
+                setAdminExerciseData({
+                  ...adminExerciseData,
+                  secondaryMuscle: e.target.value,
+                })
+              }
             />
           </label>
-          <label>
+          <label className="Creation">
             Instructions
             <textarea
               name="instructions"
-              className="BMinput"
+              className="Textarea"
               value={adminExerciseData.instructions}
-              onChange={handleChange}
+              onChange={(e) =>
+                setAdminExerciseData({
+                  ...adminExerciseData,
+                  instructions: e.target.value,
+                })
+              }
             />
           </label>
-          <label>
+          <label className="Creation">
             Upload Video:
             <input
               type="file"
-              className="BMinput"
+              className="Input"
               name="video"
               accept="video/*"
-              onChange={handleChange}
+              onChange={handleFileChange}
             />
           </label>
 
-          <label>
+          <label className="Creation">
             Upload Image or GIF:
             <input
               type="file"
-              className="BMinput"
+              className="Input"
               name="image"
               accept="image/*,image/gif"
-              onChange={handleChange}
+              onChange={handleFileChange}
             />
           </label>
 
-          <label>
+          <label className="Creation">
             Level Suggestion:
             <select
               name="level"
-              className="BMinput"
+              className="Input"
               value={adminExerciseData.level}
-              onChange={handleChange}
+              onChange={(e) =>
+                setAdminExerciseData({
+                  ...adminExerciseData,
+                  level: e.target.value,
+                })
+              }
             >
               <option value="" disabled>
                 Select Level
@@ -130,7 +181,7 @@ const AdminUpdateExercises = () => {
               <option value="Advanced">Advanced</option>
             </select>
           </label>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="AdminButton">
             Submit
           </button>
         </form>

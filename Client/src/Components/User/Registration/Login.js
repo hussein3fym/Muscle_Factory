@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form ">
+      <form onSubmit={handleSubmit} className="loginForm">
         <h2 className="login-title">Login</h2>
         <h4>
           Don't have an account ?
@@ -47,7 +47,7 @@ const Login = () => {
             type="email"
             name="email"
             required
-            className="login-input"
+            className="login-input input"
             value={formData.email}
             onChange={handleChange}
           />
@@ -60,7 +60,7 @@ const Login = () => {
             type="password"
             name="password"
             required
-            className="login-input"
+            className="login-input input"
             value={formData.password}
             onChange={handleChange}
           />

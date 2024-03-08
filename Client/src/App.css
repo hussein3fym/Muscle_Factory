@@ -3,3 +3,7 @@
   src: url(Fonts/bebas_neue/BebasNeue-Regular.ttf);
   font-weight: bold;
 }
+@font-face {
+  font-family: Azonix;
+  src: url(Fonts/azonix/Azonix.otf);
+}

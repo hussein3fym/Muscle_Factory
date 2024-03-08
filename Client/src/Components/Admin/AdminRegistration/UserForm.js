@@ -8,7 +8,7 @@ const UserForm = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4100/users")
+      .get("https://localhost:7095/api/Users/AllUsers")
       .then((res) => setData(res.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
@@ -17,7 +17,7 @@ const UserForm = () => {
     const confirm = window.confirm("Would you like to delete?");
     if (confirm) {
       axios
-        .delete("http://localhost:4100/users/" + userId)
+        .delete("https://localhost:7095/api/Users/DeleteUser/" + userId)
         .then((res) => {
           setData(data.filter((user) => user.id !== userId));
         })
@@ -28,11 +28,11 @@ const UserForm = () => {
   const handleView = (userId) => {
     console.log(`View User Details with ID:${userId}`);
   };
+  console.log(data);
 
   return (
-    <div className=" d-flex flex-column justify-content-center align-items-center bg-light vh-100 ">
-      <h1 className="">Muscle Factory SQUAD</h1>
-
+    <div>
+      <h1 className="Users">Muscle Factory Members</h1>
       <div className=" w-75 rounded bg-white border shadow p-4">
         <h2>Users</h2>
         <table className="table table-striped">

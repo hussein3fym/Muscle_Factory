@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import ReactPlayer from "react-player";
+import "./AdminView.css";
 
 const ViewAdminBlogs = () => {
   const [adminBlogs, setAdminBlogs] = useState({});
@@ -8,7 +10,7 @@ const ViewAdminBlogs = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4301/adminBlogs/${id}`)
+      .get(`https://localhost:7095/api/Blogs/GetBlog/${id}`)
       .then((res) => setAdminBlogs(res.data))
       .catch((error) => {
         console.error("Error fetching blogs:", error);
@@ -23,20 +25,28 @@ const ViewAdminBlogs = () => {
   }, [id]);
 
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 className="BMtitle">View Blog Post by Admin</h1>
+    <div>
+      <h1 className="ViewTitle">View Blog</h1>
+      <div className="View-form">
         <div>
-          <h2>See the BLOGS</h2>
-          <p className="BMinput">ID: {adminBlogs.id || "Loading..."}</p>
-          <p className="BMinput">Title: {adminBlogs.title || "Loading..."}</p>
-          <p className="BMinput">
-            Description: {adminBlogs.description || "Loading..."}
-          </p>
-          <p className="BMinput">Image: {adminBlogs.image || "Loading..."}</p>
-          <p className="BMinput">
-            Video: {adminBlogs.videoUrl || "Loading..."}
-          </p>
+          <h2 className="HeadLines">
+            Title: {adminBlogs.title || "Loading..."}
+          </h2>
+          <h2 className="HeadLines">ID: {adminBlogs.id || "Loading..."}</h2>
+        </div>
+        <div className="blogContent">
+          <div>
+            <h2 className="HeadLines">Description:</h2>
+            <p>{adminBlogs.blogText || "Loading..."}</p>
+            <h2 className="HeadLines">Video URL:</h2>
+            <ReactPlayer url={adminBlogs.videoURL} />
+          </div>
+          <div className="ViewImage">
+            <img
+              src={`data:image/jpeg;base64,${adminBlogs.image}`}
+              alt="Blog Image"
+            />
+          </div>
         </div>
       </div>
     </div>

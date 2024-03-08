@@ -1,21 +1,48 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const AddBlog = () => {
   const [blogs, setBlogs] = useState({
-    title: "",
-    description: "",
-    image: null,
-    videoUrl: "",
+    TrainerId: "",
+    Title: "",
+    BlogText: "",
+    VideoURL: "",
+    Image: null,
   });
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setBlogs((prevData) => ({ ...prevData, [name]: value }));
+    const { name, value, files } = e.target;
+    setBlogs((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", blogs);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("TrainerId", blogs.TrainerId);
+      formDataToSend.append("Title", blogs.Title);
+      formDataToSend.append("BlogText", blogs.BlogText);
+      formDataToSend.append("VideoURL", blogs.VideoURL);
+      formDataToSend.append("Image", blogs.Image);
+
+      const response = await axios.post(
+        "https://localhost:7095/api/Blogs/CreateBlog",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Blog created successfully:", response.data);
+    } catch (error) {
+      console.error("Error creating blog:", error);
+    }
   };
   return (
     <div className="app">
@@ -29,8 +56,8 @@ const AddBlog = () => {
                 type="text"
                 className="BMinput"
                 placeholder="Enter Blog Title"
-                name="title"
-                value={blogs.title}
+                name="Title"
+                value={blogs.Title}
                 onChange={handleChange}
               />
             </label>
@@ -41,8 +68,8 @@ const AddBlog = () => {
                 type="text"
                 className="BMinput"
                 placeholder="Enter Blog Description"
-                name="description"
-                value={blogs.description}
+                name="BlogText"
+                value={blogs.BlogText}
                 onChange={handleChange}
               />
             </label>
@@ -53,8 +80,8 @@ const AddBlog = () => {
                 type="file"
                 className="BMinput"
                 placeholder="Enter Blog Image"
-                name="image"
-                value={blogs.image}
+                name="Image"
+                accept="image/*"
                 onChange={handleChange}
               />
             </label>
@@ -65,12 +92,27 @@ const AddBlog = () => {
                 type="text"
                 className="BMinput"
                 placeholder="Enter Video Url"
-                name="videoUrl"
-                value={blogs.videoUrl}
+                name="VideoURL"
+                value={blogs.VideoURL}
                 onChange={handleChange}
               />
             </label>
-            <button type="submit" className="btn btn-primary">
+            <label>
+              Trainer ID
+              <input
+                type="text"
+                className="BMinput"
+                placeholder="Enter Your ID"
+                name="TrainerId"
+                value={blogs.TrainerId}
+                onChange={handleChange}
+              />
+            </label>
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="btn btn-primary"
+            >
               Add Blog
             </button>
             <Link to="/BlogForm" className="btn btn-primary">

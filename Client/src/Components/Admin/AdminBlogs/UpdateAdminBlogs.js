@@ -1,90 +1,118 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import "./AdminCreation.css";
 
 const UpdateAdminBlogs = () => {
   const { id } = useParams();
   const [adminBlogs, setAdminBlogs] = useState({
     title: "",
-    description: "",
+    blogText: "",
     image: null,
-    videoUrl: "",
+    videoURL: "",
   });
+  const [isImageChanged, setIsImageChanged] = useState(false);
   useEffect(() => {
     axios
-      .get(`http://localhost:4301/adminBlogs/${id} `)
+      .get(`https://localhost:7095/api/Blogs/GetBlog/${id} `)
       .then((res) => setAdminBlogs(res.data))
       .catch((error) => console.error("Error fetching blogs:", error));
   }, [id]);
+
+  console.log(adminBlogs);
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === "image" || name === "video") {
-      setAdminBlogs((prevData) => ({
-        ...prevData,
-        [name]: files[0], // Access the file from the files array
-      }));
-    } else {
-      setAdminBlogs((prevData) => ({ ...prevData, [name]: value }));
+    if (name === "image") {
+      setIsImageChanged(true);
     }
+    setAdminBlogs((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
   };
 
-  const handleUpdate = (event) => {
+  const handleUpdate = async (event) => {
     event.preventDefault();
-    axios
-      .put(`http://localhost:4301/adminBlogs/${id}`, adminBlogs)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => console.error("Error updating blog:", error));
+    const formData = new FormData();
+    formData.append("Title", adminBlogs.title);
+    formData.append("BlogText", adminBlogs.blogText);
+    formData.append("VideoUrl", adminBlogs.videoURL);
+    formData.append("Image", adminBlogs.image);
+
+    try {
+      const res = await axios.put(
+        `https://localhost:7095/api/Blogs/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(res.data);
+      toast.success("Blog updated successfully");
+    } catch (error) {
+      console.error("Error updating blog:", error);
+      toast.error("Blog update failed");
+    }
   };
   return (
-    <div className=" app  ">
-      <div className=" BMcontainer ">
-        <h1 BMtitle>Update Blog</h1>
-        <form onSubmit={handleUpdate}>
-          <label>
+    <div>
+      <div>
+        <h1 className="Users">Update Blog</h1>
+        <form onSubmit={handleUpdate} className="Creation-form">
+          <label className="Creation">
             Blog Title
             <input
               type="text"
+              className="Input"
               name="title"
-              className="BMinput"
               value={adminBlogs.title}
               onChange={handleChange}
             />
           </label>
 
-          <label>
+          <label className="Creation">
             Blog Description
             <input
               type="text"
-              name="description"
-              className="BMinput"
-              value={adminBlogs.description}
+              className="Input"
+              name="blogText"
+              value={adminBlogs.blogText}
               onChange={handleChange}
             />
           </label>
 
-          <label>
+          <label className="Creation">
             Blog Image
             <input
               type="file"
-              className="BMinput"
+              className="Input"
               name="image"
               onChange={handleChange}
             />
+            {!isImageChanged && adminBlogs.image && (
+              <img
+                className="UpdateImage"
+                src={`data:image/jpeg;base64,${adminBlogs.image}`}
+                alt="Blog Image"
+              />
+            )}
+            {isImageChanged && <p>Image has been changed</p>}
           </label>
 
-          <label>
+          <label className="Creation">
             Video Url *OPtional
             <input
               type="text"
-              className="BMinput"
-              name="videoUrl"
-              value={adminBlogs.videoUrl}
+              className="Input"
+              name="videoURL"
+              value={adminBlogs.videoURL}
               onChange={handleChange}
             />
           </label>
-          <button type="submit" className="btn btn-success">
+          <button type="submit" className="AdminButton">
             Update Blog
           </button>
         </form>

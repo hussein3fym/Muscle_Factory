@@ -26,7 +26,7 @@ const TrainerLogin = () => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
+      <form onSubmit={handleSubmit} className="loginForm">
         <h2 className="login-title">I am a Trainer </h2>
         <label className="login-label">
           Name :

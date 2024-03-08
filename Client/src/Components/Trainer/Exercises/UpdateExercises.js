@@ -17,22 +17,39 @@ const UpdateExercises = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4200/exercises/${id}`)
+      .get(`https://localhost:7124/api/Exercises/${id}`)
       .then((res) => setExerciseData(res.data))
       .catch((error) => console.error("Error fetching exercise:", error));
   }, [id]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setExerciseData((prevData) => ({ ...prevData, [name]: value }));
+  const handleFileChange = (e, fileType) => {
+    const file = e.target.files[0];
+    setExerciseData((prevData) => ({
+      ...prevData,
+      [fileType]: file,
+    }));
   };
 
   const handleUpdate = async (event) => {
     event.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append("exerciseName", exerciseData.exerciseName);
+      formData.append("equipment", exerciseData.equipment);
+      formData.append("targetMuscle", exerciseData.targetMuscle);
+      formData.append("secondaryMuscle", exerciseData.secondaryMuscle);
+      formData.append("instructions", exerciseData.instructions);
+      formData.append("level", exerciseData.level);
+      formData.append("video", exerciseData.video);
+      formData.append("image", exerciseData.image);
       const response = await axios.put(
-        `http://localhost:4200/exercises/${id}`,
-        exerciseData
+        `https://localhost:7095/api/Exercises/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       console.log(response.data);
     } catch (error) {
@@ -52,7 +69,12 @@ const UpdateExercises = () => {
               className="BMinput"
               name="exerciseName"
               value={exerciseData.exerciseName}
-              onChange={handleChange}
+              onChange={(e) =>
+                setExerciseData({
+                  ...exerciseData,
+                  exerciseName: e.target.value,
+                })
+              }
             />
           </label>
           <label>
@@ -62,7 +84,9 @@ const UpdateExercises = () => {
               className="BMinput"
               name="equipment"
               value={exerciseData.equipment}
-              onChange={handleChange}
+              onChange={(e) =>
+                setExerciseData({ ...exerciseData, equipment: e.target.value })
+              }
             />
           </label>
           <label>
@@ -72,7 +96,12 @@ const UpdateExercises = () => {
               className="BMinput"
               name="targetMuscle"
               value={exerciseData.targetMuscle}
-              onChange={handleChange}
+              onChange={(e) =>
+                setExerciseData({
+                  ...exerciseData,
+                  targetMuscle: e.target.value,
+                })
+              }
             />
           </label>
           <label>
@@ -82,7 +111,12 @@ const UpdateExercises = () => {
               className="BMinput"
               name="secondaryMuscle"
               value={exerciseData.secondaryMuscle}
-              onChange={handleChange}
+              onChange={(e) =>
+                setExerciseData({
+                  ...exerciseData,
+                  secondaryMuscle: e.target.value,
+                })
+              }
             />
           </label>
           <label>
@@ -91,7 +125,12 @@ const UpdateExercises = () => {
               name="instructions"
               className="BMinput"
               value={exerciseData.instructions}
-              onChange={handleChange}
+              onChange={(e) =>
+                setExerciseData({
+                  ...exerciseData,
+                  instructions: e.target.value,
+                })
+              }
             />
           </label>
           <label>
@@ -101,7 +140,7 @@ const UpdateExercises = () => {
               className="BMinput"
               name="video"
               accept="video/*"
-              onChange={handleChange}
+              onChange={(e) => handleFileChange(e, "video")}
             />
           </label>
 
@@ -112,7 +151,7 @@ const UpdateExercises = () => {
               className="BMinput"
               name="image"
               accept="image/*,image/gif"
-              onChange={handleChange}
+              onChange={(e) => handleFileChange(e, "image")}
             />
           </label>
 
@@ -122,7 +161,9 @@ const UpdateExercises = () => {
               name="level"
               className="BMinput"
               value={exerciseData.level}
-              onChange={handleChange}
+              onChange={(e) =>
+                setExerciseData({ ...exerciseData, level: e.target.value })
+              }
             >
               <option value="" disabled>
                 Select Level
@@ -132,7 +173,7 @@ const UpdateExercises = () => {
               <option value="Advanced">Advanced</option>
             </select>
           </label>
-          <button type="submit" className="btn btn-primary BMsubBtn">
+          <button type="submit" className="btn btn-primary ">
             Submit
           </button>
         </form>

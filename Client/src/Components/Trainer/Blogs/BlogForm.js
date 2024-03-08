@@ -4,17 +4,18 @@ import axios from "axios";
 
 const BlogForm = () => {
   const [blogs, setBlogs] = useState([]);
+  const trainerId = 2;
   useEffect(() => {
     axios
-      .get("http://localhost:4300/blogs")
+      .get("https://localhost:7095/api/Blogs/GetTrainerBlogs/" + trainerId)
       .then((res) => setBlogs(res.data))
       .catch((error) => console.error("Error fetching blogs:", error));
-  }, []);
+  }, [trainerId]);
   const handleDelete = (blogId) => {
     const confirm = window.confirm("Would you like to delete?");
     if (confirm) {
       axios
-        .delete("http://localhost:4300/blogs/" + blogId)
+        .delete("https://localhost:7095/api/Blogs/" + blogId)
         .then((res) => {
           setBlogs(blogs.filter((blog) => blog.id !== blogId));
         })
@@ -46,8 +47,15 @@ const BlogForm = () => {
               <tr key={i}>
                 <td>{blog.id}</td>
                 <td>{blog.title}</td>
-                <td>{blog.image}</td>
-                <td>{blog.videoUrl}</td>
+                <td>
+                  <div>
+                    <img
+                      src={`data:image/jpeg;base64,${blog.image}`}
+                      style={{ maxWidth: "1000px" }}
+                    />
+                  </div>
+                </td>
+                <td>{blog.videoURL}</td>
                 <td>
                   <div className="buttons-container">
                     <Link
