@@ -114,7 +114,7 @@ const AdminAddExercises = () => {
             Upload Video:
             <input
               type="file"
-              className="Input"
+              className="InputFile"
               name="video"
               accept="video/*"
               onChange={handleChange}
@@ -124,7 +124,7 @@ const AdminAddExercises = () => {
             Upload Image or GIF:
             <input
               type="file"
-              className="Input"
+              className="InputFile"
               name="image"
               accept="image/*,image/gif"
               onChange={handleChange}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import "./../AdminBlogs/AdminView.css";
 const AdminViewExercises = () => {
   const [adminExerciseData, setAdminExerciseData] = useState([]);
   const { id } = useParams();
@@ -9,39 +9,41 @@ const AdminViewExercises = () => {
     axios
       .get("  https://localhost:7095/api/Exercises/" + id)
       .then((res) => {
-        //if (res.data.image ) {
-        //const base64Image = arrayBufferToBase64(res.data.image.data);
-        //setAdminExerciseData({
-        //...res.data,
-        //image: base64Image,
-        //});
-        //}
         setAdminExerciseData(res.data);
         console.log("Fetched Exercises Data:", res.data);
       })
       .catch((error) => console.error("Error fetching users:", error));
   }, [id]);
 
-  /*const arrayBufferToBase64 = (buffer) => {
-    let binary = "";
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
-  };*/
-
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 className="BMtitle">Welcome Trainer</h1>
-        <div>
-          <h4> Exercise Name: {adminExerciseData.exerciseName}</h4>
-          <p> The Equipment: {adminExerciseData.equipment} </p>
-          <p> Target Muscle: {adminExerciseData.targetMuscle} </p>
-          <p> Secondary Muscle:{adminExerciseData.secondaryMuscle} </p>
-          <p> Instructions:{adminExerciseData.instructions} </p>
+    <div>
+      <h1 className="ViewTitle">View Exercise</h1>
+      <div className="View-form">
+        <div className="exercise-info">
+          <h2 className="HeadLines">Exercise Name: </h2>
+          <p>{adminExerciseData.exerciseName}</p>
+        </div>
+        <div className="exercise-info">
+          <h2 className="HeadLines">The Equipment:</h2>
+          <p>{adminExerciseData.equipment}</p>
+        </div>
+        <div className="exercise-info">
+          <h2 className="HeadLines">Target Muscle:</h2>
+          <p>{adminExerciseData.targetMuscle}</p>
+        </div>
+        <div className="exercise-info">
+          <h2 className="HeadLines">Secondary Muscle:</h2>
+          <p>{adminExerciseData.secondaryMuscle}</p>
+        </div>
+        <div className="exercise-info">
+          <h2 className="HeadLines">Instructions:</h2>
+          <p>{adminExerciseData.instructions}</p>
+        </div>
+        <div className="exercise-info">
+          <h2 className="HeadLines">Level Suggestion:</h2>
+          <p>{adminExerciseData.level}</p>
+        </div>
+        <div className="blogContent">
           {adminExerciseData.video && (
             <div>
               Video:
@@ -61,23 +63,16 @@ const AdminViewExercises = () => {
               </video>
             </div>
           )}
-
-          {adminExerciseData.image && (
-            <div>
-              Image :
+          <div>
+            <div className="HeadLines">
+              Image
               <img
+                className="exerciseImage"
                 src={`data:image/jpg;base64,${adminExerciseData.image}`}
                 alt="Exercise Image"
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  border: "1px solid black",
-                }}
               />
             </div>
-          )}
-
-          <p> Level Suggestion:{adminExerciseData.level} </p>
+          </div>
         </div>
       </div>
     </div>

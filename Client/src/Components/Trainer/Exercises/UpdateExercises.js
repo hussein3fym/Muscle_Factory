@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import { toast } from "react-hot-toast";
+import "./../Styles/Creation.css";
 const UpdateExercises = () => {
   const { id } = useParams();
   const [exerciseData, setExerciseData] = useState({
@@ -17,7 +18,7 @@ const UpdateExercises = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7124/api/Exercises/${id}`)
+      .get(`https://localhost:7095/api/Exercises/${id}`)
       .then((res) => setExerciseData(res.data))
       .catch((error) => console.error("Error fetching exercise:", error));
   }, [id]);
@@ -52,21 +53,23 @@ const UpdateExercises = () => {
         }
       );
       console.log(response.data);
+      toast.success("Exercise updated successfully");
     } catch (error) {
       console.error("Error updating exercise:", error);
+      toast.error("Exercise update failed");
     }
   };
 
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 className="BMtitle">Update</h1>
-        <form onSubmit={handleUpdate}>
-          <label>
+    <div>
+      <div>
+        <h1>Update</h1>
+        <form onSubmit={handleUpdate} className="Creation-form">
+          <label className="Creation">
             Exercise Name
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="exerciseName"
               value={exerciseData.exerciseName}
               onChange={(e) =>
@@ -77,11 +80,11 @@ const UpdateExercises = () => {
               }
             />
           </label>
-          <label>
+          <label className="Creation">
             The Equipment
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="equipment"
               value={exerciseData.equipment}
               onChange={(e) =>
@@ -89,11 +92,11 @@ const UpdateExercises = () => {
               }
             />
           </label>
-          <label>
+          <label className="Creation">
             Target Muscle
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="targetMuscle"
               value={exerciseData.targetMuscle}
               onChange={(e) =>
@@ -104,11 +107,11 @@ const UpdateExercises = () => {
               }
             />
           </label>
-          <label>
+          <label className="Creation">
             Secondary Muscle
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="secondaryMuscle"
               value={exerciseData.secondaryMuscle}
               onChange={(e) =>
@@ -119,11 +122,11 @@ const UpdateExercises = () => {
               }
             />
           </label>
-          <label>
+          <label className="Creation">
             Instructions
             <textarea
               name="instructions"
-              className="BMinput"
+              className="Textarea"
               value={exerciseData.instructions}
               onChange={(e) =>
                 setExerciseData({
@@ -133,33 +136,33 @@ const UpdateExercises = () => {
               }
             />
           </label>
-          <label>
+          <label className="Creation">
             Upload Video:
             <input
               type="file"
-              className="BMinput"
+              className="InputFile"
               name="video"
               accept="video/*"
               onChange={(e) => handleFileChange(e, "video")}
             />
           </label>
 
-          <label>
+          <label className="Creation">
             Upload Image or GIF:
             <input
               type="file"
-              className="BMinput"
+              className="InputFile"
               name="image"
               accept="image/*,image/gif"
               onChange={(e) => handleFileChange(e, "image")}
             />
           </label>
 
-          <label>
+          <label className="Creation">
             Level Suggestion:
             <select
               name="level"
-              className="BMinput"
+              className="Input"
               value={exerciseData.level}
               onChange={(e) =>
                 setExerciseData({ ...exerciseData, level: e.target.value })
@@ -173,8 +176,8 @@ const UpdateExercises = () => {
               <option value="Advanced">Advanced</option>
             </select>
           </label>
-          <button type="submit" className="btn btn-primary ">
-            Submit
+          <button type="submit" className="AdminButton">
+            Update
           </button>
         </form>
       </div>

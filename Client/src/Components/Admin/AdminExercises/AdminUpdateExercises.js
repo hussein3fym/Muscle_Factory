@@ -142,7 +142,7 @@ const AdminUpdateExercises = () => {
             Upload Video:
             <input
               type="file"
-              className="Input"
+              className="InputFile"
               name="video"
               accept="video/*"
               onChange={handleFileChange}
@@ -153,7 +153,7 @@ const AdminUpdateExercises = () => {
             Upload Image or GIF:
             <input
               type="file"
-              className="Input"
+              className="InputFile"
               name="image"
               accept="image/*,image/gif"
               onChange={handleFileChange}
@@ -182,7 +182,7 @@ const AdminUpdateExercises = () => {
             </select>
           </label>
           <button type="submit" className="AdminButton">
-            Submit
+            Update
           </button>
         </form>
       </div>

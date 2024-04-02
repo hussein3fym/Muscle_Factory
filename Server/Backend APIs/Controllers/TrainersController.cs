@@ -33,6 +33,25 @@ namespace Backend_APIs.Controllers
                 return NotFound();
             return Ok(trainers);
         }
+        [HttpGet("AcceptedTrainers")]
+        public async Task<IActionResult> GetAcceptedTrainersAsync()
+        {
+            var trainers = await _context.Trainers
+                .Where(e => e.Status == "accepted")
+                .Select(e => new {
+                    e.Id,
+                    e.Status,
+                    e.Name,
+                    e.Email,
+                    e.Age,
+                    e.Experience,
+                    e.Gender,
+                    e.Specialization,
+                })
+                .ToListAsync();
+
+            return Ok(trainers);
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)

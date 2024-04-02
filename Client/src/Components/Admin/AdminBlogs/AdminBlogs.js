@@ -19,10 +19,10 @@ const AdminBlogs = () => {
         setAdminBlogs(
           adminBlogs.filter((adminBlog) => adminBlog.id !== adminBlogId)
         );
-        toast.success("Exercise Deleted Successfully");
+        toast.success("Blog Deleted Successfully");
       })
       .catch(() => {
-        toast.error("Error Deleting Exercise");
+        toast.error("Error Deleting Blog");
       });
     console.log(`Deleted Blog with ID: ${adminBlogId}`);
   };

@@ -1,8 +1,65 @@
 .header {
-  background-color: #2a2a32;
+  background-color: #dadaed;
   padding: 1.2rem 4.8rem;
 }
 .trainer-profile {
   margin: auto;
   padding: auto;
+}
+.Dashboard {
+  display: grid;
+  grid-template-columns: 26rem 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+.main {
+  padding: 4rem 4.8rem 6.4rem;
+}
+.container__dashboard {
+  background-color: 363640;
+  max-width: 120rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+/* card */
+.P-card {
+  border-radius: 30px;
+  background: whitesmoke;
+  box-shadow: 15px 15px 30px #aaaaaa;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.P-card:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  box-shadow: -8px -8px 16px rgba(0, 0, 0, 0.233);
+}
+
+.P-card h2 {
+  font-size: 4rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  color: brown;
+}
+
+.P-card p {
+  font-size: 2.5rem;
+  margin-top: 0;
+  color: #666;
+}
+
+.P-card img {
+  max-width: 70px;
+}
+
+.Card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 30px;
 }

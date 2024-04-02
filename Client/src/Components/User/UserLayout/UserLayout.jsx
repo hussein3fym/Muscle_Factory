@@ -1,7 +1,10 @@
 import React from "react";
 import "./Nav.css";
+import Footer from "./../Footer/Footer";
+import NavIcon from "./../../../Assets/icons/NavIcon.jpg";
 import { Outlet } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Container, Navbar } from "react-bootstrap";
 const UserLayout = () => {
   const location = useLocation();
@@ -10,7 +13,9 @@ const UserLayout = () => {
       <div>
         <Navbar expand="lg" className="navbar">
           <Container>
-            <Navbar.Brand>Logo</Navbar.Brand>
+            <Navbar.Brand>
+              <img src={NavIcon} alt="NavIcon" className="NavIcon" />
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-nav" />
             <Navbar.Collapse id="navbar-nav">
               <ul className="navbar-nav mx-auto">
@@ -19,34 +24,34 @@ const UserLayout = () => {
                     location.pathname === "/" ? "active" : ""
                   }`}
                 >
-                  <Link to="/" className="nav-link">
+                  <NavLink to="/" className="nav-link">
                     Home
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to="/blog" className="nav-link">
+                  <NavLink to="/blog" className="nav-link">
                     Blog
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to="/Workout" className="nav-link">
+                  <NavLink to="/Workout" className="nav-link">
                     Workout
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to="/Nutrition" className="nav-link">
+                  <NavLink to="/Nutrition" className="nav-link">
                     Nutrition
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to="/find-gym" className="nav-link">
+                  <NavLink to="/find-gym" className="nav-link">
                     Find Gym
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to="/about-us" className="nav-link">
+                  <NavLink to="/AboutUs" className="nav-link">
                     About Us
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
               <ul className="navbar-nav ml-auto">
@@ -63,9 +68,10 @@ const UserLayout = () => {
           </Container>
         </Navbar>
       </div>
-      <div>
+      <div className="userLayout">
         <Outlet />
       </div>
+      {/* <Footer /> */}
     </>
   );
 };

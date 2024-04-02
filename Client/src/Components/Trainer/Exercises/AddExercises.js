@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./ExercisesForm.css";
 import axios from "axios";
+import toast from "react-hot-toast";
+import "./../Styles/Creation.css";
 
 const AddExercises = () => {
   const [exerciseData, setExerciseData] = useState({
@@ -14,10 +15,7 @@ const AddExercises = () => {
     image: null,
     level: "",
   });
-  /*const handleChange = (e) => {
-    const { name, value } = e.target;
-    setExerciseData((prevData) => ({ ...prevData, [name]: value }));
-  };*/
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "video" || name === "image") {
@@ -26,121 +24,115 @@ const AddExercises = () => {
       setExerciseData((prevData) => ({ ...prevData, [name]: value }));
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("trainerid", exerciseData.trainerid);
-    formData.append("exerciseName", exerciseData.exerciseName);
-    formData.append("equipment", exerciseData.equipment);
-    formData.append("targetMuscle", exerciseData.targetMuscle);
-    formData.append("secondaryMuscle", exerciseData.secondaryMuscle);
-    formData.append("instructions", exerciseData.instructions);
-    formData.append("level", exerciseData.level);
-    formData.append("video", exerciseData.video);
-    formData.append("image", exerciseData.image);
-    axios.post(
-      "https://localhost:7095/api/Exercises/CreateByTrainer",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    console.log("Form submitted:", exerciseData);
+    try {
+      const formData = new FormData();
+      formData.append("trainerid", exerciseData.trainerid);
+      formData.append("exerciseName", exerciseData.exerciseName);
+      formData.append("equipment", exerciseData.equipment);
+      formData.append("targetMuscle", exerciseData.targetMuscle);
+      formData.append("secondaryMuscle", exerciseData.secondaryMuscle);
+      formData.append("instructions", exerciseData.instructions);
+      formData.append("level", exerciseData.level);
+      formData.append("video", exerciseData.video);
+      formData.append("image", exerciseData.image);
+      axios.post(
+        "https://localhost:7095/api/Exercises/CreateByTrainer",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Form submitted:", exerciseData);
+      toast.success("Exercise created successfully");
+    } catch (error) {
+      console.log("Error in submitting form:", error);
+      toast.error("Failed to create exercise");
+    }
   };
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 className="BMtitle">Welcome Trainer Add Exercises</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
+    <div>
+      <div>
+        <h1>Welcome Trainer Add Exercises</h1>
+        <form onSubmit={handleSubmit} className="Creation-form">
+          <label className="Creation">
             ID
-            <input
-              //type="text "
-              className="BMinput"
-              name="trainerid"
-              // value={adminExerciseData.UserId}
-              onChange={handleChange}
-            />
+            <input name="trainerid" className="Input" onChange={handleChange} />
           </label>
-          <label>
+          <label className="Creation">
             Exercise Name
             <input
-              type="text "
-              className="BMinput"
+              type="text"
+              required
+              className="Input"
               name="exerciseName"
-              //value={exerciseData.exerciseName}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             The Equipment
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="equipment"
-              //value={exerciseData.equipment}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Target Muscle
             <input
               type="text"
-              className="BMinput"
+              className="Input"
               name="targetMuscle"
-              //value={exerciseData.targetMuscle}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Secondary Muscle
             <input
               type="text"
+              className="Input"
               name="secondaryMuscle"
-              className="BMinput"
-              //value={exerciseData.secondaryMuscle}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Instructions
             <textarea
               name="instructions"
-              className="BMinput"
-              //value={exerciseData.instructions}
+              className="Textarea"
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Upload Video:
             <input
               type="file"
-              className="BMinput"
+              className="InputFile"
               name="video"
               accept="video/*"
-              //value={exerciseData.video}
               onChange={handleChange}
             />
           </label>
-          <label>
+          <label className="Creation">
             Upload Image or GIF:
             <input
               type="file"
-              className="BMinput"
+              className="InputFile"
               name="image"
               accept="image/*,image/gif"
-              // value={exerciseData.image}
               onChange={handleChange}
             />
           </label>
 
-          <label>
+          <label className="Creation">
             Level Suggestion:
             <select
               name="level"
-              className="BMinput"
+              className="Input"
               value={exerciseData.level}
               onChange={handleChange}
             >
@@ -152,10 +144,11 @@ const AddExercises = () => {
               <option value="Advanced">Advanced</option>
             </select>
           </label>
-          <br />
 
-          <button type="submit">Submit</button>
-          <Link to="/ExercisesForm" className="btn btn bg-success">
+          <button type="submit" className="AdminButton">
+            Add Workout
+          </button>
+          <Link to="/ExercisesForm" className="AdminLink">
             See all exercises
           </Link>
         </form>

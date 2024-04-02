@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+//import "antd/dist/antd.css";
 
 /* User View */
 
@@ -16,6 +17,9 @@ import BMR from "./Components/User/Nutrition/BMR/BMR";
 import Search from "./pages/Search/Search";
 import Ask from "./pages/Questions/Ask";
 import Blog from "./Components/User/Blog/Blog";
+import AboutUs from "./pages/AboutUs/AboutUs";
+import UserBlog from "./Components/User/Blog/UserBlog";
+import ViewWorkout from "./Components/User/Workout/ViewWorkout";
 /* Admin View */
 
 import UserForm from "./Components/Admin/AdminRegistration/UserForm";
@@ -34,7 +38,7 @@ import AllExercises from "./Components/Admin/Dashboard/Exercises/AllExercises";
 import AllBlogs from "./Components/Admin/Dashboard/Blogs/AllBlogs";
 import Dashboard from "./Scenes/Dashboard/Dashboard";
 /* Trainer View */
-
+import TrainerPanel from "./Components/Trainer/TrainerLayout/TrainerPanel";
 import TrainerRegistration from "./Components/Trainer/TrainerLogin/TrainerRegistration";
 import TrainerLogin from "./Components/Trainer/TrainerLogin/TrainerLogin";
 import ResetTrainerPass from "./Components/Trainer/TrainerLogin/ResetTrainerPass";
@@ -53,6 +57,7 @@ import UserLayout from "./Components/User/UserLayout/UserLayout";
 import TrainerLayout from "./Components/Trainer/TrainerLayout/TrainerLayout";
 import AdminLayout from "./Components/Admin/AdminLayout/AdminLayout";
 import GlobalStyles from "./Styles/GlobalStyles";
+import Nutrition from "./Components/User/Nutrition/Nutrition";
 
 function App() {
   return (
@@ -73,10 +78,15 @@ function App() {
             <Route path="/Search" element={<Search />} />
             <Route path="/Ask" element={<Ask />} />
             <Route path="/Blog" element={<Blog />} />
+            <Route path="/AboutUs" element={<AboutUs />} />
+            <Route path="/UserBlog/:id" element={<UserBlog />} />
+            <Route path="/Nutrition" element={<Nutrition />} />
+            <Route path="/ViewWorkout/:id" element={<ViewWorkout />} />
           </Route>
 
           {/* Trainer view */}
           <Route element={<TrainerLayout />}>
+            <Route path="/TrainerPanel" element={<TrainerPanel />} />
             {/* Trainer Blogs */}
             <Route path="/AddBlog" element={<AddBlog />} />
             <Route path="/BlogForm" element={<BlogForm />} />

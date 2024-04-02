@@ -16,10 +16,8 @@ const ViewAdminBlogs = () => {
         console.error("Error fetching blogs:", error);
         if (error.response && error.response.status === 404) {
           console.log("Blog not found");
-          // You can set some state to indicate that the blog was not found
         } else {
           console.log("An unexpected error occurred");
-          // You can handle other types of errors here
         }
       });
   }, [id]);
@@ -37,7 +35,7 @@ const ViewAdminBlogs = () => {
         <div className="blogContent">
           <div>
             <h2 className="HeadLines">Description:</h2>
-            <p>{adminBlogs.blogText || "Loading..."}</p>
+            <p className="Description">{adminBlogs.blogText || "Loading..."}</p>
             <h2 className="HeadLines">Video URL:</h2>
             <ReactPlayer url={adminBlogs.videoURL} />
           </div>

@@ -369,11 +369,6 @@
         "Name": "UserId",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
-      },
-      {
-        "Name": "MuscleId",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -433,11 +428,6 @@
       },
       {
         "Name": "UserId",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "MuscleId",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
@@ -501,11 +491,6 @@
         "Name": "UserId",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
-      },
-      {
-        "Name": "MuscleId",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -532,15 +517,15 @@
   },
   {
     "ContainingType": "Backend_APIs.Controllers.ExercisesController",
-    "Method": "GetByMuscleIdAsync",
-    "RelativePath": "api/Exercises/GetByMuscleId",
+    "Method": "GetByTargetMuscleAsync",
+    "RelativePath": "api/Exercises/GetByTargetMuscle",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "MuscleId",
-        "Type": "System.Int32",
+        "Name": "TargetMuscle",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],
@@ -660,6 +645,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_APIs.Controllers.TrainersController",
+    "Method": "GetAcceptedTrainersAsync",
+    "RelativePath": "api/Trainers/AcceptedTrainers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

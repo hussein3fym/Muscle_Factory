@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ReactPlayer from "react-player";
+import "./../Styles/View.css";
 
 const ViewBlog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -14,22 +15,28 @@ const ViewBlog = () => {
   }, [id]);
 
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 lassName="BMtitle">View Blog Post</h1>
+    <div>
+      <h1 className="ViewTitle">View Blog Post</h1>
+      <div className="View-form">
         <div>
-          <h2>See the BLOGS</h2>
-          <p>ID:{blogs.id}</p>
-          <p>Title:{blogs.title}</p>
+          <h2 className="HeadLines">ID:{blogs.id}</h2>
+          <h2 className="HeadLines">Title:{blogs.title}</h2>
+        </div>
+
+        <div className="blogContent">
           <div>
+            <h2 className="HeadLines">Description:</h2>
+            <p className="Description">{blogs.blogText}</p>
+            <h2 className="HeadLines">Video URL:</h2>
+            <ReactPlayer url={blogs.videoURL} />
+          </div>
+
+          <div className="ViewImage">
             <img
               src={`data:image/jpeg;base64,${blogs.image}`}
               style={{ maxWidth: "400px" }}
             />
           </div>
-          <p>Description:{blogs.blogText}</p>
-
-          <ReactPlayer url={blogs.videoURL} />
         </div>
       </div>
     </div>

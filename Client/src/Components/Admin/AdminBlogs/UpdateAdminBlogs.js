@@ -88,7 +88,7 @@ const UpdateAdminBlogs = () => {
             Blog Image
             <input
               type="file"
-              className="Input"
+              className="InputFile"
               name="image"
               onChange={handleChange}
             />

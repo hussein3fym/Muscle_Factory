@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./Search.css";
 import { exerciseOptions } from "./../../Utils/fetchData";
 import HorizontalScrollbar from "./../Scrollbar/HorizontalScrollbar";
 const Search = ({ setExercise, bodyPart, setBodyPart }) => {
@@ -46,8 +47,7 @@ const Search = ({ setExercise, bodyPart, setBodyPart }) => {
   };
 
   return (
-    <div>
-      <h1>Search</h1>
+    <div className="Search">
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"

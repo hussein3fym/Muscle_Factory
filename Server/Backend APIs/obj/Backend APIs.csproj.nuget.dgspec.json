@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GP\\Server\\Backend APIs\\Backend APIs\\Backend APIs.csproj": {}
+    "D:\\GP\\Server\\Backend APIs\\Backend APIs.csproj": {}
   },
   "projects": {
-    "D:\\GP\\Server\\Backend APIs\\Backend APIs\\Backend APIs.csproj": {
+    "D:\\GP\\Server\\Backend APIs\\Backend APIs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GP\\Server\\Backend APIs\\Backend APIs\\Backend APIs.csproj",
+        "projectUniqueName": "D:\\GP\\Server\\Backend APIs\\Backend APIs.csproj",
         "projectName": "Backend APIs",
-        "projectPath": "D:\\GP\\Server\\Backend APIs\\Backend APIs\\Backend APIs.csproj",
+        "projectPath": "D:\\GP\\Server\\Backend APIs\\Backend APIs.csproj",
         "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
-        "outputPath": "D:\\GP\\Server\\Backend APIs\\Backend APIs\\obj\\",
+        "outputPath": "D:\\GP\\Server\\Backend APIs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,0 +1,66 @@
+.Nutrition-container {
+  background-image: url("./../../../Assets/images/Background.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  text-align: center;
+  min-height: 100vh;
+  padding: 40px;
+}
+.Nutrition-container h1 {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: white;
+  font-family: Azonix;
+}
+.Nutrition-container h2 {
+  color: #fff;
+  font-size: 2.7rem;
+  margin-bottom: 1.3rem;
+}
+.C-Calculators {
+  display: flex;
+  justify-content: flex-end; /* Align content to the right */
+  margin-bottom: 3rem;
+}
+
+.Calculators {
+  border-radius: 30px;
+  display: grid;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 15px 15px 20px #000000;
+  padding: 2.5rem;
+  gap: 1.7rem;
+}
+
+.Calculators h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-family: helvetica;
+  cursor: pointer;
+  transition: filter 400ms, transform 400ms; /* Transition both filter and transform properties */
+}
+
+.Calculators h2:hover {
+  transform: scale(1.1);
+}
+.Calculators:hover {
+  transform: scale(1.1);
+}
+
+.Calculators:hover h2:not(:hover) {
+  filter: blur(10px);
+  transform: scale(0.9, 0.9);
+}
+
+.Calculators h2.tip {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.Calculators h2.second-text {
+  font-size: 0.7em;
+}

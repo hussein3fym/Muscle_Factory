@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./BMI.css";
 
 const BMI = () => {
@@ -54,43 +55,50 @@ const BMI = () => {
   };
 
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 className="BMtitle">BMI Calculator</h1>
-        <form className="BMform">
-          <br />
-          <label>
-            Weight (kg):
-            <input
-              type="number"
-              className="BMinput"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-            />
-          </label>
-          <br />
-          <label>
-            Height (cm):
-            <input
-              type="number"
-              className="BMinput"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-            />
-          </label>
-          <br />
-          <button type="button" onClick={calculateBMI}>
-            Calculate BMI
-          </button>
-          <button type="button" onClick={Reload}>
-            Reload
-          </button>
-          <div className="center">
-            <h2>Your BMI: {bmi}</h2>
-            <p>{message}</p>
+    <div className="BMI-container">
+      <div className="B-container">
+        <form className="BMI-Form">
+          <h1>Enter your information</h1>
+          <div className="input-group">
+            <label>
+              Weight (kg):
+              <input
+                type="number"
+                className="input-data"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="input-group">
+            <label>
+              Height (cm):
+              <input
+                type="number"
+                className="input-data"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+              />
+            </label>
           </div>
           <div>
-            <img src={imgSrc} alt=""></img>
+            <button type="button" onClick={calculateBMI} className="Calculate">
+              Calculate BMI
+            </button>
+            <button type="button" onClick={Reload} className="Reload">
+              Reload
+            </button>
+          </div>
+          <div>
+            <div className="result-display">
+              <h2>Your BMI: {bmi}</h2>
+              <p>{message}</p>
+            </div>
+            {bmi && (
+              <div className="img-container">
+                <img src={imgSrc} alt="" />
+              </div>
+            )}
           </div>
         </form>
       </div>

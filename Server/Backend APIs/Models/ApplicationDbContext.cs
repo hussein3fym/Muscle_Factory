@@ -14,7 +14,7 @@ namespace Backend_APIs.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
-        public DbSet<Muscle> Muscles { get; set; }
+       
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Comment> Comments { get; set; }

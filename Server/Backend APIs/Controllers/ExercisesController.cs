@@ -60,7 +60,7 @@ namespace Backend_APIs.Controllers
                     e.SecondaryMuscle,
                     e.Level,
                     e.TrainerId,
-                    e.MuscleId,
+                    
                 })
                 .ToListAsync();
             return Ok(exercises);
@@ -80,7 +80,7 @@ namespace Backend_APIs.Controllers
                     e.SecondaryMuscle,
                     e.Level,
                     e.UserId,
-                    e.MuscleId,
+                    
                 })
                 .ToListAsync();
             return Ok(exercises);
@@ -100,32 +100,32 @@ namespace Backend_APIs.Controllers
                     e.SecondaryMuscle,
                     e.Level,
                     e.TrainerId,
-                    e.MuscleId,
+                    
                 })
                 .ToListAsync();
             return Ok(exercises);
         }
 
-        [HttpGet("GetByMuscleId")]
-        public async Task<IActionResult> GetByMuscleIdAsync(int MuscleId)
+        [HttpGet("GetByTargetMuscle")]
+        public async Task<IActionResult> GetByTargetMuscleAsync(string TargetMuscle)
         {
             var exercises = await _context.Exercises
-                .Where(e => e.MuscleId == MuscleId)
-                .Include(e => e.Muscle)
+                .Where(e => e.TargetMuscle == TargetMuscle)
+                .Include(e => e.Trainer)
                 .Select(e => new {
                     e.Id,
                     e.ExerciseName,
                     e.Equipment,
                     e.TargetMuscle,
                     e.SecondaryMuscle,
-                    e.Instructions,
                     e.Level,
-                    e.Image,
-                    e.Video,
                     e.TrainerId,
-                    e.MuscleId,
                 })
                 .ToListAsync();
+            if (exercises == null || !exercises.Any())
+            {
+                return NotFound();
+            }
             return Ok(exercises);
         }
 
@@ -155,7 +155,7 @@ namespace Backend_APIs.Controllers
                 Image = imageStream.ToArray(),
                 Video = videoStream.ToArray(),
                 UserId = dto.UserId,
-                MuscleId = dto.MuscleId,
+               
             };
             await _context.AddAsync(exercise);
             _context.SaveChanges();
@@ -188,7 +188,7 @@ namespace Backend_APIs.Controllers
                 Image = imageStream.ToArray(),
                 Video = videoStream.ToArray(),
                 TrainerId = dto.TrainerId,
-                MuscleId = dto.MuscleId,
+               
             };
             await _context.AddAsync(exercise);
             _context.SaveChanges();
@@ -226,13 +226,30 @@ namespace Backend_APIs.Controllers
                 await dto.Video.CopyToAsync(videoStream);
                 exercise.Video = videoStream.ToArray();
             }
-            exercise.ExerciseName = dto.ExerciseName;
-            exercise.Equipment = dto.Equipment;
-            exercise.TargetMuscle = dto.TargetMuscle;
-            exercise.SecondaryMuscle = dto.SecondaryMuscle;
-            exercise.Instructions = dto.Instructions;
-            exercise.Level = dto.Level;
-            //exercise.TrainerId = dto.TrainerId;
+            if (dto.ExerciseName != null)
+            {
+                exercise.ExerciseName = dto.ExerciseName;
+            }
+            if (dto.Equipment != null)
+            {
+                exercise.Equipment = dto.Equipment;
+            }
+            if (dto.TargetMuscle != null)
+            {
+                exercise.TargetMuscle = dto.TargetMuscle;
+            }
+            if (dto.SecondaryMuscle != null)
+            {
+                exercise.SecondaryMuscle = dto.SecondaryMuscle;
+            }
+            if (dto.Instructions != null)
+            {
+                exercise.Instructions = dto.Instructions;
+            }
+            if (dto.Level != null)
+            {
+                exercise.Level = dto.Level;
+            }
             _context.SaveChanges();
             return Ok(exercise);
         }

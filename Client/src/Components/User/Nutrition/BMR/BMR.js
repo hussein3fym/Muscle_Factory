@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./BMR.css";
 
 const BMR = () => {
   const [gender, setGender] = useState("male");
@@ -24,9 +23,9 @@ const BMR = () => {
   };
 
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h2 className="BMtitle">BMR Calculator</h2>
+    <div>
+      <div>
+        <h2>BMR Calculator</h2>
         <form onSubmit={calculateBMR}>
           <label>
             Gender:
@@ -40,7 +39,6 @@ const BMR = () => {
             Age (years):
             <input
               type="number"
-              className="BMinput"
               value={age}
               onChange={(e) => setAge(e.target.value)}
             />
@@ -50,7 +48,6 @@ const BMR = () => {
             Weight (kg):
             <input
               type="number"
-              className="BMinput"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
             />
@@ -60,7 +57,6 @@ const BMR = () => {
             Height (cm):
             <input
               type="number"
-              className="BMinput"
               value={height}
               onChange={(e) => setHeight(e.target.value)}
             />

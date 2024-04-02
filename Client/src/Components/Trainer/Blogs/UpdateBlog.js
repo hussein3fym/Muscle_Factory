@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import { toast } from "react-hot-toast";
+import "./../Styles/Creation.css";
 const UpdateBlog = () => {
   const { id } = useParams();
   const [blogs, setBlogs] = useState({
@@ -49,44 +50,46 @@ const UpdateBlog = () => {
         }
       );
       console.log(res.data);
+      toast.success("Blog updated successfully");
     } catch (error) {
       console.error("Error updating blog:", error);
+      toast.error("Blog update failed");
     }
   };
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 lassName="BMtitle">Update</h1>
-        <form onSubmit={handleUpdate}>
-          <label>
+    <div>
+      <div>
+        <h1>Update</h1>
+        <form onSubmit={handleUpdate} className="Creation-form">
+          <label className="Creation">
             Blog Title
             <input
               type="text"
+              className="Input"
               name="title"
               value={blogs.title}
               onChange={handleChange}
-              className="BMinput"
             />
           </label>
 
-          <label>
+          <label className="Creation">
             Blog Description
             <input
               type="text"
               name="blogText"
               value={blogs.blogText}
               onChange={handleChange}
-              className="BMinput"
+              className="Textarea"
             />
           </label>
 
-          <label>
+          <label className="Creation">
             Blog Image
             <input
               type="file"
-              className="BMinput"
               name="image"
               onChange={handleChange}
+              className="InputFile"
             />
             {!isImageChanged && blogs.image && (
               <img
@@ -98,17 +101,17 @@ const UpdateBlog = () => {
             {isImageChanged && <p>Image has been changed</p>}
           </label>
 
-          <label>
+          <label className="Creation">
             Video Url *OPtional
             <input
               type="text"
-              className="BMinput"
               name="videoURL"
+              className="Input"
               value={blogs.videoURL}
               onChange={handleChange}
             />
           </label>
-          <button type="submit" className="btn btn-success">
+          <button type="submit" className="AdminButton">
             Update Blog
           </button>
         </form>

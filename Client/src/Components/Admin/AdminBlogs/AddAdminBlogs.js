@@ -83,6 +83,7 @@ const AddAdminBlogs = () => {
             <input
               type="file"
               placeholder="Enter Blog Image"
+              className="InputFile"
               name="Image"
               accept="image/*"
               onChange={handleChange}

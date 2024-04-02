@@ -7,3 +7,15 @@
   font-family: Azonix;
   src: url(Fonts/azonix/Azonix.otf);
 }
+@font-face {
+  font-family: Monterrat;
+  src: url(Fonts/Montserrat/Montserrat-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: avant;
+  src: url(Fonts/itc-avant-garde-gothic-std/ITCAvantGardeStd-XLtCn.otf);
+}
+@font-face {
+  font-family: "helvetica";
+  src: url(Fonts/helvetica-neue-5/HelveticaNeueLight.otf);
+}

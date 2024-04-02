@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import "./../Styles/Creation.css";
 
 const AddBlog = () => {
   const [blogs, setBlogs] = useState({
@@ -40,86 +42,83 @@ const AddBlog = () => {
       );
 
       console.log("Blog created successfully:", response.data);
+      toast.success("Blog created successfully");
     } catch (error) {
       console.error("Error creating blog:", error);
+      toast.error("Blog creation failed");
     }
   };
   return (
-    <div className="app">
-      <div className="BMcontainer">
-        <h1 className="BMtitle">Add a new Blog Post</h1>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Blog Title
-              <input
-                type="text"
-                className="BMinput"
-                placeholder="Enter Blog Title"
-                name="Title"
-                value={blogs.Title}
-                onChange={handleChange}
-              />
-            </label>
+    <div>
+      <h1>Add a new Blog Post</h1>
+      <div>
+        <form onSubmit={handleSubmit} className="Creation-form">
+          <label className="Creation">
+            Blog Title
+            <input
+              type="text"
+              placeholder="Enter Blog Title"
+              required
+              className="Input"
+              name="Title"
+              value={blogs.Title}
+              onChange={handleChange}
+            />
+          </label>
 
-            <label>
-              Blog Description
-              <input
-                type="text"
-                className="BMinput"
-                placeholder="Enter Blog Description"
-                name="BlogText"
-                value={blogs.BlogText}
-                onChange={handleChange}
-              />
-            </label>
+          <label className="Creation">
+            Blog Description
+            <input
+              type="text"
+              placeholder="Enter Blog Description"
+              className="Textarea"
+              name="BlogText"
+              value={blogs.BlogText}
+              onChange={handleChange}
+            />
+          </label>
 
-            <label>
-              Blog Image
-              <input
-                type="file"
-                className="BMinput"
-                placeholder="Enter Blog Image"
-                name="Image"
-                accept="image/*"
-                onChange={handleChange}
-              />
-            </label>
+          <label className="Creation">
+            Blog Image
+            <input
+              type="file"
+              placeholder="Enter Blog Image"
+              className="InputFile"
+              name="Image"
+              accept="image/*"
+              onChange={handleChange}
+            />
+          </label>
 
-            <label>
-              Video Url *optional
-              <input
-                type="text"
-                className="BMinput"
-                placeholder="Enter Video Url"
-                name="VideoURL"
-                value={blogs.VideoURL}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Trainer ID
-              <input
-                type="text"
-                className="BMinput"
-                placeholder="Enter Your ID"
-                name="TrainerId"
-                value={blogs.TrainerId}
-                onChange={handleChange}
-              />
-            </label>
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              className="btn btn-primary"
-            >
-              Add Blog
-            </button>
-            <Link to="/BlogForm" className="btn btn-primary">
-              View Blogs
-            </Link>
-          </form>
-        </div>
+          <label className="Creation">
+            Video Url *optional
+            <input
+              type="text"
+              placeholder="Enter Video Url"
+              className="Input"
+              name="VideoURL"
+              value={blogs.VideoURL}
+              onChange={handleChange}
+            />
+          </label>
+          <label className="Creation">
+            Trainer ID
+            <input
+              type="text"
+              placeholder="Enter Your ID"
+              className="Input"
+              name="TrainerId"
+              value={blogs.TrainerId}
+              onChange={handleChange}
+            />
+          </label>
+          <button type="submit" onClick={handleSubmit} className="AdminButton">
+            Add Blog
+          </button>
+          <Link to="/BlogForm" className="AdminLink">
+            View Blogs
+          </Link>
+        </form>
       </div>
     </div>
   );
