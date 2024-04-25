@@ -12,6 +12,8 @@ import { FiUser, FiUserCheck, FiUserX } from "react-icons/fi";
 import { IoAddCircle } from "react-icons/io5";
 import { LiaDumbbellSolid } from "react-icons/lia";
 import { LiaBloggerB } from "react-icons/lia";
+import { FaStopwatch } from "react-icons/fa";
+import adminicon from "./../../Assets/icons/TrainerIcon1.jpeg";
 import "./SideBar.css";
 
 const SideBar = () => {
@@ -30,9 +32,7 @@ const SideBar = () => {
 
   return (
     <div className="sidebar">
-      <h1 className="DashName">
-        Al-Factory <GiMuscularTorso />
-      </h1>
+      <img src={adminicon} alt="" />
 
       <nav>
         <ul className="Dash-links">
@@ -66,8 +66,8 @@ const SideBar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/wait" className="StyledNavLink">
-                    <FiUserX />
+                  <NavLink to="/WaitingTrainers" className="StyledNavLink">
+                    <FaStopwatch />
                     Trainers
                   </NavLink>
                 </li>

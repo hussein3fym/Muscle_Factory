@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Search.css";
-import { exerciseOptions } from "./../../Utils/fetchData";
-import HorizontalScrollbar from "./../Scrollbar/HorizontalScrollbar";
-const Search = ({ setExercise, bodyPart, setBodyPart }) => {
+import { exerciseOptions, fetchData } from "../../Utils/fetchData";
+import HorizontalScrollbar from "../Scrollbar/HorizontalScrollbar";
+const Search = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState("");
   const [bodyParts, setBodyParts] = useState([]);
 
@@ -13,27 +13,32 @@ const Search = ({ setExercise, bodyPart, setBodyPart }) => {
         "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
         exerciseOptions
       );
+
       setBodyParts(["all", ...bodyPartsData]);
     };
+
     fetchExercisesData();
   }, []);
 
-  const handleSearchSubmit = async (event) => {
-    event.preventDefault(); // Prevents the form from submitting and reloading the page
+  const handleSearch = async () => {
     if (search) {
       const exercisesData = await fetchData(
         "https://exercisedb.p.rapidapi.com/exercises",
         exerciseOptions
       );
+
       const searchedExercises = exercisesData.filter(
-        (exercise) =>
-          exercise.name.toLowerCase().includes(search) ||
-          exercise.target.toLowerCase().includes(search) ||
-          exercise.equipment.toLowerCase().includes(search) ||
-          exercise.bodyPart.toLowerCase().includes(search)
+        (item) =>
+          item.name.toLowerCase().includes(search) ||
+          item.target.toLowerCase().includes(search) ||
+          item.equipment.toLowerCase().includes(search) ||
+          item.bodyPart.toLowerCase().includes(search)
       );
+
+      window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
+
       setSearch("");
-      setExercise(searchedExercises);
+      setExercises(searchedExercises);
     }
   };
 
@@ -48,22 +53,25 @@ const Search = ({ setExercise, bodyPart, setBodyPart }) => {
 
   return (
     <div className="Search">
-      <form onSubmit={handleSearchSubmit}>
+      <h2>Search for exercises</h2>
+      <div className="SearchContainer">
         <input
           type="text"
           placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
-        <button type="submit">Search</button>
-      </form>
-      <div>
+        <button type="submit" onClick={handleSearch}>
+          Search
+        </button>
+      </div>
+      {/* <div>
         {bodyParts.map((bodyPart, index) => (
-          <button key={index} onClick={() => setSearch(bodyPart.toLowerCase())}>
+          <button key={index} onClick={handleSearch}>
             {bodyPart}
           </button>
         ))}
-      </div>
+      </div> */}
       <div>
         <HorizontalScrollbar
           data={bodyParts}

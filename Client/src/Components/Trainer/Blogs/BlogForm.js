@@ -49,7 +49,6 @@ const BlogForm = () => {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Title</th>
               <th>Image</th>
               <th>Video Url</th>
@@ -59,7 +58,6 @@ const BlogForm = () => {
           <tbody>
             {blogs.map((blog, i) => (
               <tr key={i}>
-                <td>{blog.id}</td>
                 <td>{blog.title}</td>
                 <td>
                   <div>

@@ -1,4 +1,4 @@
-﻿namespace MuscleFactory.Dtos
+﻿namespace Backend_APIs.DTOs
 {
     public class GetExercisesByTrainerDto
     {

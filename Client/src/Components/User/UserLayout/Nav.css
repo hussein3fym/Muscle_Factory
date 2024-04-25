@@ -40,7 +40,7 @@
   display: none;
 }
 .NavIcon {
-  width: 11rem;
+  width: 12rem;
 }
 .nav-link:hover,
 .nav-link:active,
@@ -48,4 +48,7 @@
 .nav-link.active:visited {
   color: brown !important;
   transform: scale(1.3) !important;
+}
+.footer-section {
+  margin-top: 50px;
 }

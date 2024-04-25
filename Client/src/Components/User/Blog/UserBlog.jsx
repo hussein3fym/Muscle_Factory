@@ -23,7 +23,7 @@ const UserBlog = () => {
       <div className="V-content">
         <div className="V-details">
           <h1>{userBlogs.title || "Loading..."}</h1>
-          <p>{userBlogs.blogText || "Loading..."}</p>
+          <p dangerouslySetInnerHTML={{ __html: userBlogs.blogText }}></p>
           <ReactPlayer url={userBlogs.videoURL} />
         </div>
         <div className="V-image">

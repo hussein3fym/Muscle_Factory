@@ -35,7 +35,7 @@ const ViewAdminBlogs = () => {
         <div className="blogContent">
           <div>
             <h2 className="HeadLines">Description:</h2>
-            <p className="Description">{adminBlogs.blogText || "Loading..."}</p>
+            <p dangerouslySetInnerHTML={{ __html: adminBlogs.blogText }}></p>
             <h2 className="HeadLines">Video URL:</h2>
             <ReactPlayer url={adminBlogs.videoURL} />
           </div>

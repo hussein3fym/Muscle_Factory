@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MuscleFactory.Dtos;
-using MuscleFactory.Models;
+using Backend_APIs.Models;
+using Backend_APIs.DTOs;
 
 namespace Backend_APIs.Controllers
 {

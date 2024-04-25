@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MuscleFactory.Dtos;
-using MuscleFactory.Models;
+using Backend_APIs.Models;
+using Backend_APIs.DTOs;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 namespace Backend_APIs.Controllers
 {
@@ -144,18 +145,19 @@ namespace Backend_APIs.Controllers
             }
             using var videoStream = new MemoryStream();
             await dto.Video.CopyToAsync(videoStream);
+            var InstructionsTextLineBreaks = @$"{dto.Instructions}".Replace("\n", "<br />\n");
             var exercise = new Exercise
             {
                 ExerciseName = dto.ExerciseName,
                 Equipment = dto.Equipment,
                 TargetMuscle = dto.TargetMuscle,
                 SecondaryMuscle = dto.SecondaryMuscle,
-                Instructions = dto.Instructions,
+                Instructions = InstructionsTextLineBreaks,
                 Level = dto.Level,
                 Image = imageStream.ToArray(),
                 Video = videoStream.ToArray(),
                 UserId = dto.UserId,
-               
+                YouTubeVideo = dto.YouTubeVideo,
             };
             await _context.AddAsync(exercise);
             _context.SaveChanges();
@@ -188,7 +190,8 @@ namespace Backend_APIs.Controllers
                 Image = imageStream.ToArray(),
                 Video = videoStream.ToArray(),
                 TrainerId = dto.TrainerId,
-               
+                YouTubeVideo = dto.YouTubeVideo,
+
             };
             await _context.AddAsync(exercise);
             _context.SaveChanges();
@@ -249,6 +252,10 @@ namespace Backend_APIs.Controllers
             if (dto.Level != null)
             {
                 exercise.Level = dto.Level;
+            }
+            if (dto.YouTubeVideo != null)
+            {
+                exercise.YouTubeVideo = dto.YouTubeVideo;
             }
             _context.SaveChanges();
             return Ok(exercise);

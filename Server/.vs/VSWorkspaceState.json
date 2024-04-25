@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\Backend APIs",
-    "\\Backend APIs\\Controllers",
-    "\\Backend APIs\\DTOs",
-    "\\Backend APIs\\Properties"
+    "\\Backend APIs\\Controllers"
   ],
-  "SelectedNode": "\\Backend APIs\\Controllers\\ExercisesController.cs",
+  "SelectedNode": "\\Backend APIs\\Controllers\\BlogsController.cs",
   "PreviewInSolutionExplorer": false
 }

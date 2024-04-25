@@ -1,17 +1,15 @@
-import axios from "axios";
-
 export const exerciseOptions = {
+  method: "GET",
+  params: { limit: "10" },
   headers: {
+    "X-RapidAPI-Key": "e501584b90msh5e53ffaeebbf2f8p1de198jsne75024b02c3b",
     "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    "X-RapidAPI-Key": "271a2a722dmsh3bc342da4e8daf0p140176jsn8ced400ce251",
   },
 };
 
-export const fetchData = async (url) => {
-  try {
-    const response = await axios.get(url, exerciseOptions);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
+export const fetchData = async (url, options) => {
+  const res = await fetch(url, options);
+  const data = await res.json();
+
+  return data;
 };

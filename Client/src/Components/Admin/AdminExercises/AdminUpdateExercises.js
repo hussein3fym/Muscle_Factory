@@ -12,6 +12,7 @@ const AdminUpdateExercises = () => {
     targetMuscle: "",
     secondaryMuscle: "",
     instructions: "",
+    YouTubeVideo: "",
     video: null,
     image: null,
     level: "",
@@ -42,7 +43,7 @@ const AdminUpdateExercises = () => {
       formData.append("level", adminExerciseData.level);
       formData.append("video", adminExerciseData.video);
       formData.append("image", adminExerciseData.image);
-
+      formData.append("YouTubeVideo", adminExerciseData.YouTubeVideo);
       const response = await axios.put(
         `https://localhost:7095/api/Exercises/${id}`,
         formData /*adminExerciseData,*/,
@@ -138,6 +139,22 @@ const AdminUpdateExercises = () => {
               }
             />
           </label>
+          <label className="Creation">
+            YouTube Video Link (Optional):
+            <input
+              type="text"
+              className="Input"
+              name="YouTubeVideo"
+              value={adminExerciseData.YouTubeVideo}
+              onChange={(e) =>
+                setAdminExerciseData({
+                  ...adminExerciseData,
+                  YouTubeVideo: e.target.value,
+                })
+              }
+            />
+          </label>
+
           <label className="Creation">
             Upload Video:
             <input

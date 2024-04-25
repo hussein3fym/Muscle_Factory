@@ -1,4 +1,4 @@
-﻿namespace MuscleFactory.Dtos
+﻿namespace Backend_APIs.DTOs
 {
     public class CreateExerciseDto
     {
@@ -9,6 +9,7 @@
         public string SecondaryMuscle { get; set; }
         public string Instructions { get; set; }
         public string Level { get; set; }
+        public string? YouTubeVideo { get; set; }
         public IFormFile? Image { get; set; }
         public IFormFile? Video { get; set; }
         public int? TrainerId { get; set; }

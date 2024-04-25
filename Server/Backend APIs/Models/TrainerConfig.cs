@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MuscleFactory.Models
+namespace Backend_APIs.Models
 {
     public class TrainerConfig : IEntityTypeConfiguration<Trainer>
     {

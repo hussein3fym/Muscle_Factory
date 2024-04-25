@@ -20,6 +20,8 @@ import Blog from "./Components/User/Blog/Blog";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import UserBlog from "./Components/User/Blog/UserBlog";
 import ViewWorkout from "./Components/User/Workout/ViewWorkout";
+import UserProfile from "./Components/Profiles/UserProfile";
+import Exercises from "./pages/ExercisesAPI/Exercises";
 /* Admin View */
 
 import UserForm from "./Components/Admin/AdminRegistration/UserForm";
@@ -37,6 +39,8 @@ import AdminUpdateExercises from "./Components/Admin/AdminExercises/AdminUpdateE
 import AllExercises from "./Components/Admin/Dashboard/Exercises/AllExercises";
 import AllBlogs from "./Components/Admin/Dashboard/Blogs/AllBlogs";
 import Dashboard from "./Scenes/Dashboard/Dashboard";
+import WaitingTrainers from "./Components/Admin/AdminRegistration/WaitingTrainers";
+import AdminProfile from "./Components/Profiles/AdminProfile";
 /* Trainer View */
 import TrainerPanel from "./Components/Trainer/TrainerLayout/TrainerPanel";
 import TrainerRegistration from "./Components/Trainer/TrainerLogin/TrainerRegistration";
@@ -50,6 +54,7 @@ import AddExercises from "./Components/Trainer/Exercises/AddExercises";
 import ExercisesForm from "./Components/Trainer/Exercises/ExercisesForm";
 import ViewExercises from "./Components/Trainer/Exercises/ViewExercises";
 import UpdateExercises from "./Components/Trainer/Exercises/UpdateExercises";
+import TrainerProfile from "./Components/Profiles/TrainerProfile";
 
 /* Main App */
 import PageNotFound from "./pages/PageNotFound";
@@ -68,6 +73,7 @@ function App() {
           {/* User View */}
           <Route element={<UserLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/UserProfile" element={<UserProfile />} />
             <Route path="/Workout" element={<Workout />} />
             <Route
               path="/CaloriesCalculator"
@@ -82,11 +88,13 @@ function App() {
             <Route path="/UserBlog/:id" element={<UserBlog />} />
             <Route path="/Nutrition" element={<Nutrition />} />
             <Route path="/ViewWorkout/:id" element={<ViewWorkout />} />
+            <Route path="/Exercises" element={<Exercises />} />
           </Route>
 
           {/* Trainer view */}
           <Route element={<TrainerLayout />}>
             <Route path="/TrainerPanel" element={<TrainerPanel />} />
+            <Route path="/TrainerProfile" element={<TrainerProfile />} />
             {/* Trainer Blogs */}
             <Route path="/AddBlog" element={<AddBlog />} />
             <Route path="/BlogForm" element={<BlogForm />} />
@@ -104,6 +112,7 @@ function App() {
             {/* Auth */}
             <Route path="/UserForm" element={<UserForm />} />
             <Route path="/TrainerForm" element={<TrainerForm />} />
+            <Route path="/WaitingTrainers" element={<WaitingTrainers />} />
             <Route path="/ViewUser/:id" element={<ViewUser />} />
             <Route path="/ViewTrainer/:id" element={<ViewTrainer />} />
             {/* Admin Blogs */}
@@ -132,6 +141,7 @@ function App() {
             <Route path="/AllExercises" element={<AllExercises />} />
             {/* Dashboard */}
             <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/AdminProfile" element={<AdminProfile />} />
             {/* Trainer View inside Admin Dashboard */}
             {/* Trainer Blogs */}
             <Route path="/AddBlog" element={<AddBlog />} />

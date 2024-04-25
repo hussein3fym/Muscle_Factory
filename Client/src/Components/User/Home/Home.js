@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import "./Home.css";
-import Search from "./../../../pages/Search/Search";
 import { Link } from "react-router-dom";
 import experienceImage from "./../../../Assets/about.jpg";
 import trainers from "./../../../Assets/icons/coach.png";
 import certificate from "./../../../Assets/icons/guarantee-certificate.png";
+import nutrition from "./../../../Assets/images/nutrition.jpg";
+import trans1 from "./../../../Assets/images/pexels-cottonbro-studio-4761785.jpg";
+import trans2 from "./../../../Assets/images/gym.png";
+import trans3 from "./../../../Assets/images/anastase-maragos-9dzWZQWZMdE-unsplash.jpg";
 
 const Home = () => {
-  const [exercise, setExercise] = useState([]);
-  const [bodyPart, setBodyPart] = useState("all");
   return (
     <div>
       <div className="home-container">
@@ -26,17 +27,17 @@ const Home = () => {
             <div className="count-home">
               <div>
                 <h2> +1500 </h2>
-                <span className="count">Exercise</span>
+                <h4 className="count">Exercise</h4>
               </div>
               <h3>|</h3>
               <div>
                 <h2> +50 </h2>
-                <span className="count">Trainer</span>
+                <h4 className="count">Trainer</h4>
               </div>
               <h3>|</h3>
               <div>
                 <h2> +500 </h2>
-                <span className="count">Achieved Goal</span>
+                <h4 className="count">Achieved Goal</h4>
               </div>
             </div>{" "}
           </div>
@@ -70,6 +71,7 @@ const Home = () => {
             <Link className="card-link">Find Plan</Link>
           </div>
         </div>
+
         <div className="Experience">
           <div class="experience-container">
             <img src={experienceImage} alt="" />
@@ -106,11 +108,79 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <Search
-          setExercise={setExercise}
-          bodyPart={bodyPart}
-          setBodyPart={setBodyPart}
-        />
+        <div className="nutrition">
+          <div className="nutrition-container">
+            <div className="text-container">
+              <h1>Nutrition Plan Using AI</h1>
+              <p>
+                Unlock the power of AI to tailor your nutrition plan, seamlessly
+                integrating cutting-edge technology with your wellness goals,
+                optimizing your health journey with personalized guidance,
+                fueling your body for peak performance and vitality.
+              </p>
+              <p>1- Calories Calculator</p>
+              <p>2- BMI Calculator</p>
+              <p>3- Healthy Food Recipes</p>
+            </div>
+            <div className="image-container">
+              <img src={nutrition} alt="" />
+            </div>
+          </div>
+        </div>
+        <div className="Transformation">
+          <h1>Our Transformation</h1>
+          <h3>Don't deprive yourself of knowing how strong you are</h3>
+          <div className="transformation-container">
+            <div className="transformation-card">
+              <img src={trans1} alt="" />
+              <p>
+                "Eat This Much not only helps me hit my macros, but also makes
+                sure I'm not eating the same bland thing every day. I've lost 35
+                lbs over the past year, and with ETM, I'm eating and performing
+                better than ever." * Sam Konowich @samkonthemankon (Sam is now
+                our first ETM sponsored athlete!)
+              </p>
+            </div>
+            <div className="transformation-card">
+              <p>
+                "I found out about Eat This Much in July 2017 and lost 32 lbs in
+                6 months! Now I'm a fit over 50 female in amazing condition, and
+                this site is what I refer to several times a day to ensure I eat
+                properly and manage my macros." * Meg M., awesome ETM user
+              </p>
+              <img src={trans2} alt="" />
+            </div>
+            <div className="transformation-card">
+              <img src={trans3} alt="" />
+              <p>
+                "I started tracking my weight in April of 2013 when I was
+                184lbs. In May I signed up for Eat This Much and immediately
+                appreciated being able to just cook the menu and not worry about
+                what to have for dinner. By November I was down to 155lbs and I
+                still use Eat This Much today!" * Ben Kutil, Product designer
+              </p>
+            </div>
+          </div>
+          <Link className="joinUs">It is your time </Link>
+        </div>
+        <div className="get-feedback">
+          <h3>Get Feedback</h3>
+          <div>
+            <label htmlFor="name">
+              <input type="text" id="name" placeholder="Enter your name" />
+            </label>
+            <label htmlFor="email">
+              <input type="email" id="email" placeholder="Enter your email" />
+            </label>
+          </div>{" "}
+          <label htmlFor="feedback">
+            <textarea
+              id="feedback"
+              placeholder="Enter your feedback"
+            ></textarea>
+          </label>
+          <button type="submit">Submit</button>
+        </div>
       </div>
     </div>
   );

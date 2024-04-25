@@ -14,6 +14,7 @@ namespace Backend_APIs.Models
         public string Level { get; set; }
         public byte[]? Image { get; set; }
         public byte[]? Video { get; set; }
+        public string? YouTubeVideo { get; set; }
         public int? TrainerId { get; set; }
         public virtual Trainer? Trainer { get; set;}
         public int? UserId { get; set; }

@@ -11,6 +11,7 @@ const AdminAddExercises = () => {
     targetMuscle: "",
     secondaryMuscle: "",
     instructions: "",
+    YouTubeVideo: "",
     video: null,
     image: null,
     level: "",
@@ -38,9 +39,10 @@ const AdminAddExercises = () => {
       formData.append("level", adminExerciseData.level);
       formData.append("video", adminExerciseData.video);
       formData.append("image", adminExerciseData.image);
+      formData.append("YouTubeVideo", adminExerciseData.YouTubeVideo);
 
       const response = await axios.post(
-        "https://localhost:7095/api/Exercises/CreateByAdmin",
+        "https://localhost:7095/api/Exercises/CreateByTrainer",
         formData,
         {
           headers: {
@@ -107,6 +109,16 @@ const AdminAddExercises = () => {
             <textarea
               name="instructions"
               className="Textarea"
+              onChange={handleChange}
+            />
+          </label>
+          <label className="Creation">
+            YouTube Video Link (Optional):
+            <input
+              type="text"
+              className="Input"
+              name="YouTubeVideo"
+              placeholder="https://www.youtube.com/watch?v=..."
               onChange={handleChange}
             />
           </label>

@@ -31,10 +31,11 @@
 }
 
 .about-text {
-  color: white; /* Text color */
+  color: white;
   font-size: 18px;
   margin-left: 5rem;
-  line-height: 1.5;
+  line-height: 1.4;
+  text-wrap: balance;
 }
 
 .about2-image {
@@ -46,15 +47,11 @@
   z-index: 2;
   border-radius: 10px;
 }
-.custom-word {
-  color: #f3ebeb;
-  font-weight: bold;
-  font-size: 3rem;
-}
 
 .about-text::first-letter {
-  color: #fefffe;
-  font-size: 150%;
+  color: brown;
+  font-size: 3.5rem;
+  font-weight: bold;
 }
 .b-joinUs {
   border: 2px solid #bd2020;

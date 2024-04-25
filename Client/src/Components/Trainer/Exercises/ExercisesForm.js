@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { CiSquarePlus } from "react-icons/ci";
 import toast from "react-hot-toast";
 import "./../Styles/Creation.css";
+import { MdDelete } from "react-icons/md";
+import { FaEye, FaEdit } from "react-icons/fa";
 
 const ExercisesForm = () => {
   const [exercises, setExercise] = useState([]);
@@ -31,7 +33,7 @@ const ExercisesForm = () => {
   };
   return (
     <div>
-      <h1 className="t-TrainerForm">Welcome Trainer </h1>
+      <h1 className="t-TrainerForm">All your exercises in one place</h1>
       <div className="f-Creation">
         <Link to="/AddExercises" className="b-Creation">
           <CiSquarePlus className="icon" />
@@ -43,7 +45,6 @@ const ExercisesForm = () => {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
               <th> Exercise Name</th>
               <th> The Equipment</th>
               <th> Target Muscle</th>
@@ -55,7 +56,6 @@ const ExercisesForm = () => {
           <tbody>
             {exercises.map((exercise, i) => (
               <tr key={i}>
-                <td>{exercise.id}</td>
                 <td>{exercise.exerciseName}</td>
                 <td>{exercise.equipment}</td>
                 <td>{exercise.targetMuscle}</td>
@@ -66,23 +66,23 @@ const ExercisesForm = () => {
                   <div className="buttons-container">
                     <Link
                       to={`/ViewExercises/${exercise.id}`}
-                      className="btn btn-sm btn-primary me-2"
+                      className="viewContent"
                       onClick={() => handleView(exercise.id)}
                     >
-                      View
+                      <FaEye />
                     </Link>
                     <Link
                       to={`/UpdateExercises/${exercise.id}`}
-                      className="btn btn-sm btn-success me-2"
+                      className="updateContent"
                       onClick={() => handleView(exercise.id)}
                     >
-                      Update
+                      <FaEdit />
                     </Link>
                     <button
-                      className="btn btn-sm btn-danger me-2"
+                      className="deleteContent"
                       onClick={() => handleDelete(exercise.id)}
                     >
-                      Delete
+                      <MdDelete />
                     </button>
                   </div>
                 </td>

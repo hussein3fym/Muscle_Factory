@@ -7,7 +7,7 @@ const TrainerForm = () => {
 
   useEffect(() => {
     axios
-      .get("  https://localhost:7095/api/Trainers")
+      .get("  https://localhost:7095/api/Trainers/AcceptedTrainers")
       .then((res) => setTrainer(res.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
@@ -27,24 +27,7 @@ const TrainerForm = () => {
   const handleView = (trainerId) => {
     console.log(`View User Details with ID:${trainerId}`);
   };
-  const handleAccept = (trainerId) => {
-    axios
-      .put(" https://localhost:7095/api/Trainers/" + trainerId)
-      .then((resp) => {
-        setTrainer(trainers.filter((trainer) => trainer.id !== trainerId));
-      })
-      .catch((err) => {});
-    console.log(`Accepted trainer with ID: ${trainerId}`);
-  };
 
-  const handleReject = (trainerId) => {
-    axios
-      .delete(" https://localhost:7095/api/Trainers/" + trainerId)
-      .then((res) => {
-        setTrainer(trainers.filter((trainer) => trainer.id !== trainerId));
-      });
-    console.log(`Rejected trainer with ID: ${trainerId}`);
-  };
   return (
     <div>
       <h1 className="Users">Muscle Factory Squad</h1>
@@ -86,18 +69,6 @@ const TrainerForm = () => {
                     onClick={() => handleDelete(trainer.id)}
                   >
                     Delete
-                  </button>
-                  <button
-                    className="btn btn-sm btn-success me-2"
-                    onClick={() => handleAccept(trainer.id)}
-                  >
-                    Accept
-                  </button>
-                  <button
-                    className="btn btn-sm btn-danger me-2"
-                    onClick={() => handleReject(trainer.id)}
-                  >
-                    Reject
                   </button>
                 </td>
               </tr>

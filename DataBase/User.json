@@ -1,0 +1,8 @@
+{
+  "user": {
+    "username": "hussein",
+    "email": "example@example.com",
+    "password": "hashed_password",
+    "profileImage": {}
+  }
+}

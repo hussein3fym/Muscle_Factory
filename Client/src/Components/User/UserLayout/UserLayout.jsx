@@ -39,6 +39,11 @@ const UserLayout = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
+                  <NavLink to="/Exercises" className="nav-link">
+                    Exercises
+                  </NavLink>
+                </li>
+                <li className="nav-item">
                   <NavLink to="/Nutrition" className="nav-link">
                     Nutrition
                   </NavLink>
@@ -71,7 +76,8 @@ const UserLayout = () => {
       <div className="userLayout">
         <Outlet />
       </div>
-      {/* <Footer /> */}
+
+      <Footer />
     </>
   );
 };

@@ -211,7 +211,7 @@
       },
       {
         "Name": "dto",
-        "Type": "MuscleFactory.Dtos.CreateCommentDto",
+        "Type": "Backend_APIs.DTOs.CreateCommentDto",
         "IsRequired": true
       }
     ],
@@ -227,7 +227,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "MuscleFactory.Dtos.CreateCommentDto",
+        "Type": "Backend_APIs.DTOs.CreateCommentDto",
         "IsRequired": true
       }
     ],
@@ -243,7 +243,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "MuscleFactory.Dtos.CreateCommentDto",
+        "Type": "Backend_APIs.DTOs.CreateCommentDto",
         "IsRequired": true
       }
     ],
@@ -351,6 +351,11 @@
         "IsRequired": false
       },
       {
+        "Name": "YouTubeVideo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "Image",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
@@ -412,6 +417,11 @@
         "IsRequired": false
       },
       {
+        "Name": "YouTubeVideo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "Image",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
@@ -469,6 +479,11 @@
       },
       {
         "Name": "Level",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "YouTubeVideo",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -651,6 +666,16 @@
     "ContainingType": "Backend_APIs.Controllers.TrainersController",
     "Method": "GetAcceptedTrainersAsync",
     "RelativePath": "api/Trainers/AcceptedTrainers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_APIs.Controllers.TrainersController",
+    "Method": "GetRejectedTrainersAsync",
+    "RelativePath": "api/Trainers/RejectedTrainers",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

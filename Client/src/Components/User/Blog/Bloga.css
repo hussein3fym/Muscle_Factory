@@ -9,43 +9,6 @@
   align-items: center;
   padding: 50px;
 }
-/*
-.V-content {
-  display: flex;
-  max-width: 1000px;
-}
-
-.V-details {
-  flex: 1;
-  padding: 10px;
-}
-
-.V-details h1 {
-  font-size: 4rem;
-  color: white;
-  margin-bottom: 20px;
-}
-
-.V-details p {
-  font-size: 1.2rem;
-  line-height: 1.5;
-}
-
-.V-details h2 {
-  font-size: 1.5rem;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.V-image {
-  overflow: hidden;
-}
-
-.V-image img {
-  max-width: 100%;
-  height: auto;
-}
-*/
 
 .V-content {
   display: flex;

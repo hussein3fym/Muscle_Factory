@@ -11,6 +11,7 @@ const UpdateExercises = () => {
     targetMuscle: "",
     secondaryMuscle: "",
     instructions: "",
+    YouTubeVideo: "",
     video: null,
     image: null,
     level: "",
@@ -41,6 +42,7 @@ const UpdateExercises = () => {
       formData.append("secondaryMuscle", exerciseData.secondaryMuscle);
       formData.append("instructions", exerciseData.instructions);
       formData.append("level", exerciseData.level);
+      formData.append("YouTubeVideo", exerciseData.YouTubeVideo);
       formData.append("video", exerciseData.video);
       formData.append("image", exerciseData.image);
       const response = await axios.put(
@@ -132,6 +134,22 @@ const UpdateExercises = () => {
                 setExerciseData({
                   ...exerciseData,
                   instructions: e.target.value,
+                })
+              }
+            />
+          </label>
+          <label className="Creation">
+            {" "}
+            YouTube Video Link (Optional):
+            <input
+              type="text"
+              className="Input"
+              name="videoLink"
+              value={exerciseData.YouTubeVideo}
+              onChange={(e) =>
+                setExerciseData({
+                  ...exerciseData,
+                  YouTubeVideo: e.target.value,
                 })
               }
             />

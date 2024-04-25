@@ -11,6 +11,7 @@ const TrainerLogin = () => {
     experience: "",
     specialization: "",
     gender: "",
+    cvFile: null,
   });
 
   const handleChange = (e) => {
@@ -100,7 +101,7 @@ const TrainerLogin = () => {
         </label>
         <br />
         <label className="login-label">
-          Gender:
+          Gender :
           <select
             name="gender"
             value={formData.gender}
@@ -115,14 +116,24 @@ const TrainerLogin = () => {
             <option value="female">Female</option>
           </select>
         </label>
-        <br />
+        <label className="cv-label">
+          Upload Your CV
+          <input
+            required
+            type="file"
+            className="cv-input"
+            accept="application/pdf"
+            value={formData.cvFile}
+            onChange={handleChange}
+          />
+        </label>
 
         <button type="submit" className="login-button">
           Submit
         </button>
-        <Link to="/TrainerLogin" className="btn btn-light">
-          Login
-        </Link>
+        <div className="linklogin">
+          <Link to="/TrainerLogin">I Already have an account</Link>
+        </div>
       </form>
     </div>
   );

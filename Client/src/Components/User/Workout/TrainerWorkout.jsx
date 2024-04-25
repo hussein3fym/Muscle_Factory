@@ -17,7 +17,7 @@ const TrainerWorkout = () => {
   };
   return (
     <div>
-      <div className="exe-filter">
+      {/* <div className="exe-filter">
         <select>
           <option value="All">Muscle</option>
           <option value="Chest">Chest</option>
@@ -49,7 +49,7 @@ const TrainerWorkout = () => {
           <option value="Flexibility">Flexibility</option>
           <option value="Balance">Balance</option>
         </select>
-      </div>
+      </div> */}
       <div className="workout-list">
         {trainerWorkout.map((exercise, i) => (
           <div key={i} className="workout-item">

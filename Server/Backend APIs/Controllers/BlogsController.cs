@@ -10,7 +10,7 @@ namespace Backend_APIs.Controllers
     public class BlogsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private new List<String> _allowedExtetions = new List<string> { ".jpg", ".png", ".jpeg" };
+        private new List<String> _allowedExtetions = new List<string> { ".jpg", ".png", ".jpeg", "webp" };
         private long _maxAllowedSize = 5242880; //5MB
 
         public BlogsController(ApplicationDbContext context)
@@ -82,16 +82,17 @@ namespace Backend_APIs.Controllers
 
             return Ok(blogs);
         }
-    
 
-    [HttpPost("CreateBlog")]
+
+        [HttpPost("CreateBlog")]
         public async Task<IActionResult> CreateBlog([FromForm] BlogDto dto)
         {
             if (dto.Image == null)
             {
                 return BadRequest(" Image Is Required!");
             }
-            if (!_allowedExtetions.Contains(Path.GetExtension(dto.Image.FileName).ToLower())) {
+            if (!_allowedExtetions.Contains(Path.GetExtension(dto.Image.FileName).ToLower()))
+            {
                 return BadRequest(error: "Only .jpg , .png ,.jpeg Are Allowed !");
             }
             if (dto.Image.Length > _maxAllowedSize)
@@ -100,12 +101,13 @@ namespace Backend_APIs.Controllers
             }
             using var dataStream = new MemoryStream();
             await dto.Image.CopyToAsync(dataStream);
+            var blogTextWithLineBreaks = dto.BlogText.Replace("\n", "<br>");
             var blog = new Blog
             {
                 AdminId = dto.AdminId,
                 TrainerId = dto.TrainerId,
                 Title = dto.Title,
-                BlogText = dto.BlogText,
+                BlogText = blogTextWithLineBreaks,
                 VideoURL = dto.VideoURL,
                 Image = dataStream.ToArray(),
 

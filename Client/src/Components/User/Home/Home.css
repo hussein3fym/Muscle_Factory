@@ -3,8 +3,13 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  padding: 50px;
+  padding: 5vw;
   min-height: 120vh;
+}
+@media (min-width: 768px) {
+  .home-container {
+    padding: 50px; /* Default padding for larger screens */
+  }
 }
 
 .home-overlay {
@@ -13,7 +18,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(24, 24, 24, 0.74); /* Adjust opacity as needed */
+  background: linear-gradient(to right, rgb(0, 0, 0), rgba(58, 57, 57, 0.051));
 }
 
 .home-content {
@@ -42,6 +47,8 @@
   display: flex;
   gap: 3rem;
   margin-top: 10rem;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  justify-content: center; /* Center items horizontally */
 }
 .count-home h3 {
   font-size: 7rem;
@@ -56,6 +63,7 @@
   font-size: 4rem;
   font-weight: 600;
   font-family: Monterrat;
+  color: #bd2020;
 }
 .link {
   border: 2px solid #bd2020;
@@ -76,6 +84,7 @@
 }
 .help {
   background-color: #212123;
+  padding: 3rem;
   width: 100%;
   min-height: 100vh;
 }
@@ -140,8 +149,32 @@
     margin-bottom: 2rem; /* Add some space between cards */
   }
 }
+.Searchbar {
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+}
+
+.background-image {
+  width: 100%; /* Ensure the image takes the full width of its container */
+  height: auto; /* Maintain the aspect ratio */
+  box-shadow: 10px 10px 10px 4px rgba(0, 0, 0, 0.544),
+    -10px 10px 10px 4px rgba(0, 0, 0, 0.544);
+}
+
+.search-container {
+  position: absolute;
+  top: 50%; /* Position the search container vertically at the center */
+  left: 50%; /* Position the search container horizontally at the center */
+  transform: translate(-50%, -50%); /* Center the search container precisely */
+  z-index: 1; /* Ensure the search container appears above the image */
+}
+
 .experience-container {
   display: flex;
+  margin-bottom: 6rem;
 }
 
 .experience-container img {
@@ -191,4 +224,185 @@
 .trainer-certificate h2 {
   font-size: 3rem;
   color: aliceblue;
+}
+@media (max-width: 768px) {
+  .trainer-certificate {
+    display: grid; /* Switch to grid layout on smaller screens */
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(200px, 1fr)
+    ); /* Use auto-fit to fill available space */
+    gap: 20px; /* Add gap between grid items */
+    margin: 0; /* Remove margin on smaller screens */
+  }
+
+  .trainer-certificate > div {
+    margin: 0; /* Remove margin on smaller screens */
+  }
+
+  .trainer-certificate img {
+    max-width: none; /* Remove maximum width on smaller screens */
+  }
+
+  .trainer-certificate h2 {
+    font-size: 1.8rem; /* Adjust font size for smaller screens */
+  }
+
+  .trainer-certificate p {
+    font-size: 1.4rem; /* Adjust font size for smaller screens */
+  }
+}
+
+/*nutrition*/
+.nutrition {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.nutrition-container {
+  display: flex;
+  max-width: 1500px; /* Adjust as needed */
+}
+
+.text-container {
+  flex: 1;
+  padding-right: 10px; /* Adjust spacing between text and image */
+}
+
+.image-container {
+  flex: 1;
+}
+
+.image-container img {
+  width: 80%; /* Ensure the image takes up the full width of its container */
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px 4px rgba(0, 0, 0, 0.544);
+}
+@media (max-width: 768px) {
+  .nutrition-container {
+    flex-direction: column; /* Display elements in a column */
+  }
+
+  .image-container img {
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 2rem; /* Add margin at the bottom */
+  }
+}
+.Transformation {
+  justify-content: center;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.Transformation h1 {
+  font-size: 5.5rem;
+  color: aliceblue;
+  margin: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 10rem;
+}
+.Transformation h3 {
+  font-size: 2rem;
+  color: aliceblue;
+}
+.transformation-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding: 3rem;
+}
+.transformation-card img {
+  width: 400px;
+  border-radius: 5px;
+}
+.transformation-card p {
+  font-size: 2rem;
+  color: aliceblue;
+  max-width: 800px;
+}
+.joinUs {
+  color: aliceblue;
+  font-size: 3rem;
+  font-family: Bebas Neue;
+  border: 1px solid #bd2020;
+  border-radius: 5px;
+  padding: 1.5rem 4rem;
+  margin: 2rem;
+}
+@media (max-width: 768px) {
+  .transformation-card {
+    flex-direction: column; /* Display elements in a column */
+  }
+
+  .transformation-card img {
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 2rem; /* Add margin at the bottom */
+  }
+}
+
+.get-feedback {
+  display: grid;
+  justify-content: left;
+  margin: 5rem;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.get-feedback h3 {
+  color: aliceblue;
+  font-size: 2.7rem;
+}
+
+.get-feedback label {
+  margin-left: 1rem;
+}
+
+.get-feedback input {
+  padding: 1rem 2.3rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.get-feedback button {
+  padding: 1rem;
+  margin-left: 2rem;
+  width: fit-content;
+  border-radius: 0.5rem;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  color: aliceblue;
+  font-size: 1.5rem;
+}
+
+.get-feedback button:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.get-feedback textarea {
+  padding: 3rem 16rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+  .get-feedback {
+    margin: 2rem; /* Reduce margin for smaller screens */
+  }
+
+  .get-feedback button {
+    margin-left: 1rem; /* Adjust button margin */
+  }
+
+  .get-feedback textarea {
+    padding: 2rem 1rem; /* Adjust padding for textarea */
+  }
 }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MuscleFactory.Models;
-using MuscleFactory.Dtos;
+using Backend_APIs.Models;
+using Backend_APIs.DTOs;
 
 
 namespace Backend_APIs.Controllers
@@ -38,6 +38,25 @@ namespace Backend_APIs.Controllers
         {
             var trainers = await _context.Trainers
                 .Where(e => e.Status == "accepted")
+                .Select(e => new {
+                    e.Id,
+                    e.Status,
+                    e.Name,
+                    e.Email,
+                    e.Age,
+                    e.Experience,
+                    e.Gender,
+                    e.Specialization,
+                })
+                .ToListAsync();
+
+            return Ok(trainers);
+        }
+        [HttpGet("RejectedTrainers")]
+        public async Task<IActionResult> GetRejectedTrainersAsync()
+        {
+            var trainers = await _context.Trainers
+                .Where(e => e.Status == "rejected")
                 .Select(e => new {
                     e.Id,
                     e.Status,

@@ -1,0 +1,143 @@
+.Exercises {
+  background-color: rgb(49, 47, 47);
+  display: block;
+  width: 100%;
+}
+
+.exercises-welcome {
+  position: relative;
+  width: 100%;
+  height: 50rem; /* Set the height you want for your image and overlay */
+}
+
+.exercises-welcome img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.448);
+  z-index: 1;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+}
+
+.text-overlay h1 {
+  font-size: 6.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.text-overlay h5 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.exercise-overview {
+  background-color: rgb(62, 60, 60);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rem;
+  padding: 20px 0;
+  color: white;
+}
+
+.exercise-overview h2 {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center align items */
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.exercise-overview h2 span {
+  font-size: 3rem; /* Smaller font size for the number */
+  color: #ccc; /* Lighter color or adjust as needed */
+}
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rem;
+  padding: 20px 0;
+  color: white;
+}
+/*.Exercises {
+  position: relative;
+  background-color: rgb(49, 47, 47);
+  height: 100vh;
+  display: inline-block;
+  width: 100%;
+}
+.exercises-welcome img {
+  width: 100%;
+  height: 50rem;
+  object-fit: cover;
+  display: block;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.385);
+  z-index: 1;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  z-index: 2;
+  text-align: center;
+}
+.text-overlay h1 {
+  font-size: 6.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: white;
+}
+.text-overlay h5 {
+  font-size: 2rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.exercise-overview {
+  background-color: rgb(62, 60, 60);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  z-index: 2;
+  color: white;
+}
+.exercise-overview h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: white;
+}
+*/

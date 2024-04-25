@@ -11,6 +11,7 @@ const AddExercises = () => {
     targetMuscle: "",
     secondaryMuscle: "",
     instructions: "",
+    YouTubeVideo: "",
     video: null,
     image: null,
     level: "",
@@ -35,6 +36,7 @@ const AddExercises = () => {
       formData.append("secondaryMuscle", exerciseData.secondaryMuscle);
       formData.append("instructions", exerciseData.instructions);
       formData.append("level", exerciseData.level);
+      formData.append("YouTubeVideo", exerciseData.YouTubeVideo);
       formData.append("video", exerciseData.video);
       formData.append("image", exerciseData.image);
       axios.post(
@@ -104,6 +106,16 @@ const AddExercises = () => {
             <textarea
               name="instructions"
               className="Textarea"
+              onChange={handleChange}
+            />
+          </label>
+          <label className="Creation">
+            YouTube Video Link (Optional):
+            <input
+              type="text"
+              className="Input"
+              name="videoLink"
+              placeholder="https://www.youtube.com/watch?v=..."
               onChange={handleChange}
             />
           </label>

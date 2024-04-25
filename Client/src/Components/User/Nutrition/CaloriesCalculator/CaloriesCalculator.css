@@ -18,6 +18,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
+  width: 40rem;
   border-radius: 10px;
   box-shadow: 20px 20px 60px #000000;
 }
@@ -106,7 +107,7 @@
   flex-direction: column;
   padding: 2rem;
   border-radius: 10px;
-  border: 2px solid #000000;
+  border: 2px solid #ffffff;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -158,4 +159,67 @@
   width: 300px;
   display: flex;
   justify-content: center;
+}
+.month-plan h4 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-right: 1rem;
+}
+.month-plan {
+  width: 60rem;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 1rem auto;
+}
+
+.month-plan p {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin: 1rem;
+}
+.month-plan h3 {
+  font-size: 2.2rem;
+  color: #ffffff;
+}
+.month-plan span {
+  font-size: 1.8rem;
+  margin: 0.5rem;
+  color: #ffffff;
+}
+.Calories-gender {
+  background-color: transparent;
+  margin-left: 1rem !important;
+  border: 2px solid #890808;
+  color: #ffffff;
+}
+.Calories-gender option {
+  background-color: rgb(60, 57, 57);
+  color: white;
+}
+.Calories-Form {
+  color: #ffffff;
+}
+.result {
+  max-width: 100rem;
+  display: flex;
+  justify-content: space-between;
+
+  border: 1px solid #ffffffbd;
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 2rem auto;
+}
+.result span {
+  display: block;
+}
+.result p {
+  display: grid;
+  font-size: 2.2rem;
+  color: #ffffff;
+}
+.month-plan h5 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-right: 1rem;
 }

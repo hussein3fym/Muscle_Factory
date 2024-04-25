@@ -1,7 +1,7 @@
 import React from "react";
 import "./SideNav.css";
 import { NavLink } from "react-router-dom";
-import TrainerIcon from "./../../../Assets/icons/TrainerIcon.jpeg";
+import TrainerIcon from "./../../../Assets/icons/TrainerIcon1.jpeg";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import { CiDumbbell } from "react-icons/ci";
 import { TbBrandBlogger } from "react-icons/tb";

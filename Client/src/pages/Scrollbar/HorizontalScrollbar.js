@@ -8,6 +8,15 @@ const HorizontalScrollbar = ({ data, bodyPart, setBodyPart }) => {
           key={item.id || item}
           itemId={item.id || item}
           title={item.id || item}
+          style={{
+            display: "inline-block",
+            margin: "10px",
+            cursor: "pointer",
+            border: bodyPart === item ? "1px solid red" : "1px solid black",
+            borderRadius: "5px",
+            padding: "10px",
+            backgroundColor: bodyPart === item ? "lightblue" : "white",
+          }}
         >
           <BodyPart item={item} bodyPart={bodyPart} setBodyPart={setBodyPart} />
         </div>

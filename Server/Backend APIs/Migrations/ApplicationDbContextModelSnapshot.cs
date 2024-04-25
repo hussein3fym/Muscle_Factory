@@ -121,9 +121,6 @@ namespace Backend_APIs.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MuscleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecondaryMuscle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -141,32 +138,16 @@ namespace Backend_APIs.Migrations
                     b.Property<byte[]>("Video")
                         .HasColumnType("varbinary(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("YouTubeVideo")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("MuscleId");
+                    b.HasKey("Id");
 
                     b.HasIndex("TrainerId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Exercises");
-                });
-
-            modelBuilder.Entity("Backend_APIs.Models.Muscle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("MuscleName")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Muscles");
                 });
 
             modelBuilder.Entity("Backend_APIs.Models.Question", b =>
@@ -222,7 +203,9 @@ namespace Backend_APIs.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("rejected");
 
                     b.HasKey("Id");
 
@@ -334,10 +317,6 @@ namespace Backend_APIs.Migrations
 
             modelBuilder.Entity("Backend_APIs.Models.Exercise", b =>
                 {
-                    b.HasOne("Backend_APIs.Models.Muscle", "Muscle")
-                        .WithMany("Exercises")
-                        .HasForeignKey("MuscleId");
-
                     b.HasOne("Backend_APIs.Models.Trainer", "Trainer")
                         .WithMany("Exercises")
                         .HasForeignKey("TrainerId")
@@ -347,8 +326,6 @@ namespace Backend_APIs.Migrations
                         .WithMany("Exercises")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Muscle");
 
                     b.Navigation("Trainer");
 
@@ -375,11 +352,6 @@ namespace Backend_APIs.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Backend_APIs.Models.Muscle", b =>
-                {
-                    b.Navigation("Exercises");
                 });
 
             modelBuilder.Entity("Backend_APIs.Models.Question", b =>

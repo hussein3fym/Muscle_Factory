@@ -119,3 +119,31 @@
   font-size: 2.5rem;
   margin-right: 0.5rem;
 }
+.buttons-container {
+  display: flex;
+  gap: 0.5rem;
+}
+.viewContent {
+  color: rgb(47, 119, 182);
+  font-size: 2rem;
+  margin-right: 4px;
+}
+.viewContent:hover,
+.updateContent:hover {
+  color: rgb(192, 75, 75);
+}
+.updateContent {
+  color: rgb(20, 134, 49);
+  font-size: 2rem;
+}
+.deleteContent {
+  color: rgb(223, 21, 21);
+  font-size: 2.3rem;
+}
+.buttons-container button {
+  border: none;
+  background-color: transparent;
+}
+.deleteContent:hover {
+  color: rgb(192, 75, 75);
+}
