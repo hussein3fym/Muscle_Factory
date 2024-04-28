@@ -1,0 +1,121 @@
+.BMI-container {
+  background-image: url("./../../../../Assets/images/Background.png");
+  background-size: cover;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.B-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding: 3ch;
+}
+.BMI-Form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 20px 20px 60px #000000;
+}
+.B-container h1 {
+  font-size: 3rem;
+  color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  padding: 1.7rem;
+}
+.B-container label {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+.B-container p {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+.input-data {
+  color: rgb(171, 0, 0);
+  margin-bottom: 0.7rem;
+  margin-left: 0.7rem;
+  font-size: 1.8rem;
+  color: white;
+  border: 2px solid rgb(171, 0, 0);
+  border-radius: 10px;
+  padding: 7px 15px;
+  background: transparent;
+  max-width: 190px;
+}
+
+.input-data:active {
+  box-shadow: 2px 2px 15px rgb(171, 0, 0) inset;
+}
+
+.input-data::-webkit-inner-spin-button,
+.input-data::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-radio {
+  margin: 1.2rem;
+}
+.B-container span {
+  font-size: 2.2rem;
+  color: brown;
+  font-weight: 600;
+}
+.Reload {
+  padding: 1rem 1rem;
+  margin: 0.7rem;
+  font-size: 1.8rem;
+  border: 2px solid #951616;
+  color: #951616;
+  font-size: 2rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.Reload:hover {
+  transform: scale(1.05);
+}
+.Calculate {
+  padding: 1rem 2rem;
+  margin: 0.7rem;
+  font-size: 1.8rem;
+  background-color: #951616;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.Calculate:hover {
+  background-color: #890808;
+  transform: scale(1.05);
+  color: white;
+}
+/* BMI Calculate */
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+.result-display h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+.result-display p {
+  font-size: 1.8rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.img-container img {
+  width: 150px;
+  height: 300px;
+}

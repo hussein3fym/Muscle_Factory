@@ -1,0 +1,104 @@
+.footer {
+  background-image: url("./../../../Assets/images/Background2.png");
+  background-size: cover;
+}
+.footer-content {
+  display: flex;
+  padding: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.contact-container {
+  margin-left: 2rem;
+}
+.footer-content h1 {
+  font-size: 3.5rem;
+  font-weight: 500;
+  color: aliceblue;
+}
+.footer-content p {
+  font-size: 1.3rem;
+  color: rgba(240, 248, 255, 0.777);
+  margin-bottom: 1rem;
+  margin-left: 1.5rem;
+}
+.contact-card {
+  margin-top: 1rem;
+}
+.contact-container h2 {
+  font-size: 1.7rem;
+  color: aliceblue;
+  font-weight: 500;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  color: aliceblue;
+  margin-right: 1rem;
+}
+
+.all-component {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+  color: aliceblue;
+  justify-content: center;
+  align-items: center;
+}
+
+.all-component h4:hover {
+  color: #bd2020;
+}
+
+.all-links {
+  display: flex;
+  flex-direction: column;
+  color: aliceblue;
+  justify-content: center;
+  align-items: right;
+  margin: 1rem;
+}
+.all-links h3 {
+  padding: 0.5rem;
+  font-size: 2rem;
+}
+
+.icon-youtube:hover {
+  color: #ff0000;
+  width: 2rem;
+}
+
+.icon-instagram:hover {
+  color: #e4405f;
+}
+
+.icon-facebook:hover {
+  color: #3b5998;
+}
+.all-rights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem;
+}
+.all-rights h3 {
+  color: white;
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .footer-content {
+    flex-direction: column; /* Change to column layout on smaller screens */
+  }
+
+  .all-links,
+  .all-component {
+    align-items: center; /* Center align items on smaller screens */
+  }
+}

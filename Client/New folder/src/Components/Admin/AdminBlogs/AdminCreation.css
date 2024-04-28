@@ -1,0 +1,97 @@
+.Creation-form {
+  padding: 2.4rem 4rem;
+  background-color: var(--color-grey-0);
+  border: 1px solid var(--color-grey-100);
+  border-radius: var(--border-radius-md);
+}
+.Creation {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 24rem 1fr 1.2fr;
+  gap: 0.4rem;
+  padding: 1.2rem;
+}
+.Textarea {
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--color-grey-300);
+  border-radius: 5px;
+  background-color: var(--color-grey-0);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  height: 8rem;
+  vertical-align: top;
+  overflow-wrap: break-word;
+}
+.Input {
+  border: 1px solid var(--color-grey-300);
+  background-color: var(--color-grey-0);
+  border-radius: var(--border-radius-sm);
+  padding: 0.8rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+}
+.Input:hover,
+.Input:focus {
+  border-color: brown; /* Change border color to brown on hover and focus */
+}
+.AdminButton {
+  justify-content: right;
+  align-items: right;
+  color: white;
+  background-color: brown;
+  border-radius: 10%;
+  font-size: 1.6rem;
+  padding: 1.2rem 1.6rem;
+  margin: 0.8rem 1.2rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+.AdminButton:hover {
+  background-color: var(--color-grey-600);
+  color: white;
+}
+.AdminLink {
+  color: var(--color-grey-600);
+  background: var(--color-grey-0);
+  border: 1px solid var(--color-grey-200);
+  padding: 1.2rem 1.6rem;
+  font-size: 1.6rem;
+  margin: 0.8rem 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+.AdminLink:hover,
+.AdminLink:focus {
+  background-color: var(--color-grey-50);
+  border-color: brown;
+}
+.UpdateImage {
+  margin-left: 8rem;
+  width: auto;
+  max-width: 150px;
+  height: auto;
+  max-height: 90%;
+  overflow: hidden;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.InputFile {
+  font-size: 1.4rem;
+  border-radius: var(--border-radius-sm);
+
+  &::file-selector-button {
+    font: inherit;
+    font-weight: 500;
+    padding: 0.8rem 1.2rem;
+    margin-right: 1.2rem;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    color: var(--color-brand-50);
+    background-color: brown;
+    cursor: pointer;
+  }
+}

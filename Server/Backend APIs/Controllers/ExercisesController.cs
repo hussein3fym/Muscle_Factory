@@ -28,6 +28,7 @@ namespace Backend_APIs.Controllers
                 .Select(e => new {
                 e.Id,
                 e.ExerciseName,
+                e.Image,
                 e.Equipment,
                 e.TargetMuscle,
                 e.SecondaryMuscle,
