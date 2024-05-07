@@ -15,7 +15,13 @@ export const youtubeOptions = {
     "X-RapidAPI-Key": "271a2a722dmsh3bc342da4e8daf0p140176jsn8ced400ce251",
   },
 };
-
+export const foodDetails = {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Host": "",
+    "X-RapidAPI-Key": "",
+  },
+};
 export const fetchData = async (url, options) => {
   const res = await fetch(url, options);
   const data = await res.json();

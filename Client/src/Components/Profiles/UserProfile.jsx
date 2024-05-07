@@ -4,12 +4,14 @@ import { BiImageAdd } from "react-icons/bi";
 import axios from "axios";
 import { BiShow, BiHide } from "react-icons/bi";
 import UserImg from "./../../Assets/icons/dashboardicon.jpeg";
+import { useParams } from "react-router-dom";
 import "./U-profile.css";
 
 const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
+  const { id } = useParams();
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -21,7 +23,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3031/user`)
+      .get("https://localhost:7095/api/Users/GetUser/" + id)
       .then((res) => {
         setProfileData(res.data);
         setValues({
@@ -39,7 +41,7 @@ const UserProfile = () => {
   const handleSave = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:3031/user`, values)
+      .put("https://localhost:7095/api/Users/GetUser/" + id, values)
       .then((res) => {
         console.log(res.data);
       })

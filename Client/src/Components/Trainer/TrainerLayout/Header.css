@@ -19,7 +19,7 @@
 
 .t-notification {
   font-size: 3rem;
-  background-color: rgb(170, 185, 185);
+  background-color: rgba(170, 185, 185, 0.455);
   padding: 0.3rem;
   border-radius: 50%;
   color: brown;
@@ -37,7 +37,7 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  margin-top: 18.5rem;
+  margin-top: 14rem;
   margin-right: 6rem;
   right: 0;
   background-color: #f9f9f9;
@@ -64,4 +64,10 @@
 }
 .logout {
   color: rgba(255, 0, 0, 0.775);
+}
+.T-ProfileIcon {
+  width: 5rem;
+  font-size: 3rem;
+  color: #000000;
+  cursor: pointer;
 }

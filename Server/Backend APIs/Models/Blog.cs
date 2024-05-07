@@ -10,13 +10,8 @@
 
         [MaxLength(length:1000)]
         public string? VideoURL { get; set; }
-        public int? AdminId { get; set; }
-        
-
+        public int? UserId { get; set; }
         public virtual User User { get; set; }
-
-        public int? TrainerId { get; set; }
-        public virtual Trainer Trainer { get; set; }
 
     }
 }

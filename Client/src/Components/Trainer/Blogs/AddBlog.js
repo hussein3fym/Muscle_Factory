@@ -6,8 +6,12 @@ import { toast } from "react-hot-toast";
 import "./../Styles/Creation.css";
 
 const AddBlog = () => {
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const TrainerId=storedUser.userId;
+  console.log(TrainerId);
+
   const [blogs, setBlogs] = useState({
-    TrainerId: "",
     Title: "",
     BlogText: "",
     VideoURL: "",
@@ -25,7 +29,7 @@ const AddBlog = () => {
 
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("TrainerId", blogs.TrainerId);
+      formDataToSend.append("UserId", TrainerId);
       formDataToSend.append("Title", blogs.Title);
       formDataToSend.append("BlogText", blogs.BlogText);
       formDataToSend.append("VideoURL", blogs.VideoURL);
@@ -53,6 +57,7 @@ const AddBlog = () => {
       <h1>Add a new Blog Post</h1>
       <div>
         <form onSubmit={handleSubmit} className="Creation-form">
+  
           <label className="Creation">
             Blog Title
             <input
@@ -101,17 +106,7 @@ const AddBlog = () => {
               onChange={handleChange}
             />
           </label>
-          <label className="Creation">
-            Trainer ID
-            <input
-              type="text"
-              placeholder="Enter Your ID"
-              className="Input"
-              name="TrainerId"
-              value={blogs.TrainerId}
-              onChange={handleChange}
-            />
-          </label>
+          
           <button type="submit" onClick={handleSubmit} className="AdminButton">
             Add Blog
           </button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Predictor() {
@@ -6,46 +6,56 @@ function Predictor() {
     Age: "",
     "Weight(kg)": "",
     "Height(cm)": "",
-    Gender: "",
-    "Activity Level": "",
+    Gender: "Male",
+    "Activity Level": "Base",
     preference: "all",
-    num_meals: 3,
+    num_meals: "3",
   });
   const [prediction, setPrediction] = useState(null);
-  const [recommendedMeals, setRecommendedMeals] = useState(null);
+  const [recommendedMeals, setRecommendedMeals] = useState([]);
   const [error, setError] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [mealIndex, setMealIndex] = useState(0);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
-    console.log("Form data being sent:", formData); // Log the form data to the console
-
     try {
       const response = await axios.post(
         "http://localhost:5000/predict",
         formData
       );
-      console.log("API response:", response.data); // Log the full API response for debugging
-
-      if (response.data) {
+      if (response.data && response.data.prediction) {
         setPrediction(response.data.prediction);
-        setRecommendedMeals(response.data.recommended_meals);
-        console.log("Recommended Meals:", response.data.recommended_meals); // Log recommended meals data
+        setRecommendedMeals(response.data.recommended_meals || []);
+        setError(null);
+        setSubmitted(true);
+        setMealIndex(0);
       } else {
+        setPrediction(null);
+        setRecommendedMeals([]);
         setError("Error: Empty response data");
+        setSubmitted(false);
       }
     } catch (error) {
-      console.error("Error making API call:", error);
       setError(error.response?.data?.error || "An unexpected error occurred");
-    } finally {
-      setLoading(false); // End loading regardless of outcome
+      setSubmitted(false);
     }
+  };
+
+  useEffect(() => {
+    setMealIndex(0);
+  }, [recommendedMeals]);
+
+  const handleNextMeal = () => {
+    setMealIndex((prevIndex) => prevIndex + 1);
   };
 
   return (
@@ -81,21 +91,25 @@ function Predictor() {
         </label>
         <label>
           Gender:
-          <input
-            type="text"
-            name="Gender"
-            value={formData.Gender}
-            onChange={handleChange}
-          />
+          <select name="Gender" value={formData.Gender} onChange={handleChange}>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
         </label>
         <label>
           Activity Level:
-          <input
-            type="text"
+          <select
             name="Activity Level"
             value={formData["Activity Level"]}
             onChange={handleChange}
-          />
+          >
+            <option value="Base">Base</option>
+            <option value="Sedentary">Sedentary</option>
+            <option value="Light">Light</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Very Active">Very Active</option>
+            <option value="Extra Active">Extra Active</option>
+          </select>
         </label>
         <label>
           Preference:
@@ -121,29 +135,33 @@ function Predictor() {
             <option value="5">5</option>
           </select>
         </label>
-        <button type="submit" disabled={loading}>
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
-      {prediction && <div>Predicted BMR: {prediction}</div>}
-      {recommendedMeals && (
+      {submitted && prediction && <div>Predicted BMR: {prediction}</div>}
+      {submitted && recommendedMeals.length > 0 && (
         <div>
           <h2>Recommended Meals:</h2>
-          {recommendedMeals.map((meal, index) => (
-            <div key={index}>
-              <p>Calories: {meal.Calories}</p>
-              <p>Type: {meal.Type}</p>
-              <p>Breakfast: {meal.Breakfast}</p>
-              <p>Lunch: {meal.Lunch}</p>
-              <p>Dinner: {meal.Dinner}</p>
-              {meal.Snack && <p>Snack: {meal.Snack}</p>}
-              {meal["Snack.1"] && <p>Snack: {meal["Snack.1"]}</p>}
-              <hr />
-            </div>
-          ))}
+          <div key={mealIndex}>
+            <p>Calories: {recommendedMeals[mealIndex].Calories}</p>
+            <p>Type: {recommendedMeals[mealIndex].Type}</p>
+            <p>Breakfast: {recommendedMeals[mealIndex].Breakfast}</p>
+            <p>Lunch: {recommendedMeals[mealIndex].Lunch}</p>
+            <p>Dinner: {recommendedMeals[mealIndex].Dinner}</p>
+            {recommendedMeals[mealIndex].Snack &&
+              recommendedMeals[mealIndex].Snack !== "no-snack" && (
+                <p>Snack: {recommendedMeals[mealIndex].Snack}</p>
+              )}
+            {recommendedMeals[mealIndex]["Snack.1"] &&
+              recommendedMeals[mealIndex]["Snack.1"] !== "no-snack" && (
+                <p>Snack2: {recommendedMeals[mealIndex]["Snack.1"]}</p>
+              )}
+          </div>
+          {mealIndex < recommendedMeals.length - 1 && (
+            <button onClick={handleNextMeal}>Regenerate</button>
+          )}
         </div>
       )}
-      {error && <div>Error: {error}</div>}
+      {submitted && error && <div>Error: {error}</div>}
     </div>
   );
 }

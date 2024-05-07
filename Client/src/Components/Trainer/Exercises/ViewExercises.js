@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
 import "./../Styles/View.css";
+
 const ViewExercises = () => {
   const [exercises, setExercise] = useState([]);
   const { id } = useParams();
@@ -36,35 +38,28 @@ const ViewExercises = () => {
         </div>
         <div className="exercise-info">
           <h2 className="HeadLines"> Instructions: </h2>
-          <p>{exercises.instructions}</p>
+          <p dangerouslySetInnerHTML={{ __html: exercises.instructions }}></p>
         </div>
         <div className="exercise-info">
           <h2 className="HeadLines"> Level Suggestion: </h2>
           <p>{exercises.level}</p>
         </div>
         <div className="blogContent">
-          {exercises.video && (
+          {exercises.youTubeVideo && (
             <div>
-              Video:
-              <video
-                controls
-                style={{
-                  width: "266px",
-                  height: "266px",
-                  border: "1px solid black",
-                }}
-              >
-                <source
-                  src={`data:video/mp4;base64,${exercises.video}`}
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
+              <h2 className="HeadLines">YouTube Video:</h2>
+              <ReactPlayer
+                url={exercises.youTubeVideo}
+                controls={true}
+                playing={false}
+                volume={0.5}
+                className="custom-react-player"
+              />
             </div>
           )}
           {exercises.image && (
             <div>
-              Image :
+              <h2 className="HeadLines">Image :</h2>
               <img
                 src={`data:image/jpg;base64,${exercises.image}`}
                 alt="Exercise Image"

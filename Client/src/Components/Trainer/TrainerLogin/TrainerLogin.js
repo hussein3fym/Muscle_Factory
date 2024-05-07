@@ -1,22 +1,60 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-const TrainerLogin = () => {
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+
+
+const TrainerLogin = ({ updateUserRole , updateUserId }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Here you can perform actions like sending the login data to your backend
-    console.log("Login successful!", formData);
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("Email", formData.email);
+      formDataToSend.append("Password", formData.password);
+      const response = await axios.post(
+        "https://localhost:7095/api/Authentication/Login",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+  
+      localStorage.setItem("user", JSON.stringify(response.data));
+    
+      console.log("login successfully:", response.data);
+      updateUserRole(response.data.role[0]);
+      updateUserId(response.data.id);
+
+      toast.success("logged in successfully");
+      if (response.data.role[0] === "Trainer") {
+        navigate("/TrainerPanel");
+      } 
+    } catch (error) {
+      console.error("Error logging in:", error);
+      if (error.response && error.response.status === 401) {
+        console.log("Verify your email first.");
+        toast.error("Please verify your email first before logging in.");
+      } else {
+        console.error("Error logging in:", error);
+        toast.error("Logging in failed.");
+      }
+    }
   };
 
   const handleGoogleLogin = () => {

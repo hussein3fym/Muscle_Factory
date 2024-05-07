@@ -4,13 +4,18 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
-const Login = ({ updateUserRole , updateUserId }) => {
+const Login = ({ updateUserRole, updateUserId }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate();
+  const [passwordShown, setPasswordShown] = useState(false); // State to toggle password visibility
+  const togglePasswordVisiblity = () => {
+    setPasswordShown((passwordShown) => !passwordShown);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +24,7 @@ const Login = ({ updateUserRole , updateUserId }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("Email", formData.email);
@@ -33,13 +38,12 @@ const Login = ({ updateUserRole , updateUserId }) => {
           },
         }
       );
-  
+
       localStorage.setItem("user", JSON.stringify(response.data));
-    
+
       console.log("login successfully:", response.data);
       updateUserRole(response.data.role[0]);
       updateUserId(response.data.id);
-      
 
       toast.success("logged in successfully");
       if (response.data.role[0] === "User") {
@@ -94,13 +98,16 @@ const Login = ({ updateUserRole , updateUserId }) => {
         <label className="login-label">
           Password:
           <input
-            type="password"
+            type={passwordShown ? "text" : "password"}
             name="password"
             required
             className="login-input input"
             value={formData.password}
             onChange={handleChange}
-          />
+          />{" "}
+          <i onClick={togglePasswordVisiblity}>
+            {passwordShown ? <FiEye /> : <FiEyeOff />}
+          </i>
         </label>
         <div className="forget-password">
           <Link to="/ResetPassword" className="Link-Login">

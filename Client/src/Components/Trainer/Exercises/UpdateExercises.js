@@ -12,7 +12,6 @@ const UpdateExercises = () => {
     secondaryMuscle: "",
     instructions: "",
     YouTubeVideo: "",
-    video: null,
     image: null,
     level: "",
   });
@@ -43,7 +42,6 @@ const UpdateExercises = () => {
       formData.append("instructions", exerciseData.instructions);
       formData.append("level", exerciseData.level);
       formData.append("YouTubeVideo", exerciseData.YouTubeVideo);
-      formData.append("video", exerciseData.video);
       formData.append("image", exerciseData.image);
       const response = await axios.put(
         `https://localhost:7095/api/Exercises/${id}`,
@@ -154,17 +152,6 @@ const UpdateExercises = () => {
               }
             />
           </label>
-          <label className="Creation">
-            Upload Video:
-            <input
-              type="file"
-              className="InputFile"
-              name="video"
-              accept="video/*"
-              onChange={(e) => handleFileChange(e, "video")}
-            />
-          </label>
-
           <label className="Creation">
             Upload Image or GIF:
             <input

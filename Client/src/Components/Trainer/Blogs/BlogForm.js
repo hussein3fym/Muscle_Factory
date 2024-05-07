@@ -3,22 +3,25 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { CiSquarePlus } from "react-icons/ci";
-import { IoIosMore } from "react-icons/io";
 import "./../Styles/Creation.css";
+import { MdDelete } from "react-icons/md";
+import { FaEye, FaEdit } from "react-icons/fa";
 
 const BlogForm = () => {
-  const [showMoreOptionIndex, setShowMoreOptionIndex] = useState(false);
-  const toggleMoreOption = (index) => {
-    setShowMoreOptionIndex(index === showMoreOptionIndex ? null : index);
-  };
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const TrainerId = storedUser.userId;
+  console.log(TrainerId);
+
   const [blogs, setBlogs] = useState([]);
-  const trainerId = 1;
   useEffect(() => {
     axios
-      .get("https://localhost:7095/api/Blogs/GetTrainerBlogs/" + trainerId)
+      .get(
+        `https://localhost:7095/api/Blogs/GetAdminOrTrainerBlogs/${TrainerId}`
+      )
       .then((res) => setBlogs(res.data))
       .catch((error) => console.error("Error fetching blogs:", error));
-  }, [trainerId]);
+  }, [TrainerId]);
+
   const handleDelete = (blogId) => {
     axios
       .delete("https://localhost:7095/api/Blogs/" + blogId)
@@ -69,33 +72,28 @@ const BlogForm = () => {
                 </td>
                 <td>{blog.videoURL}</td>
                 <td>
-                  <div onClick={() => toggleMoreOption(i)}>
-                    <IoIosMore />
-                  </div>
-                  {showMoreOptionIndex === i && (
-                    <div className="buttons-container">
-                      <Link
-                        to={`/ViewBlog/${blog.id}`}
-                        className="btn btn-info"
-                        onClick={() => handleView(blog.id)}
-                      >
-                        View
-                      </Link>
+                  <div className="buttons-container">
+                    <Link
+                      to={`/ViewBlog/${blog.id}`}
+                      className="viewContent"
+                      onClick={() => handleView(blog.id)}
+                    >
+                      <FaEye />
+                    </Link>
 
-                      <Link
-                        to={`/UpdateBlog/${blog.id}`}
-                        className="btn btn-warning"
-                      >
-                        Update
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(blog.id)}
-                        className="btn btn-danger"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  )}
+                    <Link
+                      to={`/UpdateBlog/${blog.id}`}
+                      className="updateContent"
+                    >
+                      <FaEdit />
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(blog.id)}
+                      className="deleteContent"
+                    >
+                      <MdDelete />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

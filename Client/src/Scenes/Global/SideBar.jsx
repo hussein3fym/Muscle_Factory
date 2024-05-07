@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { GiMuscularTorso } from "react-icons/gi";
 import { MdDashboardCustomize } from "react-icons/md";
 import { FaUsers } from "react-icons/fa6";
 import { CiDumbbell } from "react-icons/ci";
 import { FaBlogger } from "react-icons/fa";
-import { FaQuestionCircle } from "react-icons/fa";
 import { GiGymBag } from "react-icons/gi";
-import { IoMdSettings } from "react-icons/io";
-import { FiUser, FiUserCheck, FiUserX } from "react-icons/fi";
+import { FiUser, FiUserCheck } from "react-icons/fi";
 import { IoAddCircle } from "react-icons/io5";
 import { LiaDumbbellSolid } from "react-icons/lia";
 import { LiaBloggerB } from "react-icons/lia";
@@ -140,22 +137,9 @@ const SideBar = () => {
 
           <p className="p-forSidebar">Features</p>
           <li>
-            <NavLink to="/AllProducts" className="StyledNavLink">
-              <FaQuestionCircle />
-              Questions
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/AllServices" className="StyledNavLink">
               <GiGymBag />
               GYM
-            </NavLink>
-          </li>
-          <p className="p-forSidebar">Others</p>
-          <li>
-            <NavLink to="/AllServices" className="StyledNavLink">
-              <IoMdSettings />
-              Settings
             </NavLink>
           </li>
         </ul>

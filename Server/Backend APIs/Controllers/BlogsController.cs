@@ -1,5 +1,7 @@
 ﻿using Backend_APIs.DTOs;
+using Backend_APIs.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,28 +15,52 @@ namespace Backend_APIs.Controllers
         private new List<String> _allowedExtetions = new List<string> { ".jpg", ".png", ".jpeg", "webp" };
         private long _maxAllowedSize = 5242880; //5MB
 
-        public BlogsController(ApplicationDbContext context)
+        private readonly UserManager<Backend_APIs.Models.User> _userManager;
+        private readonly RoleManager<IdentityRole<int>> _roleManager;
+
+        public BlogsController(ApplicationDbContext context, UserManager<Backend_APIs.Models.User> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
+        
         [HttpGet("TrainersBlogs")]
         public async Task<IActionResult> GetTrainersBlogs()
         {
-            var blogs = await _context.Blogs.Include(b=>b.Trainer).Select(b=>new {b.Id, b.Title, b.BlogText,b.VideoURL,b.Image,b.Trainer.Name,b.TrainerId}).Where(b => b.TrainerId != null).ToListAsync();
+            var trainers = await _userManager.GetUsersInRoleAsync("Trainer");
+            var trainerUserIds = trainers.Select(u => u.Id).ToList();
+
+            var blogs = await _context.Blogs
+                .Where(e => trainerUserIds.Contains((int)e.UserId))
+                .Select(b=>new 
+                {b.Id, b.Title, b.BlogText,b.VideoURL,b.Image,b.User.UserName,b.UserId })
+                .Where(b => b.UserId != null)
+                .ToListAsync();
             return Ok(blogs);
         }
+
         [HttpGet("AllAdminsBlogs")]
         public async Task<IActionResult> GetAdminBlogs()
         {
-            var blogs = await _context.Blogs.Include(b => b.User).Select(b => new { b.Id, b.Title, b.BlogText, b.VideoURL, b.Image, b.User.Name, b.AdminId }).Where(b => b.AdminId != null).ToListAsync();
+            var trainers = await _userManager.GetUsersInRoleAsync("Admin");
+            var trainerUserIds = trainers.Select(u => u.Id).ToList();
+
+            var blogs = await _context.Blogs
+                .Where(e => trainerUserIds.Contains((int)e.UserId))
+                .Select(b => new 
+                { b.Id, b.Title, b.BlogText, b.VideoURL, b.Image, b.User.UserName, b.UserId })
+                .Where(b => b.UserId != null)
+                .ToListAsync();
             return Ok(blogs);
         }
-        [HttpGet("GetAdminBlogs/{adminId}")]
-        public async Task<IActionResult> GetBlogsByAdminId(int adminId)
+       
+        [HttpGet("GetAdminOrTrainerBlogs/{UserId}")]
+        public async Task<IActionResult> GetBlogsByAdminId(int UserId)
         {
 
             var blogs = await _context.Blogs
-                .Where(b => b.AdminId == adminId)
+                .Where(b => b.UserId == UserId)
                 .ToListAsync();
 
             if (blogs == null || !blogs.Any())
@@ -44,11 +70,11 @@ namespace Backend_APIs.Controllers
 
             return Ok(blogs);
         }
+        
         [HttpGet("AllBlogsUserModule")]
         public async Task<IActionResult> AllBlogs()
         {
             var blogs = await _context.Blogs
-                .Include(b => b.Trainer)
                 .Include(b => b.User)
                 
                 .Select(b => new
@@ -58,16 +84,15 @@ namespace Backend_APIs.Controllers
                     b.BlogText,
                     b.VideoURL,
                     b.Image,
-                    UserName = b.User.Name,
-                    b.AdminId,
-                    b.TrainerId,
-                    TrainerName = b.Trainer.Name
+                    UserName = b.User.UserName,
+                    b.UserId,
                 })
                 .ToListAsync();
 
             return Ok(blogs);
         }
-        [HttpGet("GetTrainerBlogs/{trainerId}")]
+      
+       /* [HttpGet("GetTrainerBlogs/{trainerId}")]
         public async Task<IActionResult> GetBlogsByTrainerId(int trainerId)
         {
             
@@ -81,8 +106,7 @@ namespace Backend_APIs.Controllers
             }
 
             return Ok(blogs);
-        }
-
+        } */
 
         [HttpPost("CreateBlog")]
         public async Task<IActionResult> CreateBlog([FromForm] BlogDto dto)
@@ -104,8 +128,7 @@ namespace Backend_APIs.Controllers
             var blogTextWithLineBreaks = dto.BlogText.Replace("\n", "<br>");
             var blog = new Blog
             {
-                AdminId = dto.AdminId,
-                TrainerId = dto.TrainerId,
+                UserId = dto.UserId,
                 Title = dto.Title,
                 BlogText = blogTextWithLineBreaks,
                 VideoURL = dto.VideoURL,
@@ -119,16 +142,18 @@ namespace Backend_APIs.Controllers
             return Ok(blog);
 
         }
+        
         [HttpGet("GetBlog/{id}")]
         public async Task<IActionResult> GetBlogById(int id)
         {
-            var Blog = await _context.Blogs.Select(q => new { q.Id, q.Title, q.BlogText, q.Image,q.VideoURL, q.AdminId, q.TrainerId }).SingleOrDefaultAsync(q => q.Id == id);
+            var Blog = await _context.Blogs.Select(q => new { q.Id, q.Title, q.BlogText, q.Image,q.VideoURL, q.UserId }).SingleOrDefaultAsync(q => q.Id == id);
             if (Blog == null)
             {
                 return NotFound();
             }
             return Ok(Blog);
         }
+      
         [HttpPut(template:"{id}")]
         public async Task<IActionResult> UpdateBlog(int id, [FromForm] BlogDto dto)
         {
@@ -159,6 +184,7 @@ namespace Backend_APIs.Controllers
             return Ok(Blog);
 
         }
+   
         [HttpDelete(template:"{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

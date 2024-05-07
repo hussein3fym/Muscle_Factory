@@ -11,8 +11,7 @@
         public string Level { get; set; }
         public string? YouTubeVideo { get; set; }
         public IFormFile? Image { get; set; }
-        public IFormFile? Video { get; set; }
-        public int? TrainerId { get; set; }
+        //public IFormFile? Video { get; set; } 
         public int? UserId { get; set; }
         
     }

@@ -5,18 +5,18 @@
        
 
         [MaxLength(length: 100)]
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         [MaxLength(length: 100)]
         public string Email { get; set; }
         [MaxLength(length: 30)]
         public string Password { get; set; }
-        [MaxLength(length: 5)]
-
-        public string Type { get; set; } = "user";
-        public int? Age { get; set; }
+        public string? Age { get; set; }
         [MaxLength(length: 6)]
         public string? Gender { get; set; }
-        
+        public string? Specialization { get; set; }
+        public string? Experience { get; set; }
+        public string? Status { get; set; }
+        public IFormFile? CvFile { get; set; }
     }
 }

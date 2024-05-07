@@ -12,3 +12,11 @@
   flex: 1; /* Take up remaining space in the container */
   padding: 20px; /* Add some padding for spacing */
 }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

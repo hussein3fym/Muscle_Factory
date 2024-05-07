@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import "./SideBar.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/context";
-import { IoReload } from "react-icons/io5";
+import { Link } from "react-router-dom";
 const SideBar = () => {
   const [extended, setExtended] = useState(false);
   const { newChat, chatList, loadChat } = useContext(Context);
@@ -42,18 +42,25 @@ const SideBar = () => {
       </div>
       <div className="bottom">
         <div className="bottom-item recent-entry">
-          <img src={assets.question_icon} alt="" />
-          {extended ? <p>Help</p> : null}
+          <Link to="/">
+            <img className="sideIcon" src={assets.question_icon} alt="" />
+          </Link>
+          {extended ? <p>Home</p> : null}
         </div>
 
         <div className="bottom-item recent-entry">
-          <img src={assets.history_icon} alt="" />
-          {extended ? <p>Activity</p> : null}
+          {" "}
+          <Link to="/Exercises">
+            <img className="sideIcon" src={assets.history_icon} alt="" />
+          </Link>
+          {extended ? <p>Exercises</p> : null}
         </div>
 
         <div className="bottom-item recent-entry">
-          <img src={assets.setting_icon} alt="" />
-          {extended ? <p>Settings</p> : null}
+          <Link to="/blog">
+            <img className="sideIcon" src={assets.setting_icon} alt="" />
+          </Link>
+          {extended ? <p>Blogs</p> : null}
         </div>
       </div>
     </div>

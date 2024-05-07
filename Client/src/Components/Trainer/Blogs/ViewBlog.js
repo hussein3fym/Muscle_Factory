@@ -18,25 +18,24 @@ const ViewBlog = () => {
     <div>
       <h1 className="ViewTitle">View Blog Post</h1>
       <div className="View-form">
-        <div>
-          <h2 className="HeadLines">ID:{blogs.id}</h2>
-          <h2 className="HeadLines">Title:{blogs.title}</h2>
+        <div className="exercise-info">
+          <h2 className="HeadLines">Title:</h2>
+          <p>{blogs.title}</p>
         </div>
-
-        <div className="blogContent">
-          <div>
-            <h2 className="HeadLines">Description:</h2>
-            <p className="Description">{blogs.blogText}</p>
-            <h2 className="HeadLines">Video URL:</h2>
-            <ReactPlayer url={blogs.videoURL} />
-          </div>
-
-          <div className="ViewImage">
-            <img
-              src={`data:image/jpeg;base64,${blogs.image}`}
-              style={{ maxWidth: "400px" }}
-            />
-          </div>
+        <div className="exercise-info">
+          <h2 className="HeadLines">Description:</h2>
+          <p dangerouslySetInnerHTML={{ __html: blogs.blogText }}></p>
+        </div>
+        <div className="exercise-info">
+          <h2 className="HeadLines">Video URL:</h2>
+          <ReactPlayer url={blogs.videoURL} />
+        </div>
+        <div className="ViewImage">
+          <img
+            src={`data:image/jpeg;base64,${blogs.image}`}
+            alt=" Blog Image "
+            className="exerciseImage"
+          />
         </div>
       </div>
     </div>

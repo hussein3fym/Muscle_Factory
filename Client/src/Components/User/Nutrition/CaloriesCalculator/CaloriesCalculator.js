@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./CaloriesCalculator.css";
+import { BiExport } from "react-icons/bi";
 
 const CaloriesCalculator = () => {
   const [weight, setWeight] = useState("");
@@ -11,8 +12,8 @@ const CaloriesCalculator = () => {
   const [loseWeightMode, setLoseWeightMode] = useState(false);
   const [gainWeightMode, setGainWeightMode] = useState(false);
   const [maintainWeightMode, setMaintainWeightMode] = useState(false);
-  const [adjustedCalories, setAdjustedCalories] = useState(0); // New state variable for adjusted calorie intake
-  const [loseCalories, setLoseCalories] = useState(0); // New state variable for adjusted calorie intake
+  const [adjustedCalories, setAdjustedCalories] = useState(0);
+  const [loseCalories, setLoseCalories] = useState(0);
   const [gainCalories, setGainCalories] = useState(0);
   const [protein, setProtein] = useState(0);
   const [carbs, setCarbs] = useState(0);
@@ -377,21 +378,107 @@ const CaloriesCalculator = () => {
             starting any new diet or exercise program, especially if you have
             any underlying health conditions.
           </h5>
+          <button className="print-weight">
+            <BiExport />
+            Export in pdf
+          </button>
         </div>
       )}
 
       {gainWeightMode && (
         <div className="month-plan">
           <div className="plan-content">
-            <p>Adjusted Calorie Intake: {gainCalories}</p>
+            <h3>Here's a suggestion plan for your goal to gain weight:</h3>
+            <h4>Weeks 1 & 2:</h4>
+            <p>
+              <strong>Calorie Intake:</strong> <span>{gainCalories}</span>{" "}
+              calories daily
+            </p>
+            <p>
+              <strong>Goal:</strong> Establish a calorie surplus to facilitate
+              weight gain at a rate of about 0.5 kg (1 pound) per week.
+            </p>
+            <p>
+              <strong>Rationale:</strong> Increasing caloric intake above energy
+              needs can help you gain weight, while focusing on nutrient-dense
+              foods ensures that the weight gained is beneficial and healthy.
+            </p>
+            <h4>Weeks 3 & 4:</h4>
+            <p>
+              <strong>Calorie Intake:</strong> Gradually increase intake by{" "}
+              <span>200</span> calories if weight gain is less than expected.
+            </p>
+            <p>
+              <strong>Goal:</strong> Adjust caloric intake based on weight gain
+              progress and body response.
+            </p>
+            <p>
+              <strong>Rationale:</strong> Continuous monitoring and adjustment
+              of calorie intake help in achieving the desired weight gain at a
+              healthy pace, avoiding excessive fat accumulation.
+            </p>
+            <h4>Month 2 Onward:</h4>
+            <p>
+              <strong>Calorie Intake:</strong> Continue adjusting calorie intake
+              as necessary while focusing on balanced macronutrient intake.
+            </p>
+            <p>
+              <strong>Goal:</strong> Sustain weight gain and approach your goal
+              healthily.
+            </p>
+            <p>
+              <strong>Rationale:</strong> Long-term consistency and nutrient
+              balance are crucial for gaining weight healthily and sustainably.
+            </p>
           </div>
+          <h5>
+            <strong>Disclaimer:</strong> This information is intended for
+            general educational purposes only and should not be construed as
+            medical advice. Always consult with a healthcare professional before
+            starting any new diet or exercise program.
+          </h5>
+          <button className="print-weight">
+            <BiExport />
+            Export in pdf
+          </button>
         </div>
       )}
       {maintainWeightMode && (
         <div className="month-plan">
           <div className="plan-content">
-            <p>Adjusted Calorie Intake: {adjustedCalories}</p>
+            <h3>
+              Here's a suggestion plan for maintaining your current weight:
+            </h3>
+            <h4>Ongoing Daily Plan:</h4>
+            <p>
+              <strong>Calorie Intake:</strong> <span>{adjustedCalories}</span>{" "}
+              calories daily
+            </p>
+            <p>
+              <strong>Goal:</strong> Balance calorie intake with calorie
+              expenditure to maintain current body weight.
+            </p>
+            <p>
+              <strong>Rationale:</strong> Achieving energy balance is crucial
+              for maintaining weight and preventing unwanted weight gain or
+              loss.
+            </p>
+            <p>
+              <strong>Additional Tips:</strong> Continue monitoring your weight,
+              adjust your diet as needed, and maintain regular physical
+              activity.
+            </p>
           </div>
+          <h5>
+            <strong>Disclaimer:</strong> This information is intended for
+            general educational purposes only and should not be construed as
+            medical advice. Always consult with a healthcare professional before
+            making any significant changes to your diet or exercise regimen.
+          </h5>
+          <button className="print-weight">
+            <BiExport />
+            Export in pdf
+          </button>
         </div>
       )}
     </div>

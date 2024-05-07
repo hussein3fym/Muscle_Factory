@@ -53,11 +53,14 @@
   color: #282828;
   cursor: pointer;
 }
+.sideIcon {
+  width: 30px !important;
+}
 .m-sidebar .recent-entry p {
   color: white;
 }
 .m-sidebar .recent-entry:hover {
-  background-color: #e2e6eb;
+  background-color: #e2e6ebe4;
 }
 
 .m-sidebar .bottom {

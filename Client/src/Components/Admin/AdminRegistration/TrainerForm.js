@@ -7,25 +7,25 @@ const TrainerForm = () => {
 
   useEffect(() => {
     axios
-      .get("  https://localhost:7095/api/Trainers/AcceptedTrainers")
+      .get("  https://localhost:7095/api/Users/accepted     ")
       .then((res) => setTrainer(res.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
 
-  const handleDelete = (trainerId) => {
+  const handleDelete = (userId) => {
     const confirm = window.confirm("Would you like to delete?");
     if (confirm) {
       axios
-        .delete(" https://localhost:7095/api/Trainers/" + trainerId)
+        .delete(" https://localhost:7095/api/Users/DeleteUser/" + userId)
         .then((res) => {
-          setTrainer(trainers.filter((trainer) => trainer.id !== trainerId));
+          setTrainer(trainers.filter((trainer) => trainer.id !== userId));
         })
         .catch((error) => console.error("Error deleting trainer:", error));
     }
-    console.log(`Deleted Trainer with ID: ${trainerId}`);
+    console.log(`Deleted Trainer with ID: ${userId}`);
   };
-  const handleView = (trainerId) => {
-    console.log(`View User Details with ID:${trainerId}`);
+  const handleView = (userId) => {
+    console.log(`View User Details with ID:${userId}`);
   };
 
   return (
@@ -49,7 +49,7 @@ const TrainerForm = () => {
             {trainers.map((trainer, i) => (
               <tr key={i}>
                 <td>{trainer.id}</td>
-                <td>{trainer.name}</td>
+                <td>{trainer.username}</td>
                 <td>{trainer.email}</td>
                 <td>{trainer.age}</td>
                 <td>{trainer.experience}</td>

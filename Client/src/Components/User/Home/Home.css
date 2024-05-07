@@ -30,6 +30,7 @@
 
 .home-text-container h1 {
   font-size: 7rem;
+  width: 75rem;
   font-weight: 700;
   margin-bottom: 20px;
   color: aliceblue;
@@ -46,9 +47,9 @@
 .count-home {
   display: flex;
   gap: 3rem;
-  margin-top: 10rem;
+  margin-top: 7rem;
   flex-wrap: wrap; /* Allow items to wrap to the next line */
-  justify-content: center; /* Center items horizontally */
+  /* Center items horizontally */
 }
 .count-home h3 {
   font-size: 7rem;
@@ -404,5 +405,30 @@
 
   .get-feedback textarea {
     padding: 2rem 1rem; /* Adjust padding for textarea */
+  }
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+.typing-animation {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+  /* letter-spacing: 0.15em;  */
+  animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+
+/* Blinking cursor animation */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
   }
 }

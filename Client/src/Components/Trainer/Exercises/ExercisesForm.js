@@ -8,13 +8,18 @@ import { MdDelete } from "react-icons/md";
 import { FaEye, FaEdit } from "react-icons/fa";
 
 const ExercisesForm = () => {
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const TrainerId=storedUser.userId;
+  console.log(TrainerId);
+
   const [exercises, setExercise] = useState([]);
   useEffect(() => {
     axios
-      .get("  https://localhost:7095/api/Exercises/GetByTrainerId?TrainerId=1")
+      .get(`https://localhost:7095/api/Exercises/GetByUserId?UserId=${TrainerId}`)
       .then((res) => setExercise(res.data))
       .catch((error) => console.error("Error fetching users:", error));
-  }, []);
+  }, [TrainerId]);
 
   const handleDelete = (exerciseId) => {
     axios

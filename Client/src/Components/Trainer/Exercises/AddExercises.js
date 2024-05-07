@@ -5,6 +5,10 @@ import toast from "react-hot-toast";
 import "./../Styles/Creation.css";
 
 const AddExercises = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const TrainerId = storedUser.userId;
+  console.log(TrainerId);
+
   const [exerciseData, setExerciseData] = useState({
     exerciseName: "",
     equipment: "",
@@ -12,7 +16,6 @@ const AddExercises = () => {
     secondaryMuscle: "",
     instructions: "",
     YouTubeVideo: "",
-    video: null,
     image: null,
     level: "",
   });
@@ -29,7 +32,7 @@ const AddExercises = () => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("trainerid", exerciseData.trainerid);
+      formData.append("userid", TrainerId);
       formData.append("exerciseName", exerciseData.exerciseName);
       formData.append("equipment", exerciseData.equipment);
       formData.append("targetMuscle", exerciseData.targetMuscle);
@@ -37,10 +40,10 @@ const AddExercises = () => {
       formData.append("instructions", exerciseData.instructions);
       formData.append("level", exerciseData.level);
       formData.append("YouTubeVideo", exerciseData.YouTubeVideo);
-      formData.append("video", exerciseData.video);
+      // formData.append("video", exerciseData.video);
       formData.append("image", exerciseData.image);
-      axios.post(
-        "https://localhost:7095/api/Exercises/CreateByTrainer",
+      await axios.post(
+        "https://localhost:7095/api/Exercises/CreateByAdminOrTrainer",
         formData,
         {
           headers: {
@@ -60,10 +63,6 @@ const AddExercises = () => {
       <div>
         <h1>Welcome Trainer Add Exercises</h1>
         <form onSubmit={handleSubmit} className="Creation-form">
-          <label className="Creation">
-            ID
-            <input name="trainerid" className="Input" onChange={handleChange} />
-          </label>
           <label className="Creation">
             Exercise Name
             <input
@@ -114,12 +113,12 @@ const AddExercises = () => {
             <input
               type="text"
               className="Input"
-              name="videoLink"
+              name="YouTubeVideo"
               placeholder="https://www.youtube.com/watch?v=..."
               onChange={handleChange}
             />
           </label>
-          <label className="Creation">
+          {/* <label className="Creation">
             Upload Video:
             <input
               type="file"
@@ -128,7 +127,7 @@ const AddExercises = () => {
               accept="video/*"
               onChange={handleChange}
             />
-          </label>
+          </label> */}
           <label className="Creation">
             Upload Image or GIF:
             <input

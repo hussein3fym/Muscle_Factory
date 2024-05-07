@@ -1,4 +1,3 @@
-import React from "react";
 import "./TrainerPanel.css";
 import exercises from "./../../../Assets/icons/exercise (1).png";
 import blogs from "./../../../Assets/icons/blog (1).png";
@@ -7,8 +6,57 @@ import Certificates from "./../../../Assets/icons/guarantee-certificate.png";
 import Results from "./../../../Assets/icons/change-management.png";
 import whatsapp from "./../../../Assets/icons/whatsapp.png";
 import email from "./../../../Assets/icons/send-mail (1).png";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+
 const TrainerPanel = () => {
+  const [exerciseCount, setExerciseCount] = useState(0);
+  const [blogsCount, setBlogsCount] = useState(0);
+  const [trainername, setTrainername] = useState([]);
   const adminPhoneNumber = "+201002406468";
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const TrainerId = storedUser.userId;
+  useEffect(() => {
+    const fetchExerciseCount = async () => {
+      try {
+        const response = await axios.get(
+          `https://localhost:7095/api/Users/count-exercises/${TrainerId}`
+        );
+        setExerciseCount(response.data);
+      } catch (error) {
+        console.error("Error fetching exercise count:", error);
+      }
+    };
+
+    const fetchBlogsCount = async () => {
+      try {
+        const response = await axios.get(
+          `https://localhost:7095/api/Users/count-blogs/${TrainerId}`
+        );
+        setBlogsCount(response.data);
+      } catch (error) {
+        console.error("Error fetching blogs count:", error);
+      }
+    };
+
+    const fetchTrainerName = async () => {
+      try {
+        const response = await axios.get(
+          `https://localhost:7095/api/Users/GetUser/${TrainerId}`
+        );
+        setTrainername(response.data);
+      } catch (error) {
+        console.error("Error fetching trainer name", error);
+      }
+    };
+
+    fetchExerciseCount();
+    fetchBlogsCount();
+    fetchTrainerName();
+  }, [TrainerId]);
+
   const handleWhatsAppButtonClick = () => {
     const url = `https://wa.me/${adminPhoneNumber}`;
     window.open(url, "_blank");
@@ -18,7 +66,7 @@ const TrainerPanel = () => {
       <div className="Card-list">
         <div className="P-card">
           <div>
-            <h2>00</h2>
+            <h2>{exerciseCount}</h2>
             <p> Exercise</p>
           </div>
           <div className="panel-icon">
@@ -27,20 +75,11 @@ const TrainerPanel = () => {
         </div>
         <div className="P-card">
           <div>
-            <h2>00 </h2>
+            <h2>{blogsCount} </h2>
             <p> Blog</p>
           </div>
           <div className="panel-icon">
             <img src={blogs} alt="blogs" />
-          </div>
-        </div>
-        <div className="P-card">
-          <div>
-            <h2>00 </h2>
-            <p> Answer</p>
-          </div>
-          <div className="panel-icon">
-            <img src={Questions} alt="Questions" />
           </div>
         </div>
         <div className="P-card">

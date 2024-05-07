@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import ScrollTop from "./Components/ScrollTop";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 /* User View */
 
 import Home from "./Components/User/Home/Home";
@@ -24,6 +25,8 @@ import UserProfile from "./Components/Profiles/UserProfile";
 import Exercises from "./pages/ExercisesAPI/Exercises";
 import ExerciseDetail from "./pages/ExerciseDetail/ExerciseDetail";
 import Model from "./Model/Model";
+import Predictor from "./Components/User/Nutrition/Predictor/Predictor";
+import Food from "./Components/User/Nutrition/FoodDetails/Food";
 /* Admin View */
 
 import UserForm from "./Components/Admin/AdminRegistration/UserForm";
@@ -67,6 +70,8 @@ import GlobalStyles from "./Styles/GlobalStyles";
 import Nutrition from "./Components/User/Nutrition/Nutrition";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [userRole, setUserRole] = useState(null);
   const [userID, setUserID] = useState(null);
 
@@ -90,7 +95,6 @@ function App() {
     <>
       <GlobalStyles />
       <BrowserRouter>
-        {" "}
         <ScrollTop />
         <Routes>
           {/* User View */}
@@ -114,6 +118,8 @@ function App() {
             <Route path="/Exercises" element={<Exercises />} />
             <Route path="/exercise/:id" element={<ExerciseDetail />} />
             <Route path="/Model" element={<Model />} />
+            <Route path="/Predictor" element={<Predictor />} />
+            <Route path="/Food" element={<Food />} />
           </Route>
 
           {/* Trainer view */}
@@ -193,7 +199,15 @@ function App() {
             path="/TrainerRegistration"
             element={<TrainerRegistration />}
           />
-          <Route path="/TrainerLogin" element={<TrainerLogin />} />
+          <Route
+            path="/TrainerLogin"
+            element={
+              <TrainerLogin
+                updateUserRole={updateUserRole}
+                updateUserId={updateUserId}
+              />
+            }
+          />
           <Route path="/ResetTrainerPass" element={<ResetTrainerPass />} />
 
           <Route path="*" element={<PageNotFound />} />

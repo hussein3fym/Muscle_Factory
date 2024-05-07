@@ -5,6 +5,9 @@ using Backend_APIs.Models;
 using Backend_APIs.DTOs;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Identity;
+using System.Linq;
+
 
 namespace Backend_APIs.Controllers
 {
@@ -13,27 +16,31 @@ namespace Backend_APIs.Controllers
     public class ExercisesController : ControllerBase
     {
         private readonly Models.ApplicationDbContext _context;
+        private readonly UserManager<Backend_APIs.Models.User> _userManager;
+        private readonly RoleManager<IdentityRole<int>> _roleManager;
 
-        public ExercisesController(ApplicationDbContext context)
+        public ExercisesController(ApplicationDbContext context, UserManager<Backend_APIs.Models.User> userManager, RoleManager<IdentityRole<int>> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
+
         }
 
-        
+
         //USER GETALL EXERCISE
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var exercises = await _context.Exercises.Include(e=>e.Trainer)
+            var exercises = await _context.Exercises.Include(e=>e.User)
                 .Select(e => new {
                 e.Id,
                 e.ExerciseName,
-                e.Image,
                 e.Equipment,
                 e.TargetMuscle,
                 e.SecondaryMuscle,
+                e.Image,
                 e.Level,
-                e.TrainerId,
                 e.UserId,
             }).ToListAsync();
             return Ok(exercises);
@@ -51,9 +58,11 @@ namespace Backend_APIs.Controllers
         [HttpGet("ExercisesOfTrainers")]
         public async Task<IActionResult> GetExercisesOfTrainersAsync()
         {
+            var trainers = await _userManager.GetUsersInRoleAsync("Trainer");
+            var trainerUserIds = trainers.Select(u => u.Id).ToList();
+
             var exercises = await _context.Exercises
-                .Where(e => e.UserId == null)
-                .Include(e => e.Trainer)
+                .Where(e => trainerUserIds.Contains((int)e.UserId))
                 .Select(e => new {
                     e.Id,
                     e.ExerciseName,
@@ -61,8 +70,7 @@ namespace Backend_APIs.Controllers
                     e.TargetMuscle,
                     e.SecondaryMuscle,
                     e.Level,
-                    e.TrainerId,
-                    
+                    e.UserId,
                 })
                 .ToListAsync();
             return Ok(exercises);
@@ -71,8 +79,29 @@ namespace Backend_APIs.Controllers
         [HttpGet("ExercisesOfAdmins")]
         public async Task<IActionResult> GetExercisesOfAdminsAsync()
         {
+            var admin = await _userManager.GetUsersInRoleAsync("Admin");
+            var adminUserIds = admin.Select(u => u.Id).ToList();
+
             var exercises = await _context.Exercises
-                .Where(e => e.Trainer == null)
+                .Where(e => adminUserIds.Contains((int)e.UserId))
+                .Select(e => new {
+                    e.Id,
+                    e.ExerciseName,
+                    e.Equipment,
+                    e.TargetMuscle,
+                    e.SecondaryMuscle,
+                    e.Level,
+                    e.UserId,
+                })
+                .ToListAsync();
+            return Ok(exercises);
+        }
+
+        [HttpGet("GetByUserId")]
+        public async Task<IActionResult> GetByTrainerIdAsync(int UserId)
+        {
+            var exercises = await _context.Exercises
+                .Where(e => e.UserId == UserId)
                 .Include(e => e.User)
                 .Select(e => new {
                     e.Id,
@@ -82,27 +111,6 @@ namespace Backend_APIs.Controllers
                     e.SecondaryMuscle,
                     e.Level,
                     e.UserId,
-                    
-                })
-                .ToListAsync();
-            return Ok(exercises);
-        }
-
-        [HttpGet("GetByTrainerId")]
-        public async Task<IActionResult> GetByTrainerIdAsync(int TrainerId)
-        {
-            var exercises = await _context.Exercises
-                .Where(e => e.TrainerId == TrainerId)
-                .Include(e => e.Trainer)
-                .Select(e => new {
-                    e.Id,
-                    e.ExerciseName,
-                    e.Equipment,
-                    e.TargetMuscle,
-                    e.SecondaryMuscle,
-                    e.Level,
-                    e.TrainerId,
-                    
                 })
                 .ToListAsync();
             return Ok(exercises);
@@ -113,7 +121,7 @@ namespace Backend_APIs.Controllers
         {
             var exercises = await _context.Exercises
                 .Where(e => e.TargetMuscle == TargetMuscle)
-                .Include(e => e.Trainer)
+                .Include(e => e.User)
                 .Select(e => new {
                     e.Id,
                     e.ExerciseName,
@@ -121,7 +129,7 @@ namespace Backend_APIs.Controllers
                     e.TargetMuscle,
                     e.SecondaryMuscle,
                     e.Level,
-                    e.TrainerId,
+                    e.UserId,
                 })
                 .ToListAsync();
             if (exercises == null || !exercises.Any())
@@ -131,7 +139,7 @@ namespace Backend_APIs.Controllers
             return Ok(exercises);
         }
 
-        [HttpPost("CreateByAdmin")]
+        [HttpPost("CreateByAdminOrTrainer")]
         public async Task<IActionResult> CreateByAdminAsync([FromForm] CreateExerciseDto dto)
         {
             if (dto.Image == null)
@@ -140,12 +148,12 @@ namespace Backend_APIs.Controllers
             }
             using var imageStream = new MemoryStream();
             await dto.Image.CopyToAsync(imageStream);
-            if (dto.Video == null)
+            /*if (dto.Video == null)
             {
                 return BadRequest(" Image Is Required!");
             }
             using var videoStream = new MemoryStream();
-            await dto.Video.CopyToAsync(videoStream);
+            await dto.Video.CopyToAsync(videoStream);*/
             var InstructionsTextLineBreaks = @$"{dto.Instructions}".Replace("\n", "<br />\n");
             var exercise = new Exercise
             {
@@ -156,43 +164,9 @@ namespace Backend_APIs.Controllers
                 Instructions = InstructionsTextLineBreaks,
                 Level = dto.Level,
                 Image = imageStream.ToArray(),
-                Video = videoStream.ToArray(),
+                //Video = videoStream.ToArray(),
                 UserId = dto.UserId,
                 YouTubeVideo = dto.YouTubeVideo,
-            };
-            await _context.AddAsync(exercise);
-            _context.SaveChanges();
-            return Ok(exercise);
-        }
-
-        [HttpPost("CreateByTrainer")]
-        public async Task<IActionResult> CreateByTrainerAsync([FromForm] CreateExerciseDto dto)
-        {
-            if (dto.Image == null)
-            {
-                return BadRequest(" Image Is Required!");
-            }
-            using var imageStream = new MemoryStream();
-            await dto.Image.CopyToAsync(imageStream);
-            if (dto.Video == null)
-            {
-                return BadRequest(" Image Is Required!");
-            }
-            using var videoStream = new MemoryStream();
-            await dto.Video.CopyToAsync(videoStream);
-            var exercise = new Exercise
-            {
-                ExerciseName = dto.ExerciseName,
-                Equipment = dto.Equipment,
-                TargetMuscle = dto.TargetMuscle,
-                SecondaryMuscle = dto.SecondaryMuscle,
-                Instructions = dto.Instructions,
-                Level = dto.Level,
-                Image = imageStream.ToArray(),
-                Video = videoStream.ToArray(),
-                TrainerId = dto.TrainerId,
-                YouTubeVideo = dto.YouTubeVideo,
-
             };
             await _context.AddAsync(exercise);
             _context.SaveChanges();
@@ -224,12 +198,12 @@ namespace Backend_APIs.Controllers
                 exercise.Image = imageStream.ToArray();
             }
 
-            if (dto.Video != null)
+            /*if (dto.Video != null)
             {
                 using var videoStream = new MemoryStream();
                 await dto.Video.CopyToAsync(videoStream);
                 exercise.Video = videoStream.ToArray();
-            }
+            }*/
             if (dto.ExerciseName != null)
             {
                 exercise.ExerciseName = dto.ExerciseName;

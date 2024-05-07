@@ -95,7 +95,7 @@ const Nutrition = () => {
             eating choices.
           </h3>{" "}
           <img src={Food} alt="" />
-          <Link className="link-button">
+          <Link to="/Food" className="link-button">
             Check out
             <MdOutlineArrowForwardIos />
           </Link>

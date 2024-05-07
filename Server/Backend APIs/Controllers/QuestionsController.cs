@@ -17,7 +17,7 @@ namespace Backend_APIs.Controllers
         [HttpGet("AllQuestions")]
         public async Task<IActionResult> GetAllAsync()
         {
-            var Questions = await _context.Questions.Include(q => q.User).Select(q => new { q.Id, q.QuestionText, q.UserId, q.User.Name }).ToListAsync();
+            var Questions = await _context.Questions.Include(q => q.User).Select(q => new { q.Id, q.QuestionText, q.UserId }).ToListAsync();
             return Ok(Questions);
         }
 
@@ -40,7 +40,7 @@ namespace Backend_APIs.Controllers
         [HttpGet("GetQuestion/{id}")]
         public async Task<IActionResult> GetQuestionById(int id)
         {
-            var Question = await _context.Questions.Include(q=>q.User).Select(q => new { q.Id, q.User.Name, q.QuestionText, q.UserId }).SingleOrDefaultAsync(q=> q.Id == id);
+            var Question = await _context.Questions.Include(q=>q.User).Select(q => new { q.Id,  q.QuestionText, q.UserId }).SingleOrDefaultAsync(q=> q.Id == id);
             if (Question == null)
             {
                 return NotFound();

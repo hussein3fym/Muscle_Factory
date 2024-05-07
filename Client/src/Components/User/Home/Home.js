@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import experienceImage from "./../../../Assets/about.jpg";
@@ -10,6 +10,18 @@ import trans2 from "./../../../Assets/images/gym.png";
 import trans3 from "./../../../Assets/images/anastase-maragos-9dzWZQWZMdE-unsplash.jpg";
 
 const Home = () => {
+  const [word, setWord] = useState("Mentality");
+
+  useEffect(() => {
+    const words = ["Mentality", "Lifestyle", "Journey"];
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      const nextWord = words[currentIndex];
+      setWord(nextWord);
+      currentIndex = (currentIndex + 1) % words.length;
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div>
       <div className="home-container">
@@ -17,7 +29,8 @@ const Home = () => {
         <div className="home-content">
           <div className="home-text-container">
             <h1>
-              Fitness & Health is a <span> Mentality</span>
+              Fitness & Health is a{" "}
+              <span className="typing-animation">{word}</span>
             </h1>
             <p>
               It's a fitness hub offering everything for gym enthusiasts and
@@ -47,7 +60,7 @@ const Home = () => {
         </div>
       </div>
       <div className="help">
-        <h1 className="h1-help">How can we help you?</h1>
+        <h1 className="h1-help">Muscle Factory Where Results are Built.</h1>
         <div className="help-container">
           <div className="help-card">
             <h2>Workout</h2>
@@ -143,7 +156,7 @@ const Home = () => {
             <div className="transformation-card">
               <img src={trans1} alt="" />
               <p>
-                "Eat This Much not only helps me hit my macros, but also makes
+                "Muscle Factory not only helps me hit my macros, but also makes
                 sure I'm not eating the same bland thing every day. I've lost 35
                 lbs over the past year, and with ETM, I'm eating and performing
                 better than ever." * Sam Konowich @samkonthemankon (Sam is now
@@ -152,10 +165,10 @@ const Home = () => {
             </div>
             <div className="transformation-card">
               <p>
-                "I found out about Eat This Much in July 2017 and lost 32 lbs in
-                6 months! Now I'm a fit over 50 female in amazing condition, and
-                this site is what I refer to several times a day to ensure I eat
-                properly and manage my macros." * Meg M., awesome ETM user
+                "I found out about Muscle Factory in July 2017 and lost 32 lbs
+                in 6 months! Now I'm a fit over 50 female in amazing condition,
+                and this site is what I refer to several times a day to ensure I
+                eat properly and manage my macros." * Meg M., awesome ETM user
               </p>
               <img src={trans2} alt="" />
             </div>
@@ -163,10 +176,10 @@ const Home = () => {
               <img src={trans3} alt="" />
               <p>
                 "I started tracking my weight in April of 2013 when I was
-                184lbs. In May I signed up for Eat This Much and immediately
+                184lbs. In May I signed up for Muscle Factory and immediately
                 appreciated being able to just cook the menu and not worry about
                 what to have for dinner. By November I was down to 155lbs and I
-                still use Eat This Much today!" * Ben Kutil, Product designer
+                still use Muscle Factory today!" * Ben Kutil, Product designer
               </p>
             </div>
           </div>

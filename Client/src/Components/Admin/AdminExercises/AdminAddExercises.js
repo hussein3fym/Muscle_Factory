@@ -7,9 +7,8 @@ import "./../AdminBlogs/AdminCreation.css";
 const AdminAddExercises = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
 
-
-    const AdminId=storedUser.userId;
-    console.log(AdminId);
+  const AdminId = storedUser.userId;
+  console.log(AdminId);
   const [adminExerciseData, setAdminExerciseData] = useState({
     exerciseName: "",
     equipment: "",
@@ -35,7 +34,7 @@ const AdminAddExercises = () => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("userid", AdminId);
+      formData.append("UserId", AdminId);
       formData.append("exerciseName", adminExerciseData.exerciseName);
       formData.append("equipment", adminExerciseData.equipment);
       formData.append("targetMuscle", adminExerciseData.targetMuscle);
@@ -47,7 +46,7 @@ const AdminAddExercises = () => {
       formData.append("YouTubeVideo", adminExerciseData.YouTubeVideo);
 
       const response = await axios.post(
-        "https://localhost:7095/api/Exercises/CreateByAdmin ",
+        "https://localhost:7095/api/Exercises/CreateByAdminOrTrainer ",
         formData,
         {
           headers: {
@@ -78,7 +77,7 @@ const AdminAddExercises = () => {
               onChange={handleChange}
             />
           </label>
-         
+
           <label className="Creation">
             The Equipment
             <input

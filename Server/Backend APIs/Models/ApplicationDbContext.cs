@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -6,15 +8,16 @@
 
 namespace Backend_APIs.Models
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext>options) :base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<User> Users { get; set; }
+
+
         public DbSet<Question> Questions { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
-       
+        
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -22,31 +25,33 @@ namespace Backend_APIs.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<IdentityRole<int>>().ToTable("AspNetRoles");
+            seedRoles(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+
+            /*
             modelBuilder.Entity<Question>()
                .HasOne(a => a.User)
                .WithMany(q => q.Questions)
                .HasForeignKey(a => a.UserId)
-               .OnDelete(DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.Cascade);*/
+
             modelBuilder.Entity<Blog>()
                  .HasOne(a => a.User)
                .WithMany(b => b.Blogs)
-               .HasForeignKey(a => a.AdminId)
-               .OnDelete(DeleteBehavior.Cascade)
-               .OnDelete(DeleteBehavior.SetNull);
+               .HasForeignKey(a => a.UserId)
+               .OnDelete(DeleteBehavior.SetNull)
+               .OnDelete(DeleteBehavior.Cascade);
 
 
 
+           
             modelBuilder.Entity<Blog>()
-                 .HasOne(t => t.Trainer)
-               .WithMany(b => b.Blogs)
-               .HasForeignKey(a => a.TrainerId)
-               .OnDelete(DeleteBehavior.Cascade)
-               .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<Blog>()
-           .Property(p => p.AdminId).IsRequired(required: false);
-            modelBuilder.Entity<Blog>()
-          .Property(p => p.TrainerId).IsRequired(required: false);
+           .Property(p => p.UserId).IsRequired(required: false);
+
             modelBuilder.Entity<User_Photo>()
                .HasOne(a => a.User)
                .WithMany(q => q.User_Photos)
@@ -59,11 +64,7 @@ namespace Backend_APIs.Models
             .HasForeignKey(a => a.QuestionId)
             .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Exercise>()
-            .HasOne(a => a.Trainer)
-            .WithMany(q => q.Exercises)
-            .HasForeignKey(a => a.TrainerId)
-            .OnDelete(DeleteBehavior.Cascade);
+          
 
             modelBuilder.Entity<Exercise>()
              .HasOne(a => a.User)
@@ -89,5 +90,15 @@ namespace Backend_APIs.Models
              .HasForeignKey(a => a.QuestionId)
              .OnDelete(DeleteBehavior.Cascade);
         }
+        private static void seedRoles(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityRole<int>>().HasData(
+                new IdentityRole<int>() { Id = 1, Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin" },
+                new IdentityRole<int>() { Id = 2, Name = "User", ConcurrencyStamp = "2", NormalizedName = "User" },
+                new IdentityRole<int>() { Id = 3, Name = "Trainer", ConcurrencyStamp = "3", NormalizedName = "Trainer" }
+            );
+        }
+
     }
+
 }

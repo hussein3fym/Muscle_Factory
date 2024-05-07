@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\GP\\Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|d:\\gp\\server\\backend apis\\controllers\\exercisescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\controllers\\exercisescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|d:\\gp\\server\\backend apis\\dtos\\blogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\dtos\\blogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|d:\\gp\\server\\backend apis\\controllers\\blogscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\controllers\\blogscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|d:\\gp\\server\\backend apis\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|d:\\gp\\server\\backend apis\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,6 +33,23 @@
               "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BlogDto.cs",
+              "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\DTOs\\BlogDto.cs",
+              "RelativeDocumentMoniker": "Backend APIs\\DTOs\\BlogDto.cs",
+              "ToolTip": "D:\\GP\\Server\\Backend APIs\\DTOs\\BlogDto.cs",
+              "RelativeToolTip": "Backend APIs\\DTOs\\BlogDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-07T15:08:03.508Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "BlogsController.cs",
@@ -32,22 +57,35 @@
               "RelativeDocumentMoniker": "Backend APIs\\Controllers\\BlogsController.cs",
               "ToolTip": "D:\\GP\\Server\\Backend APIs\\Controllers\\BlogsController.cs",
               "RelativeToolTip": "Backend APIs\\Controllers\\BlogsController.cs",
-              "ViewState": "AQIAAGEAAAAAAAAAAAAwwG4AAAAoAAAA",
+              "ViewState": "AQIAAGkAAAAAAAAAAAAowHkAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-13T20:11:20.146Z"
+              "WhenOpened": "2024-05-07T14:46:30.701Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ExercisesController.cs",
-              "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\Controllers\\ExercisesController.cs",
-              "RelativeDocumentMoniker": "Backend APIs\\Controllers\\ExercisesController.cs",
-              "ToolTip": "D:\\GP\\Server\\Backend APIs\\Controllers\\ExercisesController.cs",
-              "RelativeToolTip": "Backend APIs\\Controllers\\ExercisesController.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAAB8AAAAcAAAA",
+              "DocumentIndex": 2,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Backend APIs\\Controllers\\UsersController.cs",
+              "ToolTip": "D:\\GP\\Server\\Backend APIs\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Backend APIs\\Controllers\\UsersController.cs",
+              "ViewState": "AQIAAHEAAAAAAAAAAAAswIEAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-13T02:44:01.336Z",
+              "WhenOpened": "2024-05-06T07:08:46.129Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthenticationController.cs",
+              "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\Controllers\\AuthenticationController.cs",
+              "RelativeDocumentMoniker": "Backend APIs\\Controllers\\AuthenticationController.cs",
+              "ToolTip": "D:\\GP\\Server\\Backend APIs\\Controllers\\AuthenticationController.cs",
+              "RelativeToolTip": "Backend APIs\\Controllers\\AuthenticationController.cs",
+              "ViewState": "AQIAAJEAAAAAAAAAAAAkwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-06T07:08:41.712Z"
             }
           ]
         }

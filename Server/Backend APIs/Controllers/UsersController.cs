@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend_APIs.DTOs;
 using Backend_APIs.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Backend_APIs.Controllers
 {
@@ -14,28 +15,74 @@ namespace Backend_APIs.Controllers
         private readonly ApplicationDbContext _context;
         private new List<String> _allowedExtetions = new List<string> { ".jpg", ".png", ".jpeg" };
         private long _maxAllowedSize = 5242880;
+        private readonly UserManager<Backend_APIs.Models.User> _userManager;
 
-        public UsersController(ApplicationDbContext context)
+        public UsersController(ApplicationDbContext context, UserManager<Backend_APIs.Models.User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [HttpGet("AllUsers")]
         public async Task<IActionResult> GetAllAsync()
         {
-            var users=await _context.Users.Select(e =>new { e.Id, e.Name ,e.Email,e.Type }).Where(e => e.Type == "user").ToListAsync();
-            return Ok(users);
+            // Retrieve users with the role "User"
+            var users = await _userManager.GetUsersInRoleAsync("User");
+
+            // Select only the properties you want to return
+            var result = users.Select(u => new
+            {
+                u.Id,
+                u.UserName,
+                u.Email
+                // Include other properties if needed
+            }).ToList();
+
+            return Ok(result);
         }
+
+        [HttpGet("accepted")]
+        public async Task<IActionResult> GetAcceptedAsync()
+        {
+            var users = await _userManager.GetUsersInRoleAsync("Trainer");
+
+            var result = users.Select(e => new
+            {
+                e.Id,
+                e.Status,
+                e.UserName,
+                e.Email,
+                e.Age,
+                e.Experience,
+                e.Gender,
+                e.Specialization,
+            }).Where(e => e.Status == "accepted").ToList();
+
+            return Ok(result);
+        }
+
         [HttpGet("GetUser/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            var user = await _context.Users.Select(e => new { e.Id, e.Name, e.Email, e.Type, e.Age,e.Gender}).SingleOrDefaultAsync(u=>u.Id==id);
+            var user = await _context.Users.Select(e => new {
+                e.Id,
+                e.Status,
+                e.UserName,
+                e.Email,
+                e.Age,
+                e.Experience,
+                e.Gender,
+                e.Specialization,
+                e.Photo,
+            })
+                .SingleOrDefaultAsync(u=>u.Id==id);
             if (user == null)
             {
                 return NotFound(); 
             }
             return Ok(user);
         }
+       
         [HttpDelete]
         [Route("DeleteUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
@@ -52,6 +99,7 @@ namespace Backend_APIs.Controllers
 
             return Ok(user);
         }
+
         [HttpPost("AddPhoto")]
         public async Task<IActionResult> AddPhoto([FromForm] UserPhotoDTO dto)
         {
@@ -82,6 +130,7 @@ namespace Backend_APIs.Controllers
             return Ok(photo);
 
         }
+       
         [HttpGet("GetUserPhotos/{UserID}")]
         public async Task<IActionResult> GetphotoByUserID(int UserID)
         {
@@ -97,6 +146,7 @@ namespace Backend_APIs.Controllers
 
             return Ok(Image);
         }
+     
         [HttpDelete(template: "{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -114,6 +164,7 @@ namespace Backend_APIs.Controllers
 
 
         }
+    
         [HttpPut(template: "{id}")]
         public async Task<IActionResult> Update(int id, [FromForm] UserDTO dto)
         {
@@ -124,16 +175,171 @@ namespace Backend_APIs.Controllers
                 return NotFound();
             }
             
-            user.Name=dto.Name;
+            user.UserName=dto.UserName;
             user.Email=dto.Email;
             user.Age=dto.Age;
-            user.Password=dto.Password;
+            
             user.Gender=dto.Gender;
-            user.Type=dto.Type;
+           
 
             _context.SaveChanges();
             return Ok(user);
 
+        }
+
+
+        [HttpPut("updatestatus/{id}")]
+        public async Task<IActionResult> UpdateAsync(int id)
+        {
+
+            var users = await _context.Users.SingleOrDefaultAsync(g => g.Id == id);
+            if (users == null)
+                return NotFound("Not Found!");
+            var isTrainer = await _userManager.IsInRoleAsync(users, "Trainer");
+            if (!isTrainer)
+                return StatusCode(StatusCodes.Status403Forbidden, new Response { Status = "Error", Message = "User is not a Trainer!" });
+            users.Status = "accepted";
+            _context.SaveChanges();
+            return Ok(users);
+        }
+
+       /* [HttpGet("AcceptedTrainers")]
+        public async Task<IActionResult> GetAcceptedTrainersAsync()
+        {
+            var users = await _context.Users
+                .Where(e => e.Status == "accepted" && _userManager.IsInRoleAsync(e, "Trainer").Result)
+                .Select(e => new {
+                    e.Id,
+                    e.Status,
+                    e.UserName,
+                    e.Email,
+                    e.Age,
+                    e.Experience,
+                    e.Gender,
+                    e.Specialization,
+                })
+                .ToListAsync();
+
+            return Ok(users);
+        } */
+
+        [HttpGet("Trainers")]
+        public async Task<IActionResult> GetTrainersAsync()
+        {
+            var users = await _userManager.GetUsersInRoleAsync("Trainer");
+            var trainerDetails = users.Select(e => new {
+                e.Id,
+                e.Status,
+                e.UserName,
+                e.Email,
+                e.Age,
+                e.Experience,
+                e.Gender,
+                e.Specialization,
+            }).ToList();
+
+            return Ok(users);
+        }
+
+        [HttpGet("RejectedTrainers")]
+        public async Task<IActionResult> GetRejectedTrainersAsync()
+        {
+            var users = await _userManager.GetUsersInRoleAsync("Trainer");
+
+            var result = users.Select(e => new
+            {
+                e.Id,
+                e.Status,
+                e.UserName,
+                e.Email,
+                e.Age,
+                e.Experience,
+                e.Gender,
+                e.Specialization,
+            }).Where(e => e.Status == "rejected").ToList();
+
+            return Ok(users);
+        }
+
+        [HttpGet("count-exercises/{id}")]
+        public async Task<ActionResult<int>> CountExercisesForTrainer(int id)
+        {
+            var trainer = await _context.Users
+                .Include(t => t.Exercises)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (trainer == null)
+            {
+                return NotFound();
+            }
+
+            int exerciseCount = trainer.Exercises.Count;
+            return Ok(exerciseCount);
+        }
+
+        [HttpGet("count-blogs/{id}")]
+        public async Task<ActionResult<int>> CountBlogsForTrainer(int id)
+        {
+            var trainer = await _context.Users
+                .Include(t => t.Blogs)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (trainer == null)
+            {
+                return NotFound();
+            }
+
+            int blogsCount = trainer.Blogs.Count;
+            return Ok(blogsCount);
+        }
+
+        //UPDATE TRAINER PROFILE
+        [HttpPut("UpdateTrainerProfile/{id}")]
+        public async Task<IActionResult> UpdateTrainerProfileAsync(int id, [FromForm] UpdateTrainererDto dto)
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            if (dto.Email != null)
+            {
+                user.Email = dto.Email;
+            }
+            if (dto.UserName != null)
+            {
+                user.UserName = dto.UserName;
+            }
+            if (dto.Age != null)
+             {
+                 user.Age = dto.Age;
+             }
+             if (dto.Experience != null)
+             {
+                 user.Experience = dto.Experience;
+             }
+            if (dto.Gender != null)
+            {
+                user.Gender = dto.Gender;
+            }
+            if (dto.Specialization != null)
+             {
+                 user.Specialization = dto.Specialization;
+             }
+            _context.SaveChanges();
+            return Ok(user);
+        }
+
+        //UPDATE PROFILE PIC
+        [HttpPut("UpdateProfilePic/{id}")]
+        public async Task<IActionResult> UpdateProfilePicAsync(int id, [FromForm] UpdateUserPhotoDto dto)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (dto.Photo != null)
+            {
+                using var imageStream = new MemoryStream();
+                await dto.Photo.CopyToAsync(imageStream);
+                user.Photo = imageStream.ToArray();
+            }
+            _context.SaveChanges();
+            return Ok(user);
         }
 
     }

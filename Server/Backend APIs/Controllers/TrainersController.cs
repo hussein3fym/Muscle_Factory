@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend_APIs.Models;
 using Backend_APIs.DTOs;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace Backend_APIs.Controllers
@@ -33,25 +34,7 @@ namespace Backend_APIs.Controllers
                 return NotFound();
             return Ok(trainers);
         }
-        [HttpGet("AcceptedTrainers")]
-        public async Task<IActionResult> GetAcceptedTrainersAsync()
-        {
-            var trainers = await _context.Trainers
-                .Where(e => e.Status == "accepted")
-                .Select(e => new {
-                    e.Id,
-                    e.Status,
-                    e.Name,
-                    e.Email,
-                    e.Age,
-                    e.Experience,
-                    e.Gender,
-                    e.Specialization,
-                })
-                .ToListAsync();
-
-            return Ok(trainers);
-        }
+      
         [HttpGet("RejectedTrainers")]
         public async Task<IActionResult> GetRejectedTrainersAsync()
         {
@@ -84,16 +67,6 @@ namespace Backend_APIs.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(int id )
-        {
-            //newvalue = "accepted";
-            var trainers = await _context.Trainers.SingleOrDefaultAsync(g => g.Id == id) ;
-            if (trainers == null)
-                return NotFound("Not Found!");
-            trainers.Status = "accepted";
-            _context.SaveChanges();
-            return Ok(trainers);
-        }
+       
     }
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Main.css";
-import SideBar from "../SideBar/SideBar";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/context";
 
@@ -133,15 +132,15 @@ const Main = () => {
               <div className="m-cards">
                 <div className="m-card" onClick={handleCardClick}>
                   <p>Need a diet plan ? Enter your data !!</p>
-                  <img src={assets.compass_icon} alt="" className="m-Icon" />
+                  <img src={assets.nutrients} alt="" className="m-Icon" />
                 </div>
                 <div className="m-card" onClick={handleCardClickExercise}>
                   <p>Need an excersice plan ?</p>
-                  <img src={assets.compass_icon} alt="" className="m-Icon" />
+                  <img src={assets.workout} alt="" className="m-Icon" />
                 </div>
                 <div className="m-card" onClick={handleQuestionCardClick}>
                   <p>Do you have a question ?</p>
-                  <img src={assets.question_icon} alt="" className="m-Icon" />
+                  <img src={assets.ask} alt="" className="m-Icon" />
                 </div>
               </div>
             </>

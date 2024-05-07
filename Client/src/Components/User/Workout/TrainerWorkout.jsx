@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { GrFormView } from "react-icons/gr";
+import "./Workout.css";
 const TrainerWorkout = () => {
   const [trainerWorkout, setTrainerWorkout] = useState([]);
   useEffect(() => {
@@ -53,6 +54,11 @@ const TrainerWorkout = () => {
       <div className="workout-list">
         {trainerWorkout.map((exercise, i) => (
           <div key={i} className="workout-item">
+            <img
+              src={`data:image/jpeg;base64,${exercise.image}`}
+              alt="Blog Thumbnail"
+              className="workout-card-image"
+            />
             <h1>{exercise.exerciseName}</h1>
             <p>{exercise.targetMuscle}</p>
             <div>

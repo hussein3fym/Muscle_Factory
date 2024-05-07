@@ -28,7 +28,7 @@ const AddAdminBlogs = () => {
 
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("AdminId", AdminId);
+      formDataToSend.append("UserId", AdminId);
       formDataToSend.append("Title", adminBlogs.Title);
       formDataToSend.append("BlogText", adminBlogs.BlogText);
       formDataToSend.append("VideoURL", adminBlogs.VideoURL);

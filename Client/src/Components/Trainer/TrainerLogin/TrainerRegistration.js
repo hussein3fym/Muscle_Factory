@@ -1,29 +1,69 @@
 import React, { useState } from "react";
 import "./TrainerLogin.css"; // Import the CSS file
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+
 
 const TrainerLogin = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    UserName: "",
     email: "",
     password: "",
     Age: "",
     experience: "",
     specialization: "",
     gender: "",
-    cvFile: null,
+    //cvFile: null,
   });
 
   const handleChange = (e) => {
+    /*if (e.target.type === 'file') {
+      // Handle file input separately
+      const selectedFile = e.target.files[0];
+      setFormData((prevData) => ({ ...prevData, cvFile: selectedFile }));
+    } else {*/
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setFormData((prevData) => ({ ...prevData, [name]: value })); //}
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your form submission logic here, for example, logging the form data
+
     console.log("Form submitted:", formData);
+    
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("UserName", formData.UserName);
+      formDataToSend.append("Password", formData.password);
+      formDataToSend.append("Email", formData.email);
+      formDataToSend.append("Age", formData.Age);
+      formDataToSend.append("Experience", formData.experience);
+      formDataToSend.append("Specialization", formData.specialization);
+      formDataToSend.append("Gender", formData.gender);
+      //formDataToSend.append("cvFile", formData.cvFile);
+
+      console.log("Form Data to Send:", formDataToSend);
+      const response = await axios.post(
+        "https://localhost:7095/api/Authentication/TrainerRegistration?role=Trainer",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+         // timeout: 10000,
+        }
+      );
+
+      console.log("trainer Registered successfully:", response.data);
+      //toast.success(`Please confirm your email before login. Confirmation email sent to ${formData.email}`);
+    } catch (error) {
+      console.error("Error Registering trainer:", error);
+      toast.error("trainer registeration failed");
+    }
+
   };
+
 
   return (
     <div className="login-container">
@@ -33,10 +73,10 @@ const TrainerLogin = () => {
           Name :
           <input
             type="text"
-            name="name"
+            name="UserName"
             required
             className="login-input"
-            value={formData.name}
+            value={formData.UserName}
             onChange={handleChange}
           />
         </label>
@@ -115,17 +155,6 @@ const TrainerLogin = () => {
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
-        </label>
-        <label className="cv-label">
-          Upload Your CV
-          <input
-            required
-            type="file"
-            className="cv-input"
-            accept="application/pdf"
-            value={formData.cvFile}
-            onChange={handleChange}
-          />
         </label>
 
         <button type="submit" className="login-button">

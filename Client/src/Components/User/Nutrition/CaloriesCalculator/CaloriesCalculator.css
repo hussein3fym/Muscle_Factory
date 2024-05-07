@@ -146,6 +146,20 @@
   border-radius: 10px;
   transition: all 0.3s ease;
 }
+.print-weight {
+  padding: 1.2rem;
+  margin: 0.7rem;
+  font-size: 1.7rem;
+  border: 1px solid #000000;
+  color: #ffffff;
+  background-color: #23b708;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.print-weight:hover {
+  background-color: #1a8c05;
+  transform: scale(1.05);
+}
 .lose-weight:hover {
   background-color: #ffffffaf;
   transform: scale(1.05);
@@ -166,7 +180,7 @@
   margin-right: 1rem;
 }
 .month-plan {
-  width: 60rem;
+  width: 100rem;
   border: 1px solid #ffffff;
   border-radius: 10px;
   padding: 2rem;
@@ -174,7 +188,7 @@
 }
 
 .month-plan p {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: #ffffff;
   margin: 1rem;
 }

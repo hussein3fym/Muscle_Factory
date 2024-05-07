@@ -13,6 +13,7 @@
 }
 .Static-info img {
   width: 13rem;
+  height: 13rem;
   padding-left: 8px;
   border-radius: 50%;
   display: flex;
