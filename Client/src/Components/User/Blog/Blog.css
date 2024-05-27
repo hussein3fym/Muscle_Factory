@@ -66,6 +66,10 @@
   margin-bottom: 10px; /* Add space between title and content */
   width: 100%; /* Add fixed width to ensure consistent alignment */
   display: inline-block; /* Allow elements to respect the specified width */
+  cursor: pointer;
+}
+.blog-card-title:hover {
+  color: #ff0000;
 }
 .ViewBlog {
   background-color: brown;

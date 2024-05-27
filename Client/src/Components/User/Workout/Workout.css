@@ -10,6 +10,10 @@
   color: #fff;
   font-size: 3rem;
   margin-bottom: 20px;
+  cursor: pointer;
+}
+.Workout-container h1:hover {
+  color: #d61717;
 }
 .workout-menu {
   padding: 2rem;

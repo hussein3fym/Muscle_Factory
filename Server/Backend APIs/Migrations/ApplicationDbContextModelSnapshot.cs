@@ -61,6 +61,27 @@ namespace Backend_APIs.Migrations
                     b.ToTable("Blogs");
                 });
 
+            modelBuilder.Entity("Backend_APIs.Models.Certificate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Certificates");
+                });
+
             modelBuilder.Entity("Backend_APIs.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -205,6 +226,35 @@ namespace Backend_APIs.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Trainers");
+                });
+
+            modelBuilder.Entity("Backend_APIs.Models.Transformation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("File")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Transformations");
                 });
 
             modelBuilder.Entity("Backend_APIs.Models.User", b =>
@@ -491,6 +541,16 @@ namespace Backend_APIs.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Backend_APIs.Models.Certificate", b =>
+                {
+                    b.HasOne("Backend_APIs.Models.User", "User")
+                        .WithMany("Certificates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Backend_APIs.Models.Comment", b =>
                 {
                     b.HasOne("Backend_APIs.Models.Question", "Question")
@@ -536,6 +596,16 @@ namespace Backend_APIs.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Backend_APIs.Models.Transformation", b =>
+                {
+                    b.HasOne("Backend_APIs.Models.User", "User")
+                        .WithMany("Transformations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
@@ -620,11 +690,15 @@ namespace Backend_APIs.Migrations
                 {
                     b.Navigation("Blogs");
 
+                    b.Navigation("Certificates");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Exercises");
 
                     b.Navigation("Questions");
+
+                    b.Navigation("Transformations");
 
                     b.Navigation("User_Photos");
                 });

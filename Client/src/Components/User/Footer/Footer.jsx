@@ -55,19 +55,19 @@ const Footer = () => {
         {/*3*/}
         <div className="all-links">
           <h3>
-            <a href="">
+            <Link to="">
               <FaFacebook className="icon-facebook" /> Facebook
-            </a>
+            </Link>
           </h3>
           <h3>
-            <a href="">
+            <Link to="">
               <FaInstagram className="icon-instagram" /> Instagram
-            </a>
+            </Link>
           </h3>
           <h3>
-            <a href="">
+            <Link to="">
               <FaYoutube className="icon-youtube" /> YouTube
-            </a>
+            </Link>
           </h3>
         </div>
       </div>

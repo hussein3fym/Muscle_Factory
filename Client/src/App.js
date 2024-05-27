@@ -8,9 +8,9 @@ import { useNavigate } from "react-router-dom";
 /* User View */
 
 import Home from "./Components/User/Home/Home";
-import Register from "./Components/User/Registration/Register";
-import Login from "./Components/User/Registration/Login";
-import ResetPassword from "./Components/User/Registration/ResetPassword";
+import Register from "./Authentication/Register";
+import Login from "./Authentication/Login";
+import ResetPassword from "./Authentication/ResetPassword";
 import Workout from "./Components/User/Workout/Workout";
 import CaloriesCalculator from "./Components/User/Nutrition/CaloriesCalculator/CaloriesCalculator";
 import BMI from "./Components/User/Nutrition/BMI/BMI";
@@ -27,6 +27,8 @@ import ExerciseDetail from "./pages/ExerciseDetail/ExerciseDetail";
 import Model from "./Model/Model";
 import Predictor from "./Components/User/Nutrition/Predictor/Predictor";
 import Food from "./Components/User/Nutrition/FoodDetails/Food";
+import Nutrition from "./Components/User/Nutrition/Nutrition";
+import Coaches from "./Components/User/Trainers/Coaches";
 /* Admin View */
 
 import UserForm from "./Components/Admin/AdminRegistration/UserForm";
@@ -48,9 +50,7 @@ import WaitingTrainers from "./Components/Admin/AdminRegistration/WaitingTrainer
 import AdminProfile from "./Components/Profiles/AdminProfile";
 /* Trainer View */
 import TrainerPanel from "./Components/Trainer/TrainerLayout/TrainerPanel";
-import TrainerRegistration from "./Components/Trainer/TrainerLogin/TrainerRegistration";
-import TrainerLogin from "./Components/Trainer/TrainerLogin/TrainerLogin";
-import ResetTrainerPass from "./Components/Trainer/TrainerLogin/ResetTrainerPass";
+import TrainerRegistration from "./Authentication/TrainerRegistration";
 import AddBlog from "./Components/Trainer/Blogs/AddBlog";
 import BlogForm from "./Components/Trainer/Blogs/BlogForm";
 import ViewBlog from "./Components/Trainer/Blogs/ViewBlog";
@@ -60,6 +60,8 @@ import ExercisesForm from "./Components/Trainer/Exercises/ExercisesForm";
 import ViewExercises from "./Components/Trainer/Exercises/ViewExercises";
 import UpdateExercises from "./Components/Trainer/Exercises/UpdateExercises";
 import TrainerProfile from "./Components/Profiles/TrainerProfile";
+import Certificates from "./Components/Trainer/Uploads/Certificates";
+import Transform from "./Components/Trainer/Uploads/Transform";
 
 /* Main App */
 import PageNotFound from "./pages/PageNotFound";
@@ -67,30 +69,35 @@ import UserLayout from "./Components/User/UserLayout/UserLayout";
 import TrainerLayout from "./Components/Trainer/TrainerLayout/TrainerLayout";
 import AdminLayout from "./Components/Admin/AdminLayout/AdminLayout";
 import GlobalStyles from "./Styles/GlobalStyles";
-import Nutrition from "./Components/User/Nutrition/Nutrition";
+import RequireAuth from "./Authentication/RequireAuth";
+
+const roles = {
+  User: 2,
+  Trainer: 3,
+  Admin: 1,
+};
 
 function App() {
+  /*
+  const [userRole, setUserRole] = useState(null); 
+  const handleLogout = () => {
+    setUserRole(null); 
+  };
+  const handleLogin = (role) => {
+    setUserRole(role); 
+  };*/
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [userRole, setUserRole] = useState(null);
   const [userID, setUserID] = useState(null);
 
-  const updateUserRole = (role) => {
+  /*  const updateUserRole = (role) => {
     setUserRole(role);
   };
   const updateUserId = (id) => {
     setUserID(id);
-  };
-  const RestrictedRoute = ({ role, children, ...rest }) => {
-    if (userRole === role) {
-      console.log(userRole, "this is a role");
-      return <Route {...rest}>{children}</Route>;
-    } else {
-      console.log(userRole);
-      // Redirect to a page indicating unauthorized access
-      return <Navigate to="/" />;
-    }
-  };
+  };*/
+
   return (
     <>
       <GlobalStyles />
@@ -98,6 +105,7 @@ function App() {
         <ScrollTop />
         <Routes>
           {/* User View */}
+          {/* <Route element={<RequireAuth allowedRoles={[roles.User]} />}> */}
           <Route element={<UserLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/UserProfile" element={<UserProfile />} />
@@ -120,9 +128,11 @@ function App() {
             <Route path="/Model" element={<Model />} />
             <Route path="/Predictor" element={<Predictor />} />
             <Route path="/Food" element={<Food />} />
+            <Route path="/Coaches" element={<Coaches />} />
           </Route>
-
+          {/* </Route> */}
           {/* Trainer view */}
+          {/* <Route element={<RequireAuth allowedRoles={[ROLES.Trainer]} />}> */}
           <Route element={<TrainerLayout />}>
             <Route path="/TrainerPanel" element={<TrainerPanel />} />
             <Route path="/TrainerProfile" element={<TrainerProfile />} />
@@ -136,9 +146,12 @@ function App() {
             <Route path="/ExercisesForm" element={<ExercisesForm />} />
             <Route path="/ViewExercises/:id" element={<ViewExercises />} />
             <Route path="/UpdateExercises/:id" element={<UpdateExercises />} />
+            <Route path="/Certificates" element={<Certificates />} />
+            <Route path="/Transform" element={<Transform />} />
           </Route>
-
+          {/* </Route> */}
           {/* Admin View */}
+          {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}> */}
           <Route element={<AdminLayout />}>
             {/* Auth */}
             <Route path="/UserForm" element={<UserForm />} />
@@ -182,6 +195,7 @@ function App() {
             {/* Trainer Exercises */}
             <Route path="/ExercisesForm" element={<ExercisesForm />} />
           </Route>
+          {/* </Route> */}
 
           {/* Auth */}
           <Route path="/Register" element={<Register />} />
@@ -189,8 +203,8 @@ function App() {
             path="/Login"
             element={
               <Login
-                updateUserRole={updateUserRole}
-                updateUserId={updateUserId}
+              //updateUserRole={updateUserRole}
+              //updateUserId={updateUserId}
               />
             }
           />
@@ -199,17 +213,6 @@ function App() {
             path="/TrainerRegistration"
             element={<TrainerRegistration />}
           />
-          <Route
-            path="/TrainerLogin"
-            element={
-              <TrainerLogin
-                updateUserRole={updateUserRole}
-                updateUserId={updateUserId}
-              />
-            }
-          />
-          <Route path="/ResetTrainerPass" element={<ResetTrainerPass />} />
-
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

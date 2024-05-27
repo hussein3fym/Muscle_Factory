@@ -78,7 +78,7 @@ const Home = () => {
               Find the best trainer for you, whether you're looking for a
               strength training, cardio, or yoga workout.
             </p>
-            <Link to="" className="card-link">
+            <Link to="/Coaches" className="card-link">
               Find Trainer
             </Link>
           </div>
@@ -130,6 +130,26 @@ const Home = () => {
             </div>
           </div>
         </div>
+        {/* <div>
+          <h1>Our Trainers</h1>
+          <div className="trainer-container">
+            <div className="trainer-card">
+              <img src={trans1} alt="" />
+              <h3>John Doe</h3>
+              <p>Specialization: Weight Loss</p>
+            </div>
+            <div className="trainer-card">
+              <img src={trans2} alt="" />
+              <h3>Jane Doe</h3>
+              <p>Specialization: Weight Gain</p>
+            </div>
+            <div className="trainer-card">
+              <img src={trans3} alt="" />
+              <h3>Sam Doe</h3>
+              <p>Specialization: Muscle Gain</p>
+            </div>
+          </div>
+        </div> */}
         <div className="nutrition">
           <div className="nutrition-container">
             <div className="text-container">

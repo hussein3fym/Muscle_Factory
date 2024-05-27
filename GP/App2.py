@@ -32,6 +32,14 @@ def predict_bmr(model, user_data):
         test_df[col] = 0
     test_df = test_df[X_train.columns]
     bmr_prediction = model.predict(test_df)
+
+    # goal = user_data['Goal'][0]
+    goal = user_data.get('Goal')
+    if goal == 'loseWeight':
+        bmr_prediction -= 300
+    elif goal == 'gainWeight':
+        bmr_prediction += 300
+
     return bmr_prediction[0]
 
 def recommend_meals(predicted_bmr, preference='all', num_meals=3):
@@ -68,6 +76,10 @@ def predict():
         recommended_meals = recommend_meals(bmr_prediction, preference, num_meals)
 
         return jsonify({'prediction': bmr_prediction.tolist(), 'recommended_meals': recommended_meals})
+    except KeyError as e:
+        # Handle missing or incorrect keys in the JSON data
+        return jsonify({'error': f'Missing or incorrect key in JSON data: {str(e)}'}), 400
+
     except Exception as e:
         return jsonify({'error': str(e)})
 

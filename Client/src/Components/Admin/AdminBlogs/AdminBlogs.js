@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import { MdDelete } from "react-icons/md";
+import { FaEye, FaEdit } from "react-icons/fa";
 const AdminBlogs = () => {
   const [adminBlogs, setAdminBlogs] = useState([]);
   useEffect(() => {
@@ -62,23 +63,23 @@ const AdminBlogs = () => {
                   <div className="buttons-container">
                     <Link
                       to={`/ViewAdminBlogs/${adminBlogs.id}`}
-                      className="btn btn-info"
+                      className="viewContent"
                       onClick={() => handleView(adminBlogs.id)}
                     >
-                      View
+                      <FaEye />
                     </Link>
 
                     <Link
                       to={`/UpdateAdminBlogs/${adminBlogs.id}`}
-                      className="btn btn-warning"
+                      className="updateContent"
                     >
-                      Update
+                      <FaEdit />
                     </Link>
                     <button
                       onClick={() => handleDelete(adminBlogs.id)}
-                      className="btn btn-danger"
+                      className="deleteContent"
                     >
-                      Delete
+                      <MdDelete />
                     </button>
                   </div>
                 </td>

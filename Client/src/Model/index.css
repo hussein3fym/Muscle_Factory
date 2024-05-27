@@ -6,7 +6,9 @@
   width: 250px; /* Adjust the width as needed */
   padding: 20px; /* Add some padding for spacing */
 }
-
+#root {
+  animation: fadeIn 1.5s;
+}
 /* Styling for the main content */
 .main {
   flex: 1; /* Take up remaining space in the container */

@@ -5,7 +5,8 @@ import TrainerIcon from "./../../../Assets/icons/TrainerIcon1.jpeg";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import { CiDumbbell } from "react-icons/ci";
 import { TbBrandBlogger } from "react-icons/tb";
-import { FaUsers } from "react-icons/fa";
+import { MdOutlinePublishedWithChanges } from "react-icons/md";
+import { PiCertificateDuotone } from "react-icons/pi";
 const SideNav = () => {
   return (
     <div className="sideNav">
@@ -31,9 +32,15 @@ const SideNav = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/ClientForm" className="StyledNavLink">
-              <FaUsers />
-              Clients
+            <NavLink to="/Certificates" className="StyledNavLink">
+              <PiCertificateDuotone />
+              Certificate
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/Transform" className="StyledNavLink">
+              <MdOutlinePublishedWithChanges />
+              Transform
             </NavLink>
           </li>
         </ul>

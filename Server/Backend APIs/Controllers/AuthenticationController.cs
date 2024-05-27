@@ -85,8 +85,8 @@ namespace Backend_APIs.Controllers
         public async Task<IActionResult> TrainerRegister([FromForm] UserDTO dto, string role)
         {
 
-            //using var CVStream = new MemoryStream();
-            //await dto.CvFile.CopyToAsync(CVStream);
+            using var CVStream = new MemoryStream();
+            await dto.CvFile.CopyToAsync(CVStream);
             // First check user existence
             var userExist = await _userManager.FindByEmailAsync(dto.Email);
             if (userExist != null)
@@ -100,7 +100,7 @@ namespace Backend_APIs.Controllers
             {
                 Email = dto.Email,
                 UserName = dto.UserName,
-               // CvFile = CVStream.ToArray(),
+                CvFile = CVStream.ToArray(),
                 Age = dto.Age,
                 Gender = dto.Gender,
                 Experience = dto.Experience,

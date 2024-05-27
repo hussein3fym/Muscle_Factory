@@ -2,61 +2,85 @@ import React, { useState, useEffect } from "react";
 import { FaEdit, FaRegSave } from "react-icons/fa";
 import { BiImageAdd } from "react-icons/bi";
 import axios from "axios";
-import { BiShow, BiHide } from "react-icons/bi";
-import UserImg from "./../../Assets/icons/dashboardicon.jpeg";
 import { useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import "./U-profile.css";
 
 const UserProfile = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const UserId = storedUser.userId;
+
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState(null);
-  const [profileImage, setProfileImage] = useState(null);
   const { id } = useParams();
   const [values, setValues] = useState({
-    username: "",
+    userName: "",
     email: "",
-    password: "",
-    confirmPassword: "",
-    profileImage: null,
+    age: "",
+    gender: "",
+    photo: null,
   });
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
   useEffect(() => {
     axios
-      .get("https://localhost:7095/api/Users/GetUser/" + id)
+      .get(`https://localhost:7095/api/Users/GetUser/${UserId}`)
       .then((res) => {
         setProfileData(res.data);
         setValues({
           ...values,
-          username: res.data.username,
+          userName: res.data.userName,
           email: res.data.email,
-          password: res.data.password,
-          confirmPassword: res.data.confirmPassword,
-          profileImage: res.data.profileImage,
+          age: res.data.age,
+          gender: res.data.gender,
+          photo: res.data.photo,
         });
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [UserId]);
 
   const handleSave = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("userName", values.userName);
+    formData.append("age", values.age);
+    formData.append("gender", values.gender);
+    if (values.photo) {
+      formData.append("photo", values.photo);
+    }
+
     axios
-      .put("https://localhost:7095/api/Users/GetUser/" + id, values)
+      .put(`https://localhost:7095/api/Users/${UserId}`, formData)
       .then((res) => {
         console.log(res.data);
+        setIsEditing(false);
       })
       .catch((err) => {
         console.log(err);
       });
-    setIsEditing(false);
   };
-
+  const handleFileChange = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("photo", e.target.files[0]);
+      const response = await axios.put(
+        `https://localhost:7095/api/Users/UpdateProfilePic/${UserId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+      toast.success("Image updated successfully");
+    } catch (error) {
+      console.error("Error updating exercise:", error);
+      toast.error("Image update failed");
+    }
+  };
   const handleEdit = () => {
     setIsEditing(true);
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
   };
 
   return (
@@ -65,12 +89,21 @@ const UserProfile = () => {
         <div className="profile">
           <h1>Account Setting</h1>
           <p>Here you can view and edit your profile.</p>
-          {profileData && (
+          {values && (
             <div className="profileInfo">
-              <img src={UserImg} alt="Profile" />
+              <img
+                src={`data:image/jpg;base64,${values.photo}`}
+                alt="Profile"
+              />
               <div className="username">
-                <h3>{profileData.username}</h3>
-                <h3> {profileData.email}</h3>
+                <h3>{values.userName}</h3>
+                <h3> {values.email}</h3>
+                {!isEditing && (
+                  <>
+                    <p>Age: {values.age}</p>
+                    <p>Gender: {values.gender}</p>
+                  </>
+                )}
               </div>
             </div>
           )}
@@ -81,28 +114,11 @@ const UserProfile = () => {
                 <label>Username</label>
                 <input
                   type="text"
-                  value={values.username}
+                  value={values.userName}
                   onChange={(e) =>
-                    setValues({ ...values, username: e.target.value })
+                    setValues({ ...values, userName: e.target.value })
                   }
                 />
-                <label>Password</label>
-                <div className="password-input">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    value={values.password}
-                    onChange={(e) =>
-                      setValues({ ...values, password: e.target.value })
-                    }
-                  />
-                  <label htmlFor="togglePassword" className="password-toggle">
-                    {showPassword ? (
-                      <BiHide onClick={togglePasswordVisibility} />
-                    ) : (
-                      <BiShow onClick={togglePasswordVisibility} />
-                    )}
-                  </label>
-                </div>
 
                 <label htmlFor="profileImageInput" className="fileInputLabel">
                   Profile Image <BiImageAdd className="fileInputIcon" />
@@ -112,21 +128,32 @@ const UserProfile = () => {
                   className="fileInput"
                   type="file"
                   accept="image/*"
-                  onChange={(e) =>
-                    setValues({
-                      ...values,
-                      profileImage: e.target.files[0] || null,
-                    })
-                  }
+                  onChange={(e) => handleFileChange(e, "photo")}
                 />
-                {/* <label>Age:</label>
-                <input type="number" id="age" name="age" min="1" />
+
+                <label>Age:</label>
+                <input
+                  type="number"
+                  value={values.age}
+                  onChange={(e) =>
+                    setValues({ ...values, age: e.target.value })
+                  }
+                  min="1"
+                />
 
                 <label htmlFor="gender">Gender: </label>
-                <select id="gender" name="gender">
+                <select
+                  className="userGender"
+                  id="gender"
+                  name="gender"
+                  value={values.gender}
+                  onChange={(e) =>
+                    setValues({ ...values, gender: e.target.value })
+                  }
+                >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
-                </select> */}
+                </select>
 
                 <div>
                   <button type="submit" className="edit">

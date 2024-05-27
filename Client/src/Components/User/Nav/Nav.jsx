@@ -6,30 +6,29 @@ import { Container, Navbar } from "react-bootstrap";
 import { IoMdLogOut } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import User from "./../../../Assets/icons/dashboardicon.jpeg";
+import { CgProfile } from "react-icons/cg";
+import { useAuth } from "./../../../Context/AuthProvider"; // Adjust the path accordingly
+import axios from "axios";
 
 const Nav = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const UserId = storedUser ? storedUser.userId : null;
+  const [user, setUser] = useState([]);
   const location = useLocation();
-
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Initially set to false
-
-  // Assuming somewhere in your app you handle the actual login
-  const handleLoginSuccess = (token) => {
-    localStorage.setItem("userToken", token);
-    setIsLoggedIn(true);
-    navigate("/userProfile");
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("userToken");
-    setIsLoggedIn(false);
-    navigate("/login");
-  };
+  const { isLoggedIn, handleLogout } = useAuth();
 
   useEffect(() => {
-    setIsLoggedIn(localStorage.getItem("userToken") !== null);
-  }, [location]); // Use location if it's really relevant to your auth state
+    if (UserId) {
+      axios
+        .get(`https://localhost:7095/api/Users/GetUser/${UserId}`)
+        .then((res) => {
+          setUser(res.data);
+          console.log("Fetched Trainer Data:", res.data);
+        })
+        .catch((error) => console.error("Error fetching trainer:", error));
+    }
+  }, [UserId]);
 
   return (
     <div>
@@ -94,16 +93,26 @@ const Nav = () => {
               ) : (
                 <>
                   <li>
-                    <NavLink to="/userProfile">
-                      <img
-                        src={User}
-                        alt="User Profile"
-                        style={{ width: 30, height: 30 }}
-                      />
-                    </NavLink>
+                    {user.photo ? (
+                      <NavLink to="/userProfile">
+                        <img
+                          src={`data:image/jpg;base64,${user.photo}`}
+                          alt="User Profile"
+                          style={{ width: 40, height: 40 }}
+                          className="U-ProfileImg"
+                        />
+                      </NavLink>
+                    ) : (
+                      <div>
+                        <NavLink to="/userProfile">
+                          <CgProfile className="U-ProfileIcon" />
+                        </NavLink>{" "}
+                      </div>
+                    )}
                   </li>
                   <li>
                     <IoMdLogOut
+                      className="userLogout"
                       size={30}
                       onClick={handleLogout}
                       style={{ cursor: "pointer" }}

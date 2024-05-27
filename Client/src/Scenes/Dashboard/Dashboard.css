@@ -1,7 +1,7 @@
 .DashboardPage {
   background-color: var(--color-grey-50);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding: 1rem;
 }
 .dashboardTitle {
@@ -32,17 +32,16 @@
 }
 .DashCard {
   display: flex;
-  gap: 3rem;
-  margin-top: 9rem;
+  gap: 2.5rem;
+  margin-top: 5rem;
 }
 .DashItem {
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
-
   padding: 1.6rem 5rem;
   display: grid;
-  grid-template-columns: 6.4rem 1fr;
+  grid-template-columns: 8rem 1fr;
   grid-template-rows: auto auto;
   column-gap: 1.6rem;
   row-gap: 0.4rem;
@@ -52,8 +51,6 @@
   padding: 8px;
   grid-row: 1 / -1;
   aspect-ratio: 1;
-  background-color: #6e3939a9;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,4 +70,16 @@
   font-size: 2.4rem;
   line-height: 1;
   font-weight: 500;
+}
+.charts {
+  width: 50rem;
+  display: flex;
+  gap: 5rem;
+  margin-left: 8rem;
+  margin-top: 5rem;
+}
+.lineChart {
+  width: 80rem;
+  margin: 5rem;
+  padding: 5rem;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
 import "./../AdminBlogs/AdminView.css";
 const AdminViewExercises = () => {
   const [adminExerciseData, setAdminExerciseData] = useState([]);
@@ -37,33 +38,29 @@ const AdminViewExercises = () => {
         </div>
         <div className="exercise-info">
           <h2 className="HeadLines">Instructions:</h2>
-          <p>{adminExerciseData.instructions}</p>
+          <p
+            dangerouslySetInnerHTML={{ __html: adminExerciseData.instructions }}
+          ></p>
         </div>
         <div className="exercise-info">
           <h2 className="HeadLines">Level Suggestion:</h2>
           <p>{adminExerciseData.level}</p>
         </div>
         <div className="blogContent">
-          {adminExerciseData.video && (
-            <div>
-              Video:
-              <video
-                controls
-                style={{
-                  width: "266px",
-                  height: "266px",
-                  border: "1px solid black",
-                }}
-              >
-                <source
-                  src={`data:video/mp4;base64,${adminExerciseData.video}`}
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          )}
           <div>
+            {" "}
+            {adminExerciseData.youTubeVideo && (
+              <div>
+                <h2 className="HeadLines">YouTube Video:</h2>
+                <ReactPlayer
+                  url={adminExerciseData.youTubeVideo}
+                  controls={true}
+                  playing={false}
+                  volume={0.5}
+                  className="custom-react-player"
+                />
+              </div>
+            )}
             <div className="HeadLines">
               Image
               <img

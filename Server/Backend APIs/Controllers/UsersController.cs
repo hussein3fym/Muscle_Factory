@@ -40,7 +40,24 @@ namespace Backend_APIs.Controllers
 
             return Ok(result);
         }
+        [HttpGet("CountAllUsers")]
+        public async Task<IActionResult> CountAllUsers()
+        {
+            // Retrieve users with the role "User"
+            var users = await _userManager.GetUsersInRoleAsync("User");
+            var result = users.Count();
 
+            return Ok(result);
+        }
+        [HttpGet("CountAllTrainers")]
+        public async Task<IActionResult> CountAllTrainers()
+        {
+            // Retrieve users with the role "User"
+            var users = await _userManager.GetUsersInRoleAsync("Trainer");
+            var result = users.Count();
+
+            return Ok(result);
+        }
         [HttpGet("accepted")]
         public async Task<IActionResult> GetAcceptedAsync()
         {
@@ -56,7 +73,30 @@ namespace Backend_APIs.Controllers
                 e.Experience,
                 e.Gender,
                 e.Specialization,
+                e.Photo,
+                e.CvFile,
             }).Where(e => e.Status == "accepted").ToList();
+
+            return Ok(result);
+        }
+
+        [HttpGet("rejected")]
+        public async Task<IActionResult> GetRejectedAsync()
+        {
+            var users = await _userManager.GetUsersInRoleAsync("Trainer");
+
+            var result = users.Select(e => new
+            {
+                e.Id,
+                e.Status,
+                e.UserName,
+                e.Email,
+                e.Age,
+                e.Experience,
+                e.Gender,
+                e.Specialization,
+                e.CvFile,
+            }).Where(e => e.Status == "rejected").ToList();
 
             return Ok(result);
         }
@@ -164,9 +204,9 @@ namespace Backend_APIs.Controllers
 
 
         }
-    
+
         [HttpPut(template: "{id}")]
-        public async Task<IActionResult> Update(int id, [FromForm] UserDTO dto)
+        public async Task<IActionResult> Update(int id, [FromForm] UpdateUserDataDTO dto)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -174,17 +214,25 @@ namespace Backend_APIs.Controllers
             {
                 return NotFound();
             }
-            
-            user.UserName=dto.UserName;
-            user.Email=dto.Email;
-            user.Age=dto.Age;
-            
-            user.Gender=dto.Gender;
-           
+
+            if (dto.UserName != null)
+            {
+                user.UserName = dto.UserName;
+            }
+
+
+            if (dto.Age != null)
+            {
+                user.Age = dto.Age;
+            }
+
+            if (dto.Gender != null)
+            {
+                user.Gender = dto.Gender;
+            }
 
             _context.SaveChanges();
             return Ok(user);
-
         }
 
 
@@ -241,7 +289,7 @@ namespace Backend_APIs.Controllers
             return Ok(users);
         }
 
-        [HttpGet("RejectedTrainers")]
+        /*[HttpGet("RejectedTrainers")]
         public async Task<IActionResult> GetRejectedTrainersAsync()
         {
             var users = await _userManager.GetUsersInRoleAsync("Trainer");
@@ -259,7 +307,7 @@ namespace Backend_APIs.Controllers
             }).Where(e => e.Status == "rejected").ToList();
 
             return Ok(users);
-        }
+        }*/
 
         [HttpGet("count-exercises/{id}")]
         public async Task<ActionResult<int>> CountExercisesForTrainer(int id)
@@ -299,10 +347,6 @@ namespace Backend_APIs.Controllers
         {
             var user = await _context.Users.FindAsync(id);
 
-            if (dto.Email != null)
-            {
-                user.Email = dto.Email;
-            }
             if (dto.UserName != null)
             {
                 user.UserName = dto.UserName;
@@ -315,10 +359,6 @@ namespace Backend_APIs.Controllers
              {
                  user.Experience = dto.Experience;
              }
-            if (dto.Gender != null)
-            {
-                user.Gender = dto.Gender;
-            }
             if (dto.Specialization != null)
              {
                  user.Specialization = dto.Specialization;

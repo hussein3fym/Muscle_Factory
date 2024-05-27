@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import { TbFileCv } from "react-icons/tb";
+import { FaEye } from "react-icons/fa";
+
 import "./Form.css";
 
 const WaitingTrainers = () => {
   const [trainers, setTrainers] = useState([]);
+  const [pdfFile, setPdfFile] = useState(null);
+  const [viewPdf, setViewPdf] = useState(null);
+  const [displayCv, setDisplayCv] = useState(false); // State to control CV display
+  const { id } = useParams();
 
   useEffect(() => {
     axios
-      .get("https://localhost:7095/api/Users/RejectedTrainers")
-      .then((res) => {
-        console.log(res.data);
-        setTrainers(res.data);
-      })
+      .get("https://localhost:7095/api/Users/rejected")
+      .then((res) => setTrainers(res.data))
       .catch((error) => console.error("Error fetching trainers:", error));
   }, []);
 
@@ -22,6 +28,7 @@ const WaitingTrainers = () => {
       .put("https://localhost:7095/api/Users/updatestatus/" + userId)
       .then((resp) => {
         console.log("Trainer accepted successfully:", resp.data);
+        toast.success("Trainer accepted successfully");
         // Check if the trainer with the given ID exists in the trainers array
         const updatedTrainers = trainers.filter(
           (trainer) => trainer.id !== userId
@@ -35,31 +42,6 @@ const WaitingTrainers = () => {
           console.error("Error accepting trainer:", error);
         }
       });
-    axios
-      .get(`https://localhost:7095/api/Users/${userId}/email`)
-      .then((emailResponse) => {
-        const userEmail = emailResponse.data.email;
-
-        // Call the verification email API with the extracted email address
-        axios
-          .post(
-            "https://localhost:7095/api/Authentication/send-verification-email",
-            {
-              email: userEmail,
-            }
-          )
-          .then((resp) => {
-            console.log("Verification email sent successfully:", resp.data);
-
-            // Proceed with updating the trainer status or any other action
-          })
-          .catch((error) => {
-            console.error("Error sending verification email:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Error fetching email for user ID:", userId, error);
-      });
   };
 
   const handleReject = (userId) => {
@@ -68,28 +50,77 @@ const WaitingTrainers = () => {
       .then((res) => {
         setTrainers(trainers.filter((trainer) => trainer.id !== userId));
       });
-    console.log(`Rejected trainer with ID: ${userId}`);
+    toast.success("Trainer rejected successfully");
   };
 
-  const handleVerification = async (usermail) => {
+  const sendVerificationEmail = async (email) => {
     try {
       const response = await axios.post(
         "https://localhost:7095/api/Authentication/send-verification-email",
+        null,
         {
-          email: usermail,
+          params: {
+            email: email,
+          },
         }
       );
-      console.log(response.data); // Handle the response data as needed
+      console.log(response.data);
+      return response.data;
     } catch (error) {
       console.error("Error sending verification email:", error);
-      // Handle errors
+      throw error;
     }
   };
 
+  const handleSendVerificationEmail = async (email) => {
+    try {
+      const response = await sendVerificationEmail(email);
+    } catch (error) {
+      console.error("Error sending verification email:", error);
+      throw error;
+    }
+  };
+
+  const handleSendEmail = (userId, userName, email) => {
+    const subject = `Regarding Your Muscle Factory Account, ${userName}`;
+    const body = `Dear ${userName},\n\n`;
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoLink;
+  };
+
+  const fileType = ["application/pdf"];
+
+  const handlePdfFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file && fileType.includes(file.type)) {
+        let reader = new FileReader();
+        reader.onloadend = (e) => {
+          setPdfFile(e.target.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        setPdfFile(null);
+        toast.error("Please select valid pdf file");
+      }
+    }
+  };
+
+  const [selectedTrainerId, setSelectedTrainerId] = useState(null);
+
+  const handleToggleCvDisplay = (trainerId) => {
+    setSelectedTrainerId(trainerId);
+  };
+  const handleView = (userId) => {
+    console.log(`View Trainer Details with ID: ${userId}`);
+  };
   return (
     <div>
       <h1 className="Users">Waiting list of Trainers</h1>
-      <div className=" w-75 rounded bg-white border shadow p-4">
+      <div className=" w-80 rounded bg-white border shadow p-4">
         <h2>Trainers</h2>
         <table className="table table-striped">
           <thead>
@@ -101,24 +132,36 @@ const WaitingTrainers = () => {
               <th>Experience</th>
               <th>Gender</th>
               <th>Specialization</th>
+              <th>CV</th>
             </tr>
           </thead>
           <tbody className="table-body">
             {trainers.map((trainer, i) => (
               <tr key={i}>
                 <td>{trainer.id}</td>
-                <td>{trainer.name}</td>
+                <td>{trainer.userName}</td>
                 <td>{trainer.email}</td>
                 <td>{trainer.age}</td>
                 <td>{trainer.experience}</td>
                 <td>{trainer.gender}</td>
                 <td>{trainer.specialization}</td>
                 <td>
+                  <TbFileCv onClick={() => handleToggleCvDisplay(trainer.id)} />
+                  {displayCv && trainer.id === selectedTrainerId && (
+                    <iframe
+                      src={`data:application/pdf;base64,${trainer.cvFile}`} // Embedding PDF data directly
+                      width="500"
+                      height="375"
+                      title="CV"
+                    />
+                  )}
+                </td>
+                <td>
                   <button
                     className="btn btn-sm btn-success me-2"
                     onClick={() => {
                       handleAccept(trainer.id);
-                      handleVerification(trainer.email);
+                      handleSendVerificationEmail(trainer.email);
                     }}
                   >
                     Accept
@@ -129,9 +172,28 @@ const WaitingTrainers = () => {
                   >
                     Reject
                   </button>
+                  <button
+                    className="btn btn-sm btn-success me-2"
+                    onClick={() =>
+                      handleSendEmail(
+                        trainer.id,
+                        trainer.userName,
+                        trainer.email
+                      )
+                    }
+                  >
+                    Send Email
+                  </button>
                   {/* Use Link for navigation */}
                   <Link to="/TrainerForm" className="btn btn-sm btn-primary">
-                    Go to Trainer Form
+                    Trainers
+                  </Link>
+                  <Link
+                    to={`/ViewTrainer/${trainer.id}`}
+                    className="viewContent"
+                    onClick={() => handleView(trainer.id)}
+                  >
+                    <FaEye />
                   </Link>
                 </td>
               </tr>

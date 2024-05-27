@@ -24,6 +24,7 @@
   font-weight: 500;
   padding: 1.2rem 2.2rem;
   transition: all 0.3s;
+  cursor: pointer;
 }
 .StyledNavLink:active,
 .StyledNavLink.active:link,

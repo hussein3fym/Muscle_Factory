@@ -18,39 +18,6 @@ const TrainerWorkout = () => {
   };
   return (
     <div>
-      {/* <div className="exe-filter">
-        <select>
-          <option value="All">Muscle</option>
-          <option value="Chest">Chest</option>
-          <option value="Back">Back</option>
-          <option value="Legs">Legs</option>
-          <option value="Shoulders">Shoulders</option>
-          <option value="Biceps">Biceps</option>
-          <option value="Triceps">Triceps</option>
-          <option value="Abs">Abs</option>
-        </select>
-        <select>
-          <option value="All">Level</option>
-          <option value="Beginner">Beginner</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Advanced">Advanced</option>
-        </select>
-        <select>
-          <option value="All">Equipment</option>
-          <option value="Barbell">Barbell</option>
-          <option value="Dumbbell">Dumbbell</option>
-          <option value="Machine">Machine</option>
-          <option value="Cable">Cable</option>
-          <option value="Body Only">Body Only</option>
-        </select>
-        <select>
-          <option value="All">Other</option>
-          <option value="Cardio">Cardio</option>
-          <option value="Strength">Strength</option>
-          <option value="Flexibility">Flexibility</option>
-          <option value="Balance">Balance</option>
-        </select>
-      </div> */}
       <div className="workout-list">
         {trainerWorkout.map((exercise, i) => (
           <div key={i} className="workout-item">

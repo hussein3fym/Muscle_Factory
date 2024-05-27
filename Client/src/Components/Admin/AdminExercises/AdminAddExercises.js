@@ -16,7 +16,7 @@ const AdminAddExercises = () => {
     secondaryMuscle: "",
     instructions: "",
     YouTubeVideo: "",
-    video: null,
+    //video: null,
     image: null,
     level: "",
   });
@@ -123,7 +123,7 @@ const AdminAddExercises = () => {
               onChange={handleChange}
             />
           </label>
-          <label className="Creation">
+          {/* <label className="Creation">
             Upload Video:
             <input
               type="file"
@@ -132,7 +132,7 @@ const AdminAddExercises = () => {
               accept="video/*"
               onChange={handleChange}
             />
-          </label>
+          </label> */}
           <label className="Creation">
             Upload Image or GIF:
             <input

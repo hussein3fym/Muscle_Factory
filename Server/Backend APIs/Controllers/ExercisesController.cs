@@ -138,6 +138,14 @@ namespace Backend_APIs.Controllers
             }
             return Ok(exercises);
         }
+        [HttpGet("CountAllExercises")]
+        public async Task<IActionResult> CountAll()
+        {
+
+            var result = await _context.Exercises.CountAsync();
+
+            return Ok(result);
+        }
 
         [HttpPost("CreateByAdminOrTrainer")]
         public async Task<IActionResult> CreateByAdminAsync([FromForm] CreateExerciseDto dto)

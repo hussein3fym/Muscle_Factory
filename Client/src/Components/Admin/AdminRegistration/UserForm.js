@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { MdDelete } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import "./Form.css";
 
 const UserForm = () => {
@@ -14,21 +18,33 @@ const UserForm = () => {
   }, []);
 
   const handleDelete = (userId) => {
-    const confirm = window.confirm("Would you like to delete?");
-    if (confirm) {
+    const confirmDelete = window.confirm("Would you like to delete?");
+    if (confirmDelete) {
       axios
         .delete("https://localhost:7095/api/Users/DeleteUser/" + userId)
         .then((res) => {
-          setData(data.filter((user) => user.id !== userId));
+          setData((prevData) => prevData.filter((user) => user.id !== userId));
+          toast.success("User Deleted Successfully");
         })
-        .catch((error) => console.error("Error deleting user:", error));
+        .catch((error) => {
+          toast.error("Error Deleting User");
+        });
+      console.log(`Deleted user with ID: ${userId}`);
     }
-    console.log(`Deleted user with ID: ${userId}`);
   };
+  const handleSendEmail = (userId, userName, email) => {
+    const subject = `Regarding Your Muscle Factory Account, ${userName}`;
+    const body = `Dear ${userName},\n\n`;
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoLink;
+  };
+
   const handleView = (userId) => {
     console.log(`View User Details with ID:${userId}`);
   };
-  console.log(data);
 
   return (
     <div>
@@ -52,16 +68,26 @@ const UserForm = () => {
                 <td>
                   <Link
                     to={`/ViewUser/${user.id}`}
-                    className="btn btn-sm btn-primary me-2"
+                    className="viewContent"
                     onClick={() => handleView(user.id)}
                   >
-                    View
+                    <FaEye />
                   </Link>
                   <button
-                    className="btn btn-sm btn-danger me-2"
+                    style={{ border: "none" }}
+                    className="deleteContent"
                     onClick={() => handleDelete(user.id)}
                   >
-                    Delete
+                    <MdDelete />
+                  </button>
+                  <button
+                    style={{ border: "none" }}
+                    className="SendContent"
+                    onClick={() =>
+                      handleSendEmail(user.id, user.userName, user.email)
+                    }
+                  >
+                    <MdEmail />
                   </button>
                 </td>
               </tr>

@@ -123,3 +123,6 @@
 .fileInputIcon:hover {
   background-color: #ddd6d656; /* Adjust icon color as needed */
 }
+.userGender {
+  color: aliceblue;
+}

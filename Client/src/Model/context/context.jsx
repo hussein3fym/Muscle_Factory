@@ -1,11 +1,12 @@
+import React from "react";
 import { createContext, useEffect, useRef, useState } from "react";
 import runChat from "../config/gemini";
 import PropTypes from "prop-types";
+
 export const Context = createContext();
 const ContextProvider = (props) => {
   const [input, setInput] = useState("");
   const [recentPrompt, setRecentPrompt] = useState("");
-  
 
   const [prevPrompts, setPrevPrompts] = useState([]);
   const [prevResults, setPrevResults] = useState([]);

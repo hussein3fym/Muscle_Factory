@@ -1,0 +1,92 @@
+.trainerUploads-content {
+  display: flex;
+}
+.trainerUploads {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1em;
+}
+.trainerUploads-card {
+  background: rgb(255, 255, 255);
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.trainerUploads-card-image {
+  background-color: rgb(236, 236, 236);
+  border-radius: 6px 6px 0 0;
+  height: 200px;
+  width: 100%;
+}
+
+.trainerUploads-card-image:hover {
+  transform: scale(0.98);
+}
+
+.category {
+  text-transform: uppercase;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: rgb(63, 121, 230);
+  padding: 10px 7px 0;
+}
+
+.category:hover {
+  cursor: pointer;
+}
+
+.heading {
+  font-weight: 600;
+  color: rgb(88, 87, 87);
+  padding: 7px;
+}
+
+.heading:hover {
+  cursor: pointer;
+}
+
+.author {
+  color: gray;
+  font-weight: 400;
+  font-size: 11px;
+  padding-top: 20px;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.name:hover {
+  cursor: pointer;
+}
+.delete-button {
+  padding-top: 0.7rem;
+  color: rgb(255, 0, 0);
+  display: flex;
+  margin: 0 auto;
+}
+.trainerUploads-AddCard {
+  background: rgb(255, 255, 255);
+  padding: 1rem;
+  width: 30rem;
+  margin: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.trainerUploads-AddCard img {
+  background-color: rgba(206, 202, 202, 0.777);
+  border-radius: 50px;
+  padding: 1rem;
+  width: 10rem;
+  cursor: pointer;
+  margin: 0 auto;
+  margin-top: 5rem;
+  justify-content: center;
+  display: flex;
+}
+.trainerUploads-AddCard img:hover {
+  transform: scale(1.1);
+  background-color: rgba(228, 225, 225, 0.871);
+}

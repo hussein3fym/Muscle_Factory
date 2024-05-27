@@ -130,7 +130,7 @@
 }
 .viewContent:hover,
 .updateContent:hover {
-  color: rgb(192, 75, 75);
+  color: rgb(14, 18, 201);
 }
 .updateContent {
   color: rgb(20, 134, 49);
@@ -145,5 +145,5 @@
   background-color: transparent;
 }
 .deleteContent:hover {
-  color: rgb(192, 75, 75);
+  color: rgb(255, 0, 0);
 }

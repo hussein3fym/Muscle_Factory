@@ -24,6 +24,10 @@ import nutrients from "./nutrients.png";
 import workout from "./dumbbell.png";
 import ask from "./ask.png";
 import logoM from "./logoM.png";
+import red_arrow from "./red_arrow.png";
+import nutrition_icon from "./nutrition_icon.png";
+import muscles_factory_logo from "./muscles_factory_logo.png";
+import black_icon from "./black_icon.jpg";
 
 export const assets = {
   history_icon,
@@ -52,4 +56,8 @@ export const assets = {
   workout,
   ask,
   logoM,
+  red_arrow,
+  nutrition_icon,
+  muscles_factory_logo,
+  black_icon,
 };

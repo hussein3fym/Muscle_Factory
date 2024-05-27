@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Main.css";
+import SideBar from "../SideBar/SideBar";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/context";
+// import { checkRecentPrompt } from "../SideBar/SideBar";
+// import Rec from "./../model/Rec";
 
 const Main = () => {
   const {
@@ -16,6 +19,7 @@ const Main = () => {
     prevResults,
   } = React.useContext(Context);
 
+  // Declare form of user's nutrition data
   const [showForm, setShowForm] = useState(false);
 
   const [age, setAge] = useState("");
@@ -23,42 +27,116 @@ const Main = () => {
   const [height, setHeight] = useState("");
   const [gender, setGender] = useState("male");
   const [activityLevel, setActivityLevel] = useState("sedentary");
+  const [type, setType] = useState("non-vegan");
   const [goal, setGoal] = useState("maintain weight");
   const [numMeals, setNumMeals] = useState("3");
   const { updateInputAndSendData } = useContext(Context);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [handleSubmitCalled, setHandleSubmitCalled] = useState(false);
+  const [handleSubmitExerciseCalled, setHandleSubmitExerciseCalled] =
+    useState(false);
 
-    const formData = {
-      Age: age,
-      Weight: weight,
-      Height: height,
-      Gender: gender,
-      ActivityLevel: activityLevel,
-      Goal: goal,
-      NumMeals: numMeals,
-    };
+  const [predictionAndMeals, setPredictionAndMeals] = useState([]);
+  const [prediction, setPrediction] = useState(null);
+  const [recommendedMeals, setRecommendedMeals] = useState([]);
+  const [error, setError] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [mealIndex, setMealIndex] = useState(0);
+  // ..................................................
+  // DELETE non used functions.
+  // ..................................................
 
-    const promptWithArray = `This is my data and my goal, make me a diet plan and make the answer brief \n
-    ${Object.entries(formData)
-      .map(([key, value]) => `${key}: ${value}`)
-      .join("\n")}`;
+  // Handeling submit button of nutrition form
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
 
-    console.log(promptWithArray); // Make sure this logs correctly
-    updateInputAndSendData(promptWithArray);
+    let promptWithArray; // Declare promptWithArray here
 
-    // Hide the form after submitting
-    setShowForm(false);
+    try {
+      const formData = {
+        // Provide user data here, for example:
+        Age: age,
+        "Weight(kg)": weight,
+        "Height(cm)": height,
+        "Activity Level": activityLevel,
+        Gender: gender,
+        Goal: goal,
+        preference: type,
+        num_meals: numMeals,
+      };
+      console.log(formData);
+      const response = await fetch("http://localhost:5000/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      const promptArray = [
+        {
+          prediction: data.prediction,
+          recommendedMeals: data.recommended_meals,
+        },
+      ];
+
+      promptWithArray = promptArray
+        .map(
+          (item) =>
+            `This is my BMR and meals i should eat but i want you to provide the quantities in grams and time of these meals and make the answer brief\nPrediction: ${
+              item.prediction
+            }\nRecommended Meals: ${JSON.stringify(item.recommendedMeals)}`
+        )
+        .join("\n\n");
+
+      console.log(promptWithArray); // Make sure this logs correctly
+
+      updateInputAndSendData(promptWithArray);
+      setShowForm(false);
+      setHandleSubmitCalled(true);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const formData = {
+  //     Age: age,
+  //     Weight: weight,
+  //     Height: height,
+  //     Gender: gender,
+  //     Type: type,
+  //     ActivityLevel: activityLevel,
+  //     Goal: goal,
+  //     NumMeals: numMeals,
+  //   };
+
+  //   const promptWithArray = `Make me a diet plan for the data i have entered  and make the answer brief \n
+  //   ${Object.entries(
+  //     formData
+  //   )
+  //       .map(([key, value]) => `${key}: ${value}`)
+  //       .join("\n")}`;
+
+  //   console.log(promptWithArray); // Make sure this logs correctly
+
+  //   updateInputAndSendData(promptWithArray);
+  //   setShowForm(false);
+  //   setHandleSubmitCalled(true);
+  // };
+
+  // Declare form of user's exercise data
   const [showFormExercise, setShowFormExercise] = useState(false);
 
   const [restDays, setRestDays] = useState("3 days");
   const [bodyGoal, setBodyGoal] = useState("maintain weight");
-  const [trainStyle, setTrainStyle] = useState("pushPullLeg");
+  const [trainStyle, setTrainStyle] = useState("recommend style");
   const [unpreferredTrain, setUnpreferredTrain] = useState("");
 
+  // Handeling submit button of exercise form
   const handleSubmitExercise = (e) => {
     setShowFormExercise(false);
     e.preventDefault();
@@ -80,37 +158,81 @@ const Main = () => {
 
     // Hide the form after submitting
     setShowForm(false);
+    setHandleSubmitExerciseCalled(true);
+  };
+
+  const checkRecentPrompt = (prompt) => {
+    // Check if either handleSubmit or handleSubmitExercise is called
+    if (handleSubmitCalled) {
+      // Check if the recentPrompt corresponds to the nutrition form
+      if (
+        prompt.includes(
+          "This is my BMR and meals i should eat but i want you to provide the quantities in grams and time of these meals and make the answer brief"
+        )
+      ) {
+        return ""; // Hide the recentPrompt for the nutrition form
+      }
+    } else if (handleSubmitExerciseCalled) {
+      // Check if the recentPrompt corresponds to the exercise form
+      if (prompt.includes("complete workout plan")) {
+        return ""; // Hide the recentPrompt for the exercise form
+      }
+    }
+
+    // If neither handleSubmit nor handleSubmitExercise is called, or if the prompt does not match either form, return the prompt as is
+    return prompt;
+  };
+
+  const checkRecentPromptImg = (prompt) => {
+    // Check if either handleSubmit or handleSubmitExercise is called
+    if (handleSubmitCalled) {
+      // Check if the recentPrompt corresponds to the nutrition form
+      if (
+        prompt.includes(
+          "This is my BMR and meals i should eat but i want you to provide the quantities in grams and time of these meals and make the answer brief"
+        )
+      ) {
+        return true; // Hide the user icon
+      }
+    } else if (handleSubmitExerciseCalled) {
+      // Check if the recentPrompt corresponds to the exercise form
+      if (prompt.includes("complete workout plan")) {
+        return true; // Hide the user icon
+      }
+    }
+    return false; // Show the user icon
   };
 
   useEffect(() => {
     const handleSend = () => {
       onSent(); // Call the function to send data.
     };
-
-    // Only set the timer if there is actual input to send.
-    if (input.trim()) {
-      const timer = setTimeout(handleSend, 3000); // Delay the execution by 3 seconds.
-      return () => clearTimeout(timer); // Cleanup the timer on unmount or when input changes.
-    }
-
     if (resultData) {
       setShowInputField(true);
     }
-  }, [input, resultData]);
+  }, [input, resultData]); // Only re-run the effect if 'input' changes.
 
   const handleCardClick = () => {
-    setShowForm((prevState) => !prevState); // Toggle the state to show/hide the form
+    setShowForm((prevState) => {
+      setShowFormExercise(false); // Hide the exercise form when showing the nutrition form
+      return !prevState; // Toggle the state to show/hide the nutrition form
+    });
   };
   const handleCardClickExercise = () => {
-    setShowFormExercise((prevState) => !prevState); // Toggle the state to show/hide the form
+    setShowFormExercise((prevState) => {
+      setShowForm(false); // Hide the nutrition form when showing the exercise form
+      return !prevState; // Toggle the state to show/hide the exercise form
+    });
+  };
+
+  const handleQuestionCardClick = () => {
+    setShowForm(false); // Hide the nutrition form
+    setShowFormExercise(false); // Hide the exercise form
+    setShowQuestionCard(true); // Show the question card
   };
 
   const [showQuestionCard, setShowQuestionCard] = useState(false);
   const [showInputField, setShowInputField] = useState(false);
-
-  const handleQuestionCardClick = () => {
-    setShowQuestionCard(true);
-  };
 
   return (
     <>
@@ -132,7 +254,7 @@ const Main = () => {
               <div className="m-cards">
                 <div className="m-card" onClick={handleCardClick}>
                   <p>Need a diet plan ? Enter your data !!</p>
-                  <img src={assets.nutrients} alt="" className="m-Icon" />
+                  <img src={assets.nutrition_icon} alt="" className="m-Icon" />
                 </div>
                 <div className="m-card" onClick={handleCardClickExercise}>
                   <p>Need an excersice plan ?</p>
@@ -150,8 +272,17 @@ const Main = () => {
                 {prevPrompts.slice(0, -1).map((prevPrompt, index) => (
                   <div key={index}>
                     <div className="m-result-title">
-                      <img src={assets.user_icon} alt="" />
-                      <p>{prevPrompt}</p>
+                      {/* <img src={checkRecentPromptImg(prevPrompt) ? "" : assets.user_icon} alt="" /> */}
+                      <img
+                        src={assets.user_icon}
+                        alt=""
+                        style={{
+                          display: checkRecentPromptImg(prevPrompt)
+                            ? "none"
+                            : "block",
+                        }}
+                      />
+                      <p>{checkRecentPrompt(prevPrompt)}</p>
                     </div>
                     <div className="m-result-data">
                       <img src={assets.musclesfactory_Icon} alt="" />
@@ -167,8 +298,17 @@ const Main = () => {
                 ))}
 
                 <div className="m-result-title">
-                  <img src={assets.user_icon} alt="" />
-                  <p>{recentPrompt}</p>
+                  {/* <img src={checkRecentPromptImg(recentPrompt) ? "" : assets.user_icon} alt="" /> */}
+                  <img
+                    src={assets.user_icon}
+                    alt=""
+                    style={{
+                      display: checkRecentPromptImg(recentPrompt)
+                        ? "none"
+                        : "block",
+                    }}
+                  />
+                  <p> {checkRecentPrompt(recentPrompt)}</p>
                 </div>
                 <div className="m-result-data">
                   <img src={assets.musclesfactory_Icon} alt="" />
@@ -197,20 +337,29 @@ const Main = () => {
                   display:
                     showQuestionCard || showInputField ? "block" : "none",
                 }}
-                className="m-search-input"
               />
+              <div>
+                {/* <img src={assets.gallery_icon} alt="" />
+                <img src={assets.mic_icon} alt="" /> */}
+                {input.trim() && (
+                  <button disabled={loading} onClick={() => onSent()}>
+                    <img src={assets.red_arrow} alt="" />
+                  </button>
+                )}
+              </div>
             </div>
+
             {/* <p className="bottom-info">
-              This model may display inaccurate info, including info about newer
-              medicine references, so double-check its response
-            </p> */}
+            This model may display inaccurate info, including info about newer
+            medicine references, so double-check its response
+          </p> */}
           </div>
         </div>
       </div>
 
       {/* Pop-up Form */}
       {showForm && (
-        <div className="popup-form">
+        <div>
           <form id="form" className="m-form-container" onSubmit={handleSubmit}>
             {/* Form inputs */}
             {/* Age */}
@@ -260,8 +409,8 @@ const Main = () => {
                 name="gender"
                 id="gender"
               >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
             </label>
             {/* Activity level */}
@@ -273,11 +422,24 @@ const Main = () => {
                 name="activityLevel"
                 id="activityLevel"
               >
-                <option value="sedentary">Sedentary</option>
-                <option value="light">Light</option>
-                <option value="moderate">Moderate</option>
-                <option value="very active">Very Active</option>
-                <option value="extra active">Extra Active</option>
+                <option value="Sedentary">Little to no exercise</option>
+                <option value="Light"> Exercise 1-3 days a week </option>
+                <option value="Moderate">Exercise 3-5 days a week </option>
+                <option value="Very Active">Exercise 6-7 days a week </option>
+                <option value="Extra Active">Exercise 7 days a week </option>
+              </select>
+            </label>
+            {/* Type of Food */}
+            <label>
+              Type of food :
+              <select
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                name="type"
+                id="type"
+              >
+                <option value="vegan">Vegan</option>
+                <option value="non-vegan">Non Vegan</option>
               </select>
             </label>
             {/* Goal */}
@@ -289,9 +451,9 @@ const Main = () => {
                 name="goal"
                 id="goal"
               >
-                <option value="lose weight">Lose Weight</option>
+                <option value="loseWeight">Lose Weight</option>
                 <option value="maintain weight">Maintain Weight</option>
-                <option value="build muscles">Build Muscles</option>
+                <option value="gainWeight">Build Muscles</option>
               </select>
             </label>
             <label>
@@ -314,7 +476,7 @@ const Main = () => {
       )}
 
       {showFormExercise && (
-        <div className="popup-form">
+        <div>
           <form
             id="form"
             className="m-form-container"
@@ -354,12 +516,12 @@ const Main = () => {
             <label>
               Training Style:
               <select
-                value={goal}
+                value={trainStyle}
                 onChange={(e) => setTrainStyle(e.target.value)}
                 name="trainStyle"
                 id="trainStyle"
               >
-                <option value="recommend Train">Recommend </option>
+                <option value="recommend style">Recommend </option>
                 <option value="pushPullLeg">Push Pull Leg </option>
                 <option value="arnold">Arnold Split</option>
                 <option value="upperLower">Upper-Lower Split</option>
@@ -381,6 +543,7 @@ const Main = () => {
             <button type="submit">Submit</button>
             <button onClick={handleCardClickExercise}>Cancel</button>
           </form>
+          {/* <Rec/> */}
         </div>
       )}
     </>

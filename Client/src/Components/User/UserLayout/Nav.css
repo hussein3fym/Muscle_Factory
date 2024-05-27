@@ -61,3 +61,17 @@
 .user-logout {
   margin-top: 1.2rem;
 }
+.userLogout {
+  color: brown;
+  margin-top: 0.5rem;
+}
+.userLogout:hover {
+  color: #e71d1d;
+}
+.U-ProfileImg {
+  border-radius: 50%;
+}
+.U-ProfileIcon {
+  font-size: 3rem;
+  margin-top: 0.5rem;
+}

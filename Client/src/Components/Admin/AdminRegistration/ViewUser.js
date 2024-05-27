@@ -19,7 +19,7 @@ const ViewUser = () => {
     const fetchPhotos = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:7095/api/Users/GetUserPhotos/${id}`
+          `https://localhost:7095/api/Users/GetUser/${id}`
         );
 
         if (response.data && response.data.length > 0) {
@@ -46,7 +46,7 @@ const ViewUser = () => {
         <div>
           <h2> Name: {data.userName}</h2>
         </div>
-       
+
         <div>
           <h2>Email: {data.email}</h2>
         </div>
@@ -58,21 +58,18 @@ const ViewUser = () => {
         </div>
         <div>
           <h2>User Photos</h2>
-          {error && <div>Error: {error}</div>}
-          {photos.length === 0 && !error && <div>No photos found</div>}
-          {photos.length > 0 && (
-            <div>
-              {photos.map((photo, index) => (
-                <img
-                  key={index}
-                  src={`data:image/jpeg;base64,${photos[index].image}`}
-                  alt={`Photo ${index + 1}`}
-                  style={{ maxWidth: "400px", marginTop: "10px" }}
-                />
-              ))}
-            </div>
-          )}
+          {/* {error && <div>Error: {error}</div>}
+          {photos.length === 0 && !error && <div>No photos found</div>} */}
+
+          <div>
+            <img
+              src={`data:image/jpg;base64,${data.photo}`}
+              alt="User Profile"
+              style={{ maxWidth: "30rem", marginTop: "10px" }}
+            />
+          </div>
         </div>
+
         <Link to="/UserForm" className="btn btn-sm btn-primary me-2">
           GO Back
         </Link>

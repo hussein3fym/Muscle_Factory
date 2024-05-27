@@ -13,7 +13,7 @@ namespace Backend_APIs.Controllers
     {
         private readonly ApplicationDbContext _context;
         private new List<String> _allowedExtetions = new List<string> { ".jpg", ".png", ".jpeg", "webp" };
-        private long _maxAllowedSize = 5242880; //5MB
+        private long _maxAllowedSize = 10485760; //5MB
 
         private readonly UserManager<Backend_APIs.Models.User> _userManager;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
@@ -91,22 +91,29 @@ namespace Backend_APIs.Controllers
 
             return Ok(blogs);
         }
-      
-       /* [HttpGet("GetTrainerBlogs/{trainerId}")]
-        public async Task<IActionResult> GetBlogsByTrainerId(int trainerId)
+        [HttpGet("CountAllBlogs")]
+        public async Task<IActionResult> CountBlogs()
         {
-            
-            var blogs = await _context.Blogs
-                .Where(b => b.TrainerId == trainerId)
-                .ToListAsync();
 
-            if (blogs == null || !blogs.Any())
-            {
-                return NotFound();
-            }
+            var result = await _context.Blogs.CountAsync();
 
-            return Ok(blogs);
-        } */
+            return Ok(result);
+        }
+        /* [HttpGet("GetTrainerBlogs/{trainerId}")]
+         public async Task<IActionResult> GetBlogsByTrainerId(int trainerId)
+         {
+
+             var blogs = await _context.Blogs
+                 .Where(b => b.TrainerId == trainerId)
+                 .ToListAsync();
+
+             if (blogs == null || !blogs.Any())
+             {
+                 return NotFound();
+             }
+
+             return Ok(blogs);
+         } */
 
         [HttpPost("CreateBlog")]
         public async Task<IActionResult> CreateBlog([FromForm] BlogDto dto)

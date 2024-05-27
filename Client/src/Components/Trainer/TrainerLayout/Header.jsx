@@ -25,9 +25,8 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    // Remove trainer token from local storage
     localStorage.removeItem("trainerToken");
-    // Redirect to login page
+    window.location.href = "/Login";
   };
 
   return (

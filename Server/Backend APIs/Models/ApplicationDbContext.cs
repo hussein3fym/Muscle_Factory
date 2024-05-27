@@ -22,6 +22,8 @@ namespace Backend_APIs.Models
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<User_Photo> user_Photos { get; set; }
+        public DbSet<Transformation> Transformations { get; set; }
+        public DbSet<Certificate> Certificates { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -89,6 +91,23 @@ namespace Backend_APIs.Models
              .WithMany(q => q.Comments)
              .HasForeignKey(a => a.QuestionId)
              .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Transformation>()
+                            .HasOne(a => a.User)
+                          .WithMany(b => b.Transformations)
+                          .HasForeignKey(a => a.UserId)
+                          .OnDelete(DeleteBehavior.SetNull)
+                          .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Certificate>()
+                    .HasOne(a => a.User)
+                    .WithMany(b => b.Certificates)
+                    .HasForeignKey(a => a.UserId)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .OnDelete(DeleteBehavior.Cascade);
+
         }
         private static void seedRoles(ModelBuilder modelBuilder)
         {
