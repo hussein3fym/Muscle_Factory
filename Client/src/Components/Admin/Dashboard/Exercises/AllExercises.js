@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { MdDelete } from "react-icons/md";
+import { FaEye, FaEdit } from "react-icons/fa";
 const AllExercises = () => {
   const [exercises, setExercise] = useState([]);
   useEffect(() => {
@@ -58,23 +60,23 @@ const AllExercises = () => {
                   <div className="buttons-container">
                     <Link
                       to={`/ViewExercises/${exercise.id}`}
-                      className="btn btn-sm btn-primary me-2"
+                      className="viewContent"
                       onClick={() => handleView(exercise.id)}
                     >
-                      View
+                      <FaEye />
                     </Link>
                     <Link
                       to={`/UpdateExercises/${exercise.id}`}
-                      className="btn btn-sm btn-success me-2"
+                      className="updateContent"
                       onClick={() => handleView(exercise.id)}
                     >
-                      Update
+                      <FaEdit />
                     </Link>
                     <button
-                      className="btn btn-sm btn-danger me-2"
+                      className="deleteContent"
                       onClick={() => handleDelete(exercise.id)}
                     >
-                      Delete
+                      <MdDelete />
                     </button>
                   </div>
                 </td>

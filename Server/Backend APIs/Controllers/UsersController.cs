@@ -101,6 +101,22 @@ namespace Backend_APIs.Controllers
             return Ok(result);
         }
 
+        [HttpGet("download-cv/{userId}")]
+        public async Task<IActionResult> DownloadCvFile(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null || user.CvFile == null)
+            {
+                return NotFound();
+            }
+
+            var fileContent = user.CvFile;
+            var contentType = "application/octet-stream"; // Change if you know the correct MIME type
+            var fileName = "cv_" + user.UserName + ".pdf"; // Or other appropriate extension
+
+            return File(fileContent, contentType, fileName);
+        }
+
         [HttpGet("GetUser/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {

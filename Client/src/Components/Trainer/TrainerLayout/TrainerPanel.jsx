@@ -134,23 +134,8 @@ const TrainerPanel = () => {
         <div className="Trainer-Services">
           <div className="communication-container">
             <div className="email">
-              <h3>Send E-mail</h3>
-              <div>
-                <label htmlFor="name">
-                  <input type="text" id="name" placeholder="Enter your name" />
-                </label>
-                <label htmlFor="email">
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                  />
-                </label>
-              </div>{" "}
+              <h3>Contact Us</h3>
               <div className="content">
-                <label htmlFor="feedback">
-                  <textarea placeholder="Enter your feedback"></textarea>
-                </label>
                 <button type="submit" className="send">
                   Send <img src={email} alt="email" />
                 </button>
@@ -160,7 +145,11 @@ const TrainerPanel = () => {
                     onClick={handleWhatsAppButtonClick}
                   >
                     Contact Admin on WhatsApp
-                    <img src={whatsapp} alt="whatsapp" />
+                    <img
+                      className="whatsAppImg"
+                      src={whatsapp}
+                      alt="whatsapp"
+                    />
                   </button>
                 </div>
               </div>

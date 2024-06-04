@@ -1,12 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Main.css";
-import SideBar from "../SideBar/SideBar";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/context";
-// import { checkRecentPrompt } from "../SideBar/SideBar";
-// import Rec from "./../model/Rec";
+import axios from "axios";
+import { CgProfile } from "react-icons/cg";
 
 const Main = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const UserId = storedUser ? storedUser.userId : null;
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    if (UserId) {
+      axios
+        .get(`https://localhost:7095/api/Users/GetUser/${UserId}`)
+        .then((res) => {
+          setUser(res.data);
+          console.log("Fetched Trainer Data:", res.data);
+        })
+        .catch((error) => console.error("Error fetching trainer:", error));
+    }
+  }, [UserId]);
   const {
     onSent,
     recentPrompt,
@@ -99,34 +112,6 @@ const Main = () => {
       console.error("Error:", error);
     }
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const formData = {
-  //     Age: age,
-  //     Weight: weight,
-  //     Height: height,
-  //     Gender: gender,
-  //     Type: type,
-  //     ActivityLevel: activityLevel,
-  //     Goal: goal,
-  //     NumMeals: numMeals,
-  //   };
-
-  //   const promptWithArray = `Make me a diet plan for the data i have entered  and make the answer brief \n
-  //   ${Object.entries(
-  //     formData
-  //   )
-  //       .map(([key, value]) => `${key}: ${value}`)
-  //       .join("\n")}`;
-
-  //   console.log(promptWithArray); // Make sure this logs correctly
-
-  //   updateInputAndSendData(promptWithArray);
-  //   setShowForm(false);
-  //   setHandleSubmitCalled(true);
-  // };
 
   // Declare form of user's exercise data
   const [showFormExercise, setShowFormExercise] = useState(false);
@@ -236,11 +221,9 @@ const Main = () => {
 
   return (
     <>
-      {/* <SideBar /> */}
       <div className="m-main">
         <div className="m-nav">
           <img src={assets.logoM} alt="" className="m-logo" />
-          <img src={assets.user_icon} alt="" className="m-Icon" />
         </div>
         <div className="m-main-container">
           {!showResult ? (
@@ -272,16 +255,28 @@ const Main = () => {
                 {prevPrompts.slice(0, -1).map((prevPrompt, index) => (
                   <div key={index}>
                     <div className="m-result-title">
-                      {/* <img src={checkRecentPromptImg(prevPrompt) ? "" : assets.user_icon} alt="" /> */}
-                      <img
-                        src={assets.user_icon}
-                        alt=""
-                        style={{
-                          display: checkRecentPromptImg(prevPrompt)
-                            ? "none"
-                            : "block",
-                        }}
-                      />
+                      {user.photo ? (
+                        <img
+                          src={`data:image/jpg;base64,${user.photo}`}
+                          alt="User Profile"
+                          style={{
+                            width: 40,
+                            height: 40,
+                            display: checkRecentPromptImg(prevPrompt)
+                              ? "none"
+                              : "block",
+                          }}
+                          className="U-ProfileImg"
+                        />
+                      ) : (
+                        <div>
+                          <CgProfile
+                            style={{ color: "white", fontSize: "4rem" }}
+                            className="U-ProfileIcon"
+                          />
+                        </div>
+                      )}
+
                       <p>{checkRecentPrompt(prevPrompt)}</p>
                     </div>
                     <div className="m-result-data">
@@ -298,16 +293,28 @@ const Main = () => {
                 ))}
 
                 <div className="m-result-title">
-                  {/* <img src={checkRecentPromptImg(recentPrompt) ? "" : assets.user_icon} alt="" /> */}
-                  <img
-                    src={assets.user_icon}
-                    alt=""
-                    style={{
-                      display: checkRecentPromptImg(recentPrompt)
-                        ? "none"
-                        : "block",
-                    }}
-                  />
+                  {user.photo ? (
+                    <img
+                      src={`data:image/jpg;base64,${user.photo}`}
+                      alt="User Profile"
+                      style={{
+                        width: 40,
+                        height: 40,
+                        display: checkRecentPromptImg(recentPrompt)
+                          ? "none"
+                          : "block",
+                      }}
+                      className="U-ProfileImg"
+                    />
+                  ) : (
+                    <div>
+                      <CgProfile
+                        style={{ color: "white", fontSize: "4rem" }}
+                        className="U-ProfileIcon"
+                      />
+                    </div>
+                  )}
+
                   <p> {checkRecentPrompt(recentPrompt)}</p>
                 </div>
                 <div className="m-result-data">
@@ -339,8 +346,6 @@ const Main = () => {
                 }}
               />
               <div>
-                {/* <img src={assets.gallery_icon} alt="" />
-                <img src={assets.mic_icon} alt="" /> */}
                 {input.trim() && (
                   <button disabled={loading} onClick={() => onSent()}>
                     <img src={assets.red_arrow} alt="" />
@@ -348,11 +353,6 @@ const Main = () => {
                 )}
               </div>
             </div>
-
-            {/* <p className="bottom-info">
-            This model may display inaccurate info, including info about newer
-            medicine references, so double-check its response
-          </p> */}
           </div>
         </div>
       </div>

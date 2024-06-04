@@ -1,49 +1,57 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-import Icon from "./../../Assets/icons/logoM.png";
 import "./../ExercisesAPI/Ex-API.css";
-const BodyPart = ({ item, setBodyPart, bodyPart }) => (
-  <Stack
-    type="button"
-    alignItems="center"
-    justifyContent="center"
-    className="bodyPart-card"
-    sx={
-      bodyPart === item
-        ? {
-            borderTop: "4px solid #FF2625",
-            background: "#fff",
-            borderBottomLeftRadius: "20px",
-            width: "170px",
-            height: "182px",
-            cursor: "pointer",
-            gap: "50px",
-          }
-        : {
-            background: "#fff",
-            borderBottomLeftRadius: "20px",
-            width: "170px",
-            height: "182px",
-            cursor: "pointer",
-            gap: "50px",
-          }
-    }
-    onClick={() => {
-      setBodyPart(item);
-      window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
-    }}
-  >
-    <img src={Icon} alt="dumbbell" style={{ width: "40px", height: "40px" }} />
-    <Typography
-      fontSize="24px"
-      fontWeight="bold"
-      fontFamily="Alegreya"
-      color="#3A1212"
-      textTransform="capitalize"
-    >
-      {item}
-    </Typography>
-  </Stack>
-);
+import AllImg from "./../../Assets/BodyParts/All.png";
+import CardioImg from "./../../Assets/BodyParts/Cardio.png";
+import LowerArmsImg from "./../../Assets/BodyParts/Lower Arms.png";
+import LowerLegsImg from "./../../Assets/BodyParts/Lower Legs.png";
+import UpperLegsImg from "./../../Assets/BodyParts/Upper Legs.png";
+import UpperArmsImg from "./../../Assets/BodyParts/Upper Arms.png";
+import WaistImg from "./../../Assets/BodyParts/ABS.png";
+import NeckImg from "./../../Assets/BodyParts/Neck.png";
+import ChestImg from "./../../Assets/BodyParts/Chest.png";
+import BackImg from "./../../Assets/BodyParts/Back.png";
+import ShouldersImg from "./../../Assets/BodyParts/Shoulders.png";
 
+// Mapping for body part images
+
+const bodyPartImages = {
+  all: AllImg,
+  cardio: CardioImg,
+  "lower arms": LowerArmsImg,
+  "lower legs": LowerLegsImg,
+  "upper legs": UpperLegsImg,
+  "upper arms": UpperArmsImg,
+  waist: WaistImg,
+  neck: NeckImg,
+  chest: ChestImg,
+  back: BackImg,
+  shoulders: ShouldersImg,
+};
+
+const BodyPart = ({ item, setBodyPart, bodyPart }) => {
+  console.log("item:", item);
+  console.log("bodyPartImages:", bodyPartImages);
+
+  const imageUrl =
+    bodyPartImages[item.toLowerCase()] || "./../../Assets/icons/logoM.png";
+
+  console.log("imageUrl:", imageUrl);
+
+  return (
+    <Stack
+      type="button"
+      alignItems="center"
+      justifyContent="center"
+      className={`bodyPart-card ${bodyPart === item ? "active" : ""}`}
+      onClick={() => {
+        setBodyPart(item);
+        window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
+      }}
+    >
+      <img src={imageUrl} alt={item} className="body-part-image" />
+      <Typography className="typography">{item}</Typography>
+    </Stack>
+  );
+};
 export default BodyPart;

@@ -42,9 +42,6 @@ namespace Backend_APIs.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrainerId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -53,8 +50,6 @@ namespace Backend_APIs.Migrations
                         .HasColumnType("nvarchar(1000)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TrainerId");
 
                     b.HasIndex("UserId");
 
@@ -80,38 +75,6 @@ namespace Backend_APIs.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Certificates");
-                });
-
-            modelBuilder.Entity("Backend_APIs.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CommentText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TrainerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.HasIndex("TrainerId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Backend_APIs.Models.Exercise", b =>
@@ -150,9 +113,6 @@ namespace Backend_APIs.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrainerId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -161,71 +121,9 @@ namespace Backend_APIs.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TrainerId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Exercises");
-                });
-
-            modelBuilder.Entity("Backend_APIs.Models.Question", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("QuestionText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("Backend_APIs.Models.Trainer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Specialization")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Trainers");
                 });
 
             modelBuilder.Entity("Backend_APIs.Models.Transformation", b =>
@@ -529,10 +427,6 @@ namespace Backend_APIs.Migrations
 
             modelBuilder.Entity("Backend_APIs.Models.Blog", b =>
                 {
-                    b.HasOne("Backend_APIs.Models.Trainer", null)
-                        .WithMany("Blogs")
-                        .HasForeignKey("TrainerId");
-
                     b.HasOne("Backend_APIs.Models.User", "User")
                         .WithMany("Blogs")
                         .HasForeignKey("UserId")
@@ -551,51 +445,12 @@ namespace Backend_APIs.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Backend_APIs.Models.Comment", b =>
-                {
-                    b.HasOne("Backend_APIs.Models.Question", "Question")
-                        .WithMany("Comments")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Backend_APIs.Models.Trainer", "Trainer")
-                        .WithMany("Comments")
-                        .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Backend_APIs.Models.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Question");
-
-                    b.Navigation("Trainer");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Backend_APIs.Models.Exercise", b =>
                 {
-                    b.HasOne("Backend_APIs.Models.Trainer", null)
-                        .WithMany("Exercises")
-                        .HasForeignKey("TrainerId");
-
                     b.HasOne("Backend_APIs.Models.User", "User")
                         .WithMany("Exercises")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Backend_APIs.Models.Question", b =>
-                {
-                    b.HasOne("Backend_APIs.Models.User", "User")
-                        .WithMany("Questions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -672,31 +527,13 @@ namespace Backend_APIs.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Backend_APIs.Models.Question", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("Backend_APIs.Models.Trainer", b =>
-                {
-                    b.Navigation("Blogs");
-
-                    b.Navigation("Comments");
-
-                    b.Navigation("Exercises");
-                });
-
             modelBuilder.Entity("Backend_APIs.Models.User", b =>
                 {
                     b.Navigation("Blogs");
 
                     b.Navigation("Certificates");
 
-                    b.Navigation("Comments");
-
                     b.Navigation("Exercises");
-
-                    b.Navigation("Questions");
 
                     b.Navigation("Transformations");
 

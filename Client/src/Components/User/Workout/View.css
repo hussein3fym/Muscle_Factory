@@ -49,17 +49,20 @@
   padding: 4rem;
   gap: 2rem;
 }
-.MediaContainer img {
-  width: 50%;
+.Overview img {
+  width: 70%;
   height: auto;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  flex: 1;
+  position: relative;
 }
 .Overview {
-  display: grid;
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 2rem;
   padding: 4rem;
   gap: 2rem;
-  align-items: start;
 }
 .Overview p {
   color: rgba(255, 255, 255, 0.878);
@@ -71,4 +74,61 @@
   font-size: 3rem;
   padding: 2rem;
   font-family: Monterrat;
+}
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .ExerciseDetails h1 {
+    font-size: 4rem;
+  }
+
+  .ExerciseDetails h2 {
+    font-size: 2rem;
+  }
+
+  .Overview h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .ExerciseDetails h1 {
+    font-size: 3rem;
+  }
+
+  .ExerciseDetails h2 {
+    font-size: 1.5rem;
+  }
+
+  .Overview h2 {
+    font-size: 1.5rem;
+  }
+
+  .Description td {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ExerciseDetails h1 {
+    font-size: 2rem;
+  }
+
+  .ExerciseDetails h2 {
+    font-size: 1.2rem;
+  }
+
+  .Overview h2 {
+    font-size: 1.2rem;
+  }
+
+  .Description td {
+    font-size: 1rem;
+  }
+  .custom-react-player {
+    max-width: 300px;
+    height: auto;
+  }
+  .Overview img {
+    width: 100%;
+  }
 }

@@ -3,16 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import { TbFileCv } from "react-icons/tb";
 import { FaEye } from "react-icons/fa";
 
 import "./Form.css";
 
 const WaitingTrainers = () => {
   const [trainers, setTrainers] = useState([]);
-  const [pdfFile, setPdfFile] = useState(null);
-  const [viewPdf, setViewPdf] = useState(null);
-  const [displayCv, setDisplayCv] = useState(false); // State to control CV display
   const { id } = useParams();
 
   useEffect(() => {
@@ -91,29 +87,26 @@ const WaitingTrainers = () => {
     window.location.href = mailtoLink;
   };
 
-  const fileType = ["application/pdf"];
-
-  const handlePdfFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (file && fileType.includes(file.type)) {
-        let reader = new FileReader();
-        reader.onloadend = (e) => {
-          setPdfFile(e.target.result);
-        };
-        reader.readAsDataURL(file);
-      } else {
-        setPdfFile(null);
-        toast.error("Please select valid pdf file");
-      }
+  const handleDownloadCv = async (userId, userName) => {
+    try {
+      const response = await axios.get(
+        `https://localhost:7095/api/Users/download-cv/${userId}`,
+        {
+          responseType: "blob",
+        }
+      );
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `cv_${userName}.pdf`); // or other extension
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error downloading CV:", error);
+      toast.error("Error downloading CV");
     }
   };
 
-  const [selectedTrainerId, setSelectedTrainerId] = useState(null);
-
-  const handleToggleCvDisplay = (trainerId) => {
-    setSelectedTrainerId(trainerId);
-  };
   const handleView = (userId) => {
     console.log(`View Trainer Details with ID: ${userId}`);
   };
@@ -145,17 +138,7 @@ const WaitingTrainers = () => {
                 <td>{trainer.experience}</td>
                 <td>{trainer.gender}</td>
                 <td>{trainer.specialization}</td>
-                <td>
-                  <TbFileCv onClick={() => handleToggleCvDisplay(trainer.id)} />
-                  {displayCv && trainer.id === selectedTrainerId && (
-                    <iframe
-                      src={`data:application/pdf;base64,${trainer.cvFile}`} // Embedding PDF data directly
-                      width="500"
-                      height="375"
-                      title="CV"
-                    />
-                  )}
-                </td>
+
                 <td>
                   <button
                     className="btn btn-sm btn-success me-2"
@@ -195,6 +178,14 @@ const WaitingTrainers = () => {
                   >
                     <FaEye />
                   </Link>
+                  <button
+                    className="btn btn-sm btn-info me-2"
+                    onClick={() =>
+                      handleDownloadCv(trainer.id, trainer.userName)
+                    }
+                  >
+                    Download CV
+                  </button>
                 </td>
               </tr>
             ))}

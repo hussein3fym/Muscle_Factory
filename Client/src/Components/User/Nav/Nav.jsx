@@ -17,6 +17,10 @@ const Nav = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isLoggedIn, handleLogout } = useAuth();
+  const handleCustomLogout = () => {
+    window.location.href = "/Login";
+    handleLogout(); // Call the original handleLogout from useAuth
+  };
 
   useEffect(() => {
     if (UserId) {
@@ -69,11 +73,6 @@ const Nav = () => {
                   Nutrition
                 </NavLink>
               </li>
-              {/* <li className="nav-item">
-                  <NavLink to="/find-gym" className="nav-link">
-                    Find Gym
-                  </NavLink>
-                </li> */}
               <li className="nav-item">
                 <NavLink to="/AboutUs" className="nav-link">
                   About Us
@@ -114,7 +113,7 @@ const Nav = () => {
                     <IoMdLogOut
                       className="userLogout"
                       size={30}
-                      onClick={handleLogout}
+                      onClick={handleCustomLogout}
                       style={{ cursor: "pointer" }}
                     />
                   </li>

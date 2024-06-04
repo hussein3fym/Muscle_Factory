@@ -2,113 +2,153 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-const ViewTrainer = () => {
-  const [trainers, setTrainers] = useState([]);
-  const [certificates, setCertificates] = useState([]);
-  const [transformations, setTransformations] = useState([]);
-  const { id } = useParams();
 
+// Fetch certificates by user ID
+const fetchCertificates = async (id) => {
+  const response = await axios.get(
+    `https://localhost:7095/api/Certificates/GetByUserId?UserId=${id}`
+  );
+  return response.data;
+};
+
+// Fetch transformations by user ID
+const fetchTransformations = async (id) => {
+  const { data } = await axios.get(
+    `https://localhost:7095/api/Transformation/GetByUserId?UserId=${id}`
+  );
+  return data;
+};
+// Fetch Trainer details by ID
+const fetchTrainerDetails = async (id) => {
+  const response = await axios.get(
+    `https://localhost:7095/api/Users/GetUser/${id}`
+  );
+  return response.data;
+};
+
+const ViewTrainer = () => {
+  const { id } = useParams(); // Destructure id from useParams
+  const [trainers, setTrainers] = useState(null); // Initialize trainers state
+
+  // Use React Query to fetch data
+  const {
+    data: transformations,
+    isLoading: loadingTransformations,
+    error: errorTransformations,
+  } = useQuery(["transformations", id], () => fetchTransformations(id));
+  const {
+    data: certificates,
+    isLoading: loadingCertificates,
+    error: errorCertificates,
+  } = useQuery(["certificates", id], () => fetchCertificates(id));
+
+  // Fetch trainer details
   useEffect(() => {
     axios
-      .get(" https://localhost:7095/api/Users/GetUser/" + id)
+      .get(`https://localhost:7095/api/Users/GetUser/${id}`)
       .then((res) => setTrainers(res.data))
-      .catch((error) => console.error("Error fetching users:", error));
+      .catch((error) => {
+        console.error("Error fetching user details:", error);
+        toast.error("Error fetching user details");
+      });
   }, [id]);
-  useEffect(() => {
-    const fetchCertificates = async () => {
-      try {
-        const response = await axios.get(
-          `https://localhost:7095/api/Certificates/GetByUserId/${id}`
-        );
-        if (response.data && response.data.length > 0) {
-          setCertificates(response.data);
-        } else {
-          setCertificates([]);
-        }
-      } catch (error) {
-        console.error("Error fetching Certificates:", error);
-      }
-    };
-    fetchCertificates();
-  });
-  useEffect(() => {
-    const fetchTransformations = async () => {
-      try {
-        const response = await axios.get(
-          "https://localhost:7095/api/Transformation/GetByUserId/" + id
-        );
-        setTransformations(response.data);
-      } catch (error) {
-        console.error("Error fetching transformations:", error);
-      }
-    };
 
-    fetchTransformations();
-  }, []);
-  const handleDeleteTransformation = async (transformationId) => {
+  const handleDownloadCv = async (userId, userName) => {
     try {
-      await axios.delete(
-        `https://localhost:7095/api/Transformation/${transformationId}`
+      const response = await axios.get(
+        `https://localhost:7095/api/Users/download-cv/${userId}`,
+        { responseType: "blob" }
       );
-      // Remove the deleted transformation from the state
-      setTransformations((prevTransformations) =>
-        prevTransformations.filter(
-          (transformation) => transformation.id !== transformationId
-        )
-      );
-      toast.success("Transformation Deleted Successfully");
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `cv_${userName}.pdf`);
+      document.body.appendChild(link);
+      link.click();
     } catch (error) {
-      console.error("Error deleting transformation:", error);
+      console.error("Error downloading CV:", error);
+      toast.error("Error downloading CV");
     }
   };
 
+  if (!trainers) return <p>Loading trainer details...</p>;
+
   return (
-    <div className=" d-flex flex-column justify-content-center align-items-center bg-light vh-100 ">
+    <div className="d-flex flex-column justify-content-center align-items-center bg-light vh-100">
       <h1>Trainer Details</h1>
       <div className="w-50 border bg-white shadow px-5 pt-3 pb-5 rounded">
-        <h4> Name: {trainers.userName}</h4>
-        <p> Email: {trainers.email} </p>
-        <p> Age: {trainers.age} </p>
-        <p> Experience:{trainers.experience} </p>
-        <p> Gender:{trainers.gender} </p>
-        <p> Specialization:{trainers.specialization} </p>
+        <h4>Name: {trainers.userName}</h4>
+        <p>Email: {trainers.email}</p>
+        <p>Age: {trainers.age}</p>
+        <p>Experience: {trainers.experience}</p>
+        <p>Gender: {trainers.gender}</p>
+        <p>Specialization: {trainers.specialization}</p>
         <div>
-          <img
-            src={`data:image/jpg;base64,${trainers.photo}`}
-            alt="Trainer Profile"
-            style={{ maxWidth: "30rem", marginTop: "10px" }}
-          />
+          {trainers.photo ? (
+            <img
+              src={`data:image/jpg;base64,${trainers.photo}`}
+              alt="Trainer Profile"
+              style={{ maxWidth: "30rem", marginTop: "10px" }}
+            />
+          ) : (
+            <p>No profile photo available</p>
+          )}
         </div>
       </div>
       <div className="w-50 border bg-white shadow px-5 pt-3 pb-5 rounded">
-        <p> CV:{trainers.cv} </p>
-        <p>
-          {" "}
-          Transformations:{" "}
-          <div className="trainerUploads">
-            {transformations.map((transformation) => (
-              <div key={transformation.id} className="trainerUploads-card">
-                <img
-                  src={`data:image/jpeg;base64,${transformation.file}`}
-                  className="trainerUploads-card-image"
-                  alt="transform"
-                />{" "}
-                <div className="category">{transformation.title}</div>
-                <div className="heading">{transformation.description}</div>
-                <button
-                  className="delete-button"
-                  onClick={() => handleDeleteTransformation(transformation.id)}
-                >
-                  <FaTrash />
-                </button>
-              </div>
-            ))}
-          </div>{" "}
-        </p>
-        <p> Certificates:{certificates.certificates} </p>
+        <button
+          className="btn btn-sm btn-info me-2"
+          onClick={() => handleDownloadCv(trainers.id, trainers.userName)}
+        >
+          Download CV
+        </button>
+        <div className="CoachCertificatesTransformations">
+          <h2>Certificates</h2>
+          <div className="CoachCertificates-Card">
+            {loadingCertificates ? (
+              <p>Loading certificates...</p>
+            ) : errorCertificates ? (
+              <p>Error loading certificates</p>
+            ) : certificates && certificates.length > 0 ? (
+              certificates.map((certificate) => (
+                <div key={certificate.id}>
+                  <img
+                    src={`data:image/jpeg;base64,${certificate.file}`}
+                    alt="CoachCertificate"
+                  />
+                </div>
+              ))
+            ) : (
+              <p>No certificates available</p>
+            )}
+          </div>
+          <h2>Transformations</h2>
+          <div className="CoachTransformations-Card">
+            {loadingTransformations ? (
+              <p>Loading transformations...</p>
+            ) : errorTransformations ? (
+              <p>Error loading transformations</p>
+            ) : transformations && transformations.length > 0 ? (
+              transformations.map((transformation) => (
+                <div key={transformation.id}>
+                  <img
+                    src={`data:image/jpeg;base64,${transformation.file}`}
+                    alt="CoachTransformation"
+                  />
+                  <h2>{transformation.title}</h2>
+                  <h3>{transformation.description}</h3>
+                </div>
+              ))
+            ) : (
+              <p>No transformations available</p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
 export default ViewTrainer;

@@ -14,10 +14,8 @@ namespace Backend_APIs.Models
         public string? Specialization { get; set; }
         public byte[]? CvFile { get; set; }
         public byte[]? Photo { get; set; }
-        public virtual ICollection<Question>? Questions { get; set; }
         public virtual ICollection<Blog>? Blogs { get; set; }
         public virtual ICollection<User_Photo>? User_Photos { get; set; }
-        public virtual ICollection<Comment>? Comments { get; set; }
         public virtual ICollection<Exercise>? Exercises { get; set; }
         public virtual ICollection<Transformation>? Transformations { get; set; }
         public virtual ICollection<Certificate>? Certificates { get; set; }

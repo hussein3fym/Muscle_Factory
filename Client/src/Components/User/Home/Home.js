@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useAuth } from "./../../../Context/AuthProvider";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import experienceImage from "./../../../Assets/about.jpg";
@@ -10,7 +11,9 @@ import trans2 from "./../../../Assets/images/gym.png";
 import trans3 from "./../../../Assets/images/anastase-maragos-9dzWZQWZMdE-unsplash.jpg";
 
 const Home = () => {
+  const { isLoggedIn } = useAuth();
   const [word, setWord] = useState("Mentality");
+  const elementsRef = useRef([]);
 
   useEffect(() => {
     const words = ["Mentality", "Lifestyle", "Journey"];
@@ -22,25 +25,74 @@ const Home = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        } else {
+          entry.target.classList.remove("show");
+        }
+      });
+    });
+
+    elementsRef.current.forEach((element) => {
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      elementsRef.current.forEach((element) => {
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
+  }, []);
+  const email = "musclesfactory101@gmail.com"; // Declare email constant outside the function
+
+  const handleSendEmail = () => {
+    const subject = "Regarding Your Muscle Factory Account";
+    const body = "Dear Admin,\n\n";
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoLink;
+  };
+
   return (
     <div>
       <div className="home-container">
         <div className="home-overlay"></div>
         <div className="home-content">
-          <div className="home-text-container">
+          <div
+            className="home-text-container hidden"
+            ref={(el) => (elementsRef.current[0] = el)}
+          >
+            <h1>Fitness & Health is a </h1>{" "}
             <h1>
-              Fitness & Health is a{" "}
               <span className="typing-animation">{word}</span>
             </h1>
             <p>
               It's a fitness hub offering everything for gym enthusiasts and
               soon expanding to cater to all sports needs.
             </p>
-            <Link to="/Register" className="link">
-              {" "}
-              Join Now!{" "}
-            </Link>
-            <div className="count-home">
+            {!isLoggedIn ? (
+              <Link to="/Register" className="link">
+                {" "}
+                Join Now!{" "}
+              </Link>
+            ) : (
+              <Link to="/Workout" className="linkAfterLogin">
+                Let's Start Now!
+              </Link>
+            )}
+            <div
+              className="count-home hidden"
+              ref={(el) => (elementsRef.current[1] = el)}
+            >
               <div>
                 <h2> +1500 </h2>
                 <h4 className="count">Exercise</h4>
@@ -55,13 +107,16 @@ const Home = () => {
                 <h2> +500 </h2>
                 <h4 className="count">Achieved Goal</h4>
               </div>
-            </div>{" "}
+            </div>
           </div>
         </div>
       </div>
-      <div className="help">
+      <div className="help ">
         <h1 className="h1-help">Muscle Factory Where Results are Built.</h1>
-        <div className="help-container">
+        <div
+          className="help-container hidden"
+          ref={(el) => (elementsRef.current[2] = el)}
+        >
           <div className="help-card">
             <h2>Workout</h2>
             <p>
@@ -72,7 +127,10 @@ const Home = () => {
               Find Workout
             </Link>
           </div>
-          <div className="help-card">
+          <div
+            className="help-card hidden"
+            ref={(el) => (elementsRef.current[3] = el)}
+          >
             <h2>Trainer</h2>
             <p>
               Find the best trainer for you, whether you're looking for a
@@ -82,7 +140,10 @@ const Home = () => {
               Find Trainer
             </Link>
           </div>
-          <div className="help-card">
+          <div
+            className="help-card   hidden"
+            ref={(el) => (elementsRef.current[4] = el)}
+          >
             <h2> Weight Goal</h2>
             <p>
               Find the best goal for you, whether you're looking for a strength
@@ -94,7 +155,10 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="Experience">
+        <div
+          className="Experience hidden"
+          ref={(el) => (elementsRef.current[5] = el)}
+        >
           <div className="experience-container">
             <img src={experienceImage} alt="" />
             <div className="text-container">
@@ -130,27 +194,10 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {/* <div>
-          <h1>Our Trainers</h1>
-          <div className="trainer-container">
-            <div className="trainer-card">
-              <img src={trans1} alt="" />
-              <h3>John Doe</h3>
-              <p>Specialization: Weight Loss</p>
-            </div>
-            <div className="trainer-card">
-              <img src={trans2} alt="" />
-              <h3>Jane Doe</h3>
-              <p>Specialization: Weight Gain</p>
-            </div>
-            <div className="trainer-card">
-              <img src={trans3} alt="" />
-              <h3>Sam Doe</h3>
-              <p>Specialization: Muscle Gain</p>
-            </div>
-          </div>
-        </div> */}
-        <div className="nutrition">
+        <div
+          className="nutrition hidden"
+          ref={(el) => (elementsRef.current[6] = el)}
+        >
           <div className="nutrition-container">
             <div className="text-container">
               <h1>Nutrition Plan Using AI</h1>
@@ -169,11 +216,14 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="Transformation">
+        <div className="Transformation ">
           <h1>Our Transformation</h1>
           <h3>Don't deprive yourself of knowing how strong you are</h3>
           <div className="transformation-container">
-            <div className="transformation-card">
+            <div
+              className="transformation-card hidden"
+              ref={(el) => (elementsRef.current[7] = el)}
+            >
               <img src={trans1} alt="" />
               <p>
                 "Muscle Factory not only helps me hit my macros, but also makes
@@ -183,7 +233,10 @@ const Home = () => {
                 our first ETM sponsored athlete!)
               </p>
             </div>
-            <div className="transformation-card">
+            <div
+              className="transformation-card hidden"
+              ref={(el) => (elementsRef.current[8] = el)}
+            >
               <p>
                 "I found out about Muscle Factory in July 2017 and lost 32 lbs
                 in 6 months! Now I'm a fit over 50 female in amazing condition,
@@ -192,7 +245,10 @@ const Home = () => {
               </p>
               <img src={trans2} alt="" />
             </div>
-            <div className="transformation-card">
+            <div
+              className="transformation-card hidden"
+              ref={(el) => (elementsRef.current[9] = el)}
+            >
               <img src={trans3} alt="" />
               <p>
                 "I started tracking my weight in April of 2013 when I was
@@ -203,27 +259,15 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <Link to="/AboutUs" className="joinUs">
-            More About US{" "}
-          </Link>
-        </div>
-        <div className="get-feedback">
-          <h3>Get Feedback</h3>
           <div>
-            <label htmlFor="name">
-              <input type="text" id="name" placeholder="Enter your name" />
-            </label>
-            <label htmlFor="email">
-              <input type="email" id="email" placeholder="Enter your email" />
-            </label>
-          </div>{" "}
-          <label htmlFor="feedback">
-            <textarea
-              id="feedback"
-              placeholder="Enter your feedback"
-            ></textarea>
-          </label>
-          <button type="submit">Submit</button>
+            <button
+              className="joinUs hidden"
+              ref={(el) => (elementsRef.current[10] = el)}
+              onClick={handleSendEmail}
+            >
+              Send feedback
+            </button>
+          </div>
         </div>
       </div>
     </div>

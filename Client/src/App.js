@@ -14,9 +14,6 @@ import ResetPassword from "./Authentication/ResetPassword";
 import Workout from "./Components/User/Workout/Workout";
 import CaloriesCalculator from "./Components/User/Nutrition/CaloriesCalculator/CaloriesCalculator";
 import BMI from "./Components/User/Nutrition/BMI/BMI";
-import BMR from "./Components/User/Nutrition/BMR/BMR";
-import Search from "./pages/Search/Search";
-import Ask from "./pages/Questions/Ask";
 import Blog from "./Components/User/Blog/Blog";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import UserBlog from "./Components/User/Blog/UserBlog";
@@ -29,6 +26,7 @@ import Predictor from "./Components/User/Nutrition/Predictor/Predictor";
 import Food from "./Components/User/Nutrition/FoodDetails/Food";
 import Nutrition from "./Components/User/Nutrition/Nutrition";
 import Coaches from "./Components/User/Trainers/Coaches";
+import ViewCoaches from "./Components/User/Trainers/ViewCoach";
 /* Admin View */
 
 import UserForm from "./Components/Admin/AdminRegistration/UserForm";
@@ -47,7 +45,7 @@ import AllExercises from "./Components/Admin/Dashboard/Exercises/AllExercises";
 import AllBlogs from "./Components/Admin/Dashboard/Blogs/AllBlogs";
 import Dashboard from "./Scenes/Dashboard/Dashboard";
 import WaitingTrainers from "./Components/Admin/AdminRegistration/WaitingTrainers";
-import AdminProfile from "./Components/Profiles/AdminProfile";
+
 /* Trainer View */
 import TrainerPanel from "./Components/Trainer/TrainerLayout/TrainerPanel";
 import TrainerRegistration from "./Authentication/TrainerRegistration";
@@ -72,7 +70,7 @@ import GlobalStyles from "./Styles/GlobalStyles";
 import RequireAuth from "./Authentication/RequireAuth";
 
 const roles = {
-  User: 2,
+  User: "User",
   Trainer: 3,
   Admin: 1,
 };
@@ -115,9 +113,6 @@ function App() {
               element={<CaloriesCalculator />}
             />
             <Route path="/BMI" element={<BMI />} />
-            <Route path="/BMR" element={<BMR />} />
-            <Route path="/Search" element={<Search />} />
-            <Route path="/Ask" element={<Ask />} />
             <Route path="/Blog" element={<Blog />} />
             <Route path="/AboutUs" element={<AboutUs />} />
             <Route path="/UserBlog/:id" element={<UserBlog />} />
@@ -129,6 +124,7 @@ function App() {
             <Route path="/Predictor" element={<Predictor />} />
             <Route path="/Food" element={<Food />} />
             <Route path="/Coaches" element={<Coaches />} />
+            <Route path="/ViewCoaches/:id" element={<ViewCoaches />} />
           </Route>
           {/* </Route> */}
           {/* Trainer view */}
@@ -185,7 +181,7 @@ function App() {
             <Route path="/AllExercises" element={<AllExercises />} />
             {/* Dashboard */}
             <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/AdminProfile" element={<AdminProfile />} />
+
             {/* Trainer View inside Admin Dashboard */}
             {/* Trainer Blogs */}
             <Route path="/AddBlog" element={<AddBlog />} />

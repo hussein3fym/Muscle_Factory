@@ -70,7 +70,7 @@ const Features = () => {
         <div className="features-item">
           <img src={trainer} alt="trainer" />
           <h2>
-            <Link to="/SportsZone">Sports Zone</Link>
+            <Link to="/Coaches">Trainers Zone</Link>
           </h2>
           <p>
             Participate in a wide range of sports activities and group classes,

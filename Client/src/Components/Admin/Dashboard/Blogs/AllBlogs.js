@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { MdDelete } from "react-icons/md";
+import { FaEye, FaEdit } from "react-icons/fa";
 
 const AllBlogs = () => {
-  // State for blogs by Trainer
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
     axios
@@ -18,8 +20,11 @@ const AllBlogs = () => {
         .delete("https://localhost:7095/api/Blogs/" + blogId)
         .then((res) => {
           setBlogs(blogs.filter((blog) => blog.id !== blogId));
+          toast.success("Exercise Deleted Successfully");
         })
-        .catch((error) => console.error("Error deleting blog:", error));
+        .catch(() => {
+          toast.error("Error Deleting Exercise");
+        });
     }
     console.log(`Deleted Blog with ID: ${blogId}`);
   };
@@ -51,6 +56,7 @@ const AllBlogs = () => {
                   <div>
                     <img
                       src={`data:image/jpeg;base64,${blog.image}`}
+                      alt="blogImage"
                       style={{ maxWidth: "1000px" }}
                     />
                   </div>
@@ -60,16 +66,16 @@ const AllBlogs = () => {
                   <div className="buttons-container">
                     <Link
                       to={`/ViewBlog/${blog.id}`}
-                      className="btn btn-info"
+                      className="viewContent"
                       onClick={() => handleView(blog.id)}
                     >
-                      View
+                      <FaEye />
                     </Link>
                     <button
                       onClick={() => handleDelete(blog.id)}
-                      className="btn btn-danger"
+                      className="deleteContent"
                     >
-                      Delete
+                      <MdDelete />
                     </button>
                   </div>
                 </td>

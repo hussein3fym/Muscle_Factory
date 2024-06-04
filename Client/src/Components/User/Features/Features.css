@@ -14,7 +14,7 @@
 .features-content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center !important;
 }
 
 .features-item {
@@ -23,7 +23,7 @@
   padding: 1rem; /* Add padding inside each card */
   border: 2px solid #ffffffe1;
   border-radius: 5px;
-  text-align: center;
+  text-align: center !important;
 }
 
 .features-item h2 {

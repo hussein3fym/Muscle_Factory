@@ -6,17 +6,46 @@
   background-image: url("./../../Assets/image-bg-FAU.png");
   background-size: cover;
   background-position: center;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  /* Add padding to ensure content is not too close to edges */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
+
 .loginForm {
   background-color: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 520px;
+  width: 100%;
+  max-width: 520px; /* Max width ensures it doesn't exceed this size */
   color: aliceblue;
   border-radius: 10px;
   padding: 30px 40px;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+  .loginForm {
+    padding: 20px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .loginForm {
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginForm {
+    padding: 10px 15px;
+    max-width: 350px;
+  }
+}
+
 .login-container .h2 {
   text-align: center;
   font-size: 36px;
@@ -154,21 +183,19 @@
 .input-with-icon {
   position: relative;
 }
-
-.input-with-icon label {
-  width: 50px !important;
+.input-with-icon input {
+  height: 12px !important;
 }
-
 .input-with-icon i {
   position: absolute;
   top: 50%;
-  right: 1.5rem; /* Adjust as needed */
+  right: 1.8rem;
   transform: translateY(-50%);
   cursor: pointer;
 }
 
 .loginIcon {
-  width: 2rem;
+  width: 1.8rem;
 }
 .verify-button {
   --red: #9b0808;

@@ -32,7 +32,7 @@ const Nutrition = () => {
             <MdOutlineArrowForwardIos />
           </Link>
         </div>
-        <div className="nutrition-option">
+        {/* <div className="nutrition-option">
           <div className="nutrition-overlay"></div>
           <h2>Workout Plan</h2>
           <h3>
@@ -44,7 +44,7 @@ const Nutrition = () => {
             Check out
             <MdOutlineArrowForwardIos />
           </Link>
-        </div>
+        </div> */}
         <div className="nutrition-option">
           <div className="nutrition-overlay"></div>
           <h2>Ask Anything</h2>
@@ -101,26 +101,6 @@ const Nutrition = () => {
           </Link>
         </div>
       </div>
-      {/*       
-      <div className="C-Calculators">
-        <div className="Calculators">
-          <h2>
-            <Link to="/CaloriesCalculator">Do you know your Calories?</Link>
-          </h2>
-          <h2>
-            <Link to="/BMI">Do you know your BMI?</Link>
-          </h2>
-           <h2>
-            <Link to="/BMR">Do you know your BMR?</Link>
-          </h2> 
-        </div>
-      </div>
-      <div>
-        <Predictor />
-        <h2>Recommendation</h2>
-        <h2>API</h2>
-        <h2>Recipes, health care API</h2>
-      </div> */}
     </div>
   );
 };

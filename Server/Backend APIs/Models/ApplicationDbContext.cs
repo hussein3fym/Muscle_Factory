@@ -15,12 +15,9 @@ namespace Backend_APIs.Models
         }
 
 
-        public DbSet<Question> Questions { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
         
-        public DbSet<Trainer> Trainers { get; set; }
         public DbSet<Blog> Blogs { get; set; }
-        public DbSet<Comment> Comments { get; set; }
         public DbSet<User_Photo> user_Photos { get; set; }
         public DbSet<Transformation> Transformations { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
@@ -60,11 +57,7 @@ namespace Backend_APIs.Models
                .HasForeignKey(a => a.UserID)
                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Comment>()
-            .HasOne(a => a.Question)
-            .WithMany(q => q.Comments)
-            .HasForeignKey(a => a.QuestionId)
-            .OnDelete(DeleteBehavior.Cascade);
+            
 
           
 
@@ -74,23 +67,7 @@ namespace Backend_APIs.Models
              .HasForeignKey(a => a.UserId)
              .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Comment>()
-             .HasOne(a => a.Trainer)
-             .WithMany(q => q.Comments)
-             .HasForeignKey(a => a.TrainerId)
-             .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<Comment>()
-             .HasOne(a => a.User)
-             .WithMany(q => q.Comments)
-             .HasForeignKey(a => a.UserId)
-             .OnDelete(DeleteBehavior.ClientSetNull);
-
-            modelBuilder.Entity<Comment>()
-             .HasOne(a => a.Question)
-             .WithMany(q => q.Comments)
-             .HasForeignKey(a => a.QuestionId)
-             .OnDelete(DeleteBehavior.Cascade);
+            
 
 
             modelBuilder.Entity<Transformation>()

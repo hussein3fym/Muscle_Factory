@@ -53,6 +53,7 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
       <Typography
         variant="h4"
         fontWeight="bold"
+        color="white"
         sx={{ fontSize: { lg: "44px", xs: "30px" } }}
         mb="46px"
       >
@@ -71,6 +72,15 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
       <Stack sx={{ mt: { lg: "114px", xs: "70px" } }} alignItems="center">
         {exercises.length > 9 && (
           <Pagination
+            sx={{
+              "& .MuiPaginationItem-root": {
+                color: "white", // Set text color to white
+              },
+              "& .MuiPaginationItem-page.Mui-selected": {
+                backgroundColor: "white", // Set selected page background color to white
+                color: "#000", // Set selected page text color to black for contrast
+              },
+            }}
             color="standard"
             shape="rounded"
             defaultPage={1}

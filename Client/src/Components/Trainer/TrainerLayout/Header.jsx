@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Header.css";
-import { IoIosNotifications } from "react-icons/io";
 import { CiSettings, CiLogout } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
@@ -33,8 +32,6 @@ const Header = () => {
     <div className="t-header">
       <h1>Welcome {trainer.userName} Manage Your Profile Here.</h1>
       <div className="trainerInfo">
-        <IoIosNotifications className="t-notification" />
-
         {trainer.photo ? (
           <div>
             <img

@@ -5,30 +5,46 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import useAuth from "./../Hooks/useAuth";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .required("Email is required")
+    .email("Must be a valid email"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,30}$/,
+      "Password must include one uppercase letter, one lowercase letter, one number, and one special character"
+    )
+    .max(30, "Password must be at most 30 characters"),
+});
 
 const Login = () => {
   const { setAuth } = useAuth();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const [passwordShown, setPasswordShown] = useState(false); // State to toggle password visibility
 
-  const togglePasswordVisiblity = () => {
-    setPasswordShown((passwordShown) => !passwordShown);
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const onSubmit = async (formData) => {
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("Email", formData.email);
@@ -67,8 +83,20 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Error logging in:", error);
+
       if (error.response?.status === 401) {
         toast.error("Please verify your email first before logging in.");
+      } else if (error.response?.data?.errors) {
+        const errors = error.response.data.errors;
+        if (errors.Email) {
+          toast.error(`Email error: ${errors.Email}`);
+        }
+        if (errors.Password) {
+          toast.error(`Password error: ${errors.Password}`);
+        }
+        if (errors.Verification) {
+          toast.error(`Verification error: ${errors.Verification}`);
+        }
       } else {
         toast.error("Logging in failed.");
       }
@@ -85,10 +113,10 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleSubmit} className="loginForm">
+      <form onSubmit={handleSubmit(onSubmit)} className="loginForm">
         <h2 className="login-title">Login</h2>
         <h4>
-          Don't have an account ?
+          Don't have an account?{" "}
           <Link to="/Register" className="Link-register">
             Register
           </Link>
@@ -97,12 +125,12 @@ const Login = () => {
           Email:
           <input
             type="email"
-            name="email"
-            required
             className="login-input input"
-            value={formData.email}
-            onChange={handleChange}
+            {...register("email")}
           />
+          {errors.email && (
+            <h3 style={{ color: "red" }}>{errors.email.message}</h3>
+          )}
         </label>
         <br />
 
@@ -111,13 +139,11 @@ const Login = () => {
           <div className="input-with-icon">
             <input
               type={passwordShown ? "text" : "password"}
-              name="password"
-              required
               className="login-input input"
-              value={formData.password}
-              onChange={handleChange}
-            />{" "}
-            <i onClick={togglePasswordVisiblity}>
+              {...register("password")}
+            />
+
+            <i onClick={togglePasswordVisibility}>
               {passwordShown ? (
                 <FiEye className="loginIcon" />
               ) : (
@@ -125,6 +151,9 @@ const Login = () => {
               )}
             </i>
           </div>
+          {errors.password && (
+            <h3 style={{ color: "red" }}>{errors.password.message}</h3>
+          )}
         </label>
         <div className="forget-password">
           <Link to="/ResetPassword" className="Link-Login">

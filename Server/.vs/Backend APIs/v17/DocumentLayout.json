@@ -55,10 +55,6 @@
       "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\dtos\\updatetrainererdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|d:\\gp\\server\\backend apis\\dtos\\getexercisesbytrainerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\dtos\\getexercisesbytrainerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|d:\\gp\\server\\backend apis\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -67,12 +63,16 @@
       "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\dtos\\createexercisedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|d:\\gp\\server\\backend apis\\dtos\\createcommentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\dtos\\createcommentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|d:\\gp\\server\\backend apis\\dtos\\blogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BA70B9C3-2878-4760-997F-4B1EA888BB38}|Backend APIs\\Backend APIs.csproj|solutionrelative:backend apis\\dtos\\blogdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GP\\Server\\Backend APIs\\DTOs\\GetExercisesByTrainerDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Backend APIs\\DTOs\\GetExercisesByTrainerDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GP\\Server\\Backend APIs\\DTOs\\CreateCommentDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Backend APIs\\DTOs\\CreateCommentDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -124,7 +124,7 @@
               "RelativeDocumentMoniker": "Backend APIs\\Controllers\\UsersController.cs",
               "ToolTip": "D:\\GP\\Server\\Backend APIs\\Controllers\\UsersController.cs",
               "RelativeToolTip": "Backend APIs\\Controllers\\UsersController.cs",
-              "ViewState": "AQIAADcAAAAAAAAAAAAkwEsAAAAYAAAA",
+              "ViewState": "AQIAADkAAAAAAAAAAAAswEwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-08T11:59:04.227Z",
               "EditorCaption": ""
@@ -251,7 +251,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "GetExercisesByTrainerDto.cs",
               "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\DTOs\\GetExercisesByTrainerDto.cs",
               "RelativeDocumentMoniker": "Backend APIs\\DTOs\\GetExercisesByTrainerDto.cs",
@@ -263,7 +263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "LoginDto.cs",
               "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\DTOs\\LoginDto.cs",
               "RelativeDocumentMoniker": "Backend APIs\\DTOs\\LoginDto.cs",
@@ -275,7 +275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "CreateExerciseDto.cs",
               "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\DTOs\\CreateExerciseDto.cs",
               "RelativeDocumentMoniker": "Backend APIs\\DTOs\\CreateExerciseDto.cs",
@@ -287,7 +287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "CreateCommentDto.cs",
               "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\DTOs\\CreateCommentDto.cs",
               "RelativeDocumentMoniker": "Backend APIs\\DTOs\\CreateCommentDto.cs",
@@ -299,7 +299,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 15,
               "Title": "BlogDto.cs",
               "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\DTOs\\BlogDto.cs",
               "RelativeDocumentMoniker": "Backend APIs\\DTOs\\BlogDto.cs",

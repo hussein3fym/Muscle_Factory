@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const exerciseOptions = {
   method: "GET",
   params: { limit: "100" },
@@ -28,4 +30,27 @@ export const fetchData = async (url, options) => {
   const data = await res.json();
 
   return data;
+};
+
+export const fetchCaloriesData = async (endpoint, options) => {
+  const API_BASE_URL = "https://trackapi.nutritionix.com/v2";
+  const defaultOptions = {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      "x-app-id": "959167a3",
+      "x-app-key": "0f6562e017feab14efd373fc558cc70d",
+    },
+  };
+
+  try {
+    const response = await axios(`${API_BASE_URL}/${endpoint}`, defaultOptions);
+    if (response.status === 404) {
+      const jsonResponse = await response.data;
+      throw new Error(jsonResponse.message);
+    }
+    return response.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };

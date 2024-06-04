@@ -1,36 +1,41 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
-import "./Bloga.css";
+import { useQuery } from "@tanstack/react-query";
+import "./EachBlog.css";
+
+const fetchEachBlog = async (id) => {
+  const { data } = await axios.get(
+    `https://localhost:7095/api/Blogs/GetBlog/${id}`
+  );
+  return data;
+};
 
 const UserBlog = () => {
-  const [userBlogs, setUserBlogs] = useState({});
   const { id } = useParams();
 
-  useEffect(() => {
-    axios
-      .get(`https://localhost:7095/api/Blogs/GetBlog/${id}`)
-      .then((res) => setUserBlogs(res.data))
-      .catch((error) => {
-        console.error("Error fetching blogs:", error);
-        // Handle the error, e.g., display an error message to the user
-      });
-  }, [id]);
+  const { data: userBlogs, error } = useQuery(["userBlog", id], () =>
+    fetchEachBlog(id)
+  );
+
+  if (error) return <div>Error fetching blog: {error.message}</div>;
 
   return (
     <div className="V-container">
       <div className="V-content">
         <div className="V-details">
-          <h1>{userBlogs.title || "Loading..."}</h1>
-          <p dangerouslySetInnerHTML={{ __html: userBlogs.blogText }}></p>
-          <ReactPlayer url={userBlogs.videoURL} />
+          <h1>{userBlogs?.title || "Loading..."}</h1>
+          <p dangerouslySetInnerHTML={{ __html: userBlogs?.blogText }}></p>
+          {userBlogs?.videoURL && <ReactPlayer url={userBlogs.videoURL} />}
         </div>
         <div className="V-image">
-          <img
-            src={`data:image/jpeg;base64,${userBlogs.image}`}
-            alt="Blog Image"
-          />
+          {userBlogs?.image && (
+            <img
+              src={`data:image/jpeg;base64,${userBlogs.image}`}
+              alt={userBlogs.title}
+            />
+          )}
         </div>
       </div>
     </div>

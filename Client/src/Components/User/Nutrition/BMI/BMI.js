@@ -1,32 +1,40 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import "./BMI.css";
 
+const schema = yup.object().shape({
+  weight: yup
+    .number()
+    .required("Weight is required")
+    .min(20, "Weight must be at least 20 kg")
+    .max(500, "Weight must be at most 500 kg"),
+  height: yup
+    .number()
+    .required("Height is required")
+    .min(60, "Height must be at least 60 cm")
+    .max(500, "Height must be at most 500 cm"),
+});
+
 const BMI = () => {
-  const [weight, setWeight] = useState();
-  const [height, setHeight] = useState();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const [bmi, setBmi] = useState(null);
   const [message, setMessage] = useState("");
 
-  const calculateBMI = () => {
+  const calculateBMI = ({ weight, height }) => {
     const heightInMeters = height / 100;
-    const weightValue = parseFloat(weight);
-    const heightValue = parseFloat(height);
-    if (
-      isNaN(weightValue) ||
-      isNaN(heightValue) ||
-      weightValue <= 0 ||
-      heightValue <= 0
-    ) {
-      setMessage("Please enter valid weight and height values.");
-      return;
-    }
-
     const bmiValue = weight / (heightInMeters * heightInMeters);
     setBmi(bmiValue.toFixed(2));
-    if (weight === 0 || height === 0) {
-      setMessage("Please enter a valid weight and height");
-    } else if (bmiValue < 18.5) {
+
+    if (bmiValue < 18.5) {
       setMessage("Underweight");
     } else if (bmiValue >= 18.5 && bmiValue < 25) {
       setMessage("Normal");
@@ -50,6 +58,7 @@ const BMI = () => {
       imgSrc = require("./../../../../Assets/overweight.png");
     }
   }
+
   const Reload = () => {
     window.location.reload();
   };
@@ -57,7 +66,7 @@ const BMI = () => {
   return (
     <div className="BMI-container">
       <div className="B-container">
-        <form className="BMI-Form">
+        <form className="BMI-Form" onSubmit={handleSubmit(calculateBMI)}>
           <h1>Enter your information</h1>
           <div className="input-group">
             <label>
@@ -65,9 +74,18 @@ const BMI = () => {
               <input
                 type="number"
                 className="input-data"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
+                {...register("weight")}
               />
+              {errors.weight && (
+                <p
+                  style={{
+                    color: "red",
+                  }}
+                  className="error-message"
+                >
+                  {errors.weight.message}
+                </p>
+              )}
             </label>
           </div>
           <div className="input-group">
@@ -76,13 +94,22 @@ const BMI = () => {
               <input
                 type="number"
                 className="input-data"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
+                {...register("height")}
               />
+              {errors.height && (
+                <p
+                  style={{
+                    color: "red",
+                  }}
+                  className="error-message"
+                >
+                  {errors.height.message}
+                </p>
+              )}
             </label>
           </div>
           <div>
-            <button type="button" onClick={calculateBMI} className="Calculate">
+            <button type="submit" className="Calculate">
               Calculate BMI
             </button>
             <button type="button" onClick={Reload} className="Reload">
@@ -105,5 +132,4 @@ const BMI = () => {
     </div>
   );
 };
-
 export default BMI;

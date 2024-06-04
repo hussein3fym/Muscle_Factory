@@ -1,49 +1,59 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import "./Design/Login.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import congratulations from "./../Assets/icons/congratulations.png";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  UserName: yup
+    .string()
+    .required("Name is required")
+    .min(1, "Name must be at least 1 letter")
+    .max(30, "Name must be at most 30 letters"),
+  email: yup
+    .string()
+    .required("Email is required")
+    .email("Must be a valid email"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,30}$/,
+      "Password must include one uppercase letter, one lowercase letter, one number, and one special character"
+    )
+    .max(30, "Password must be at most 30 characters"),
+  confirmPassword: yup
+    .string()
+    .required("Confirm Password is required")
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
+});
 
 const Register = () => {
-  const userRef = useRef();
-  const errRef = useRef();
-  const [formData, setFormData] = useState({
-    UserName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [passwordShown, setPasswordShown] = useState(false); // State to toggle password visibility
-  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false); // State for confirm password visibility
-  const [success, setSuccess] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown((passwordShown) => !passwordShown);
   };
-
   const toggleConfirmPasswordVisibility = () => {
     setConfirmPasswordShown((confirmPasswordShown) => !confirmPasswordShown);
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [success, setSuccess] = useState(false);
 
-    console.log("Form Data to Send:", formData);
-
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+  const onSubmit = async (formData) => {
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("UserName", formData.UserName);
@@ -59,7 +69,6 @@ const Register = () => {
           },
         }
       );
-
       console.log("user Registered successfully:", response.data);
       toast.success(
         `Please confirm your email before login. Confirmation email sent to ${formData.email}`
@@ -72,26 +81,13 @@ const Register = () => {
   };
 
   const handleGoogleLogin = () => {
-    // For educational purposes, you can alert that Google login would be implemented with a backend.
     alert("Google login would be implemented with a backend.");
   };
 
   const handleFacebookLogin = () => {
-    // For educational purposes, you can alert that Facebook login would be implemented with a backend.
     alert("Facebook login would be implemented with a backend.");
   };
 
-  useEffect(() => {
-    // Implement the logic for user validation
-  }, [formData.UserName]);
-
-  useEffect(() => {
-    // Implement the logic for password validation
-  }, [formData.password, formData.confirmPassword]);
-
-  useEffect(() => {
-    // Implement the logic for clearing error messages
-  }, [formData.UserName, formData.password, formData.confirmPassword]);
   return (
     <>
       {success ? (
@@ -107,7 +103,7 @@ const Register = () => {
         </section>
       ) : (
         <div className="login-container">
-          <form onSubmit={handleSubmit} className="loginForm">
+          <form onSubmit={handleSubmit(onSubmit)} className="loginForm">
             <h2 className="login-title">Create an Account</h2>
             <h4>
               Already have an account ?
@@ -119,12 +115,12 @@ const Register = () => {
               Name:
               <input
                 type="text"
-                name="UserName"
-                required
                 className="login-input"
-                value={formData.UserName}
-                onChange={handleChange}
+                {...register("UserName")}
               />
+              {errors.UserName && (
+                <h3 style={{ color: "red" }}>{errors.UserName.message}</h3>
+              )}
             </label>
             <br />
 
@@ -132,12 +128,12 @@ const Register = () => {
               Email:
               <input
                 type="email"
-                name="email"
-                required
                 className="login-input"
-                value={formData.email}
-                onChange={handleChange}
+                {...register("email")}
               />
+              {errors.email && (
+                <h3 style={{ color: "red" }}>{errors.email.message}</h3>
+              )}
             </label>
             <br />
 
@@ -146,11 +142,8 @@ const Register = () => {
               <div className="input-with-icon">
                 <input
                   type={passwordShown ? "text" : "password"}
-                  name="password"
-                  required
                   className="login-input"
-                  value={formData.password}
-                  onChange={handleChange}
+                  {...register("password")}
                 />
                 <i onClick={togglePasswordVisiblity}>
                   {passwordShown ? (
@@ -160,6 +153,9 @@ const Register = () => {
                   )}
                 </i>
               </div>
+              {errors.password && (
+                <h3 style={{ color: "red" }}>{errors.password.message}</h3>
+              )}
             </label>
             <br />
 
@@ -168,11 +164,8 @@ const Register = () => {
               <div className="input-with-icon">
                 <input
                   type={confirmPasswordShown ? "text" : "password"}
-                  name="confirmPassword"
-                  required
                   className="login-input"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
+                  {...register("confirmPassword")}
                 />
                 <i onClick={toggleConfirmPasswordVisibility}>
                   {confirmPasswordShown ? (
@@ -182,12 +175,23 @@ const Register = () => {
                   )}
                 </i>
               </div>
+              {errors.confirmPassword && (
+                <h3 style={{ color: "red" }}>
+                  {errors.confirmPassword.message}
+                </h3>
+              )}
             </label>
             <br />
 
             <button type="submit" className="login-button">
               Create Account
             </button>
+            {success && (
+              <p>
+                Registration successful! Please check your email to confirm.
+              </p>
+            )}
+
             <h4>or</h4>
 
             <div className="login-alter">

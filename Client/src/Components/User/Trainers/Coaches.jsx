@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./Coaches.css";
 import defaultImage from "./../../../Assets/icons/favicon.ico";
 
@@ -61,7 +62,9 @@ const Coaches = () => {
                     <p>Email: {trainer.email}</p>
                     <p>Years of experience: {trainer.experience}</p>
                     <p>specialization: {trainer.specialization}</p>
-                    <button onClick={() => handleView(trainer.id)}>View</button>
+                    <div>
+                      <Link to={`/ViewCoaches/${trainer.id}`}>View</Link>
+                    </div>
                   </div>
                 </div>
               ))}

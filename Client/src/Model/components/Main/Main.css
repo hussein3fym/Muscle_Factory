@@ -2,10 +2,29 @@
   background-color: #131314;
   flex: 1;
   min-height: 100vh;
-  padding-bottom: 15vh;
+  padding-bottom: 10vh;
   position: relative;
 }
+/* Small screens (e.g., smartphones) */
+@media (max-width: 767px) {
+  .m-main {
+    padding-bottom: 5vh;
+  }
+}
 
+/* Medium screens (e.g., tablets) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .m-main {
+    padding-bottom: 7.5vh;
+  }
+}
+
+/* Large screens (e.g., desktops) */
+@media (min-width: 1024px) {
+  .m-main {
+    padding-bottom: 10vh;
+  }
+}
 .m-main .m-nav {
   display: flex;
   align-items: center;
@@ -15,10 +34,31 @@
   color: #585858;
 }
 
-.m-main .m-nav .m-logo {
-  width: 100px;
+.m-main .m-nav {
+  position: relative;
 }
 
+.m-main .m-nav .m-logo {
+  width: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.m-main .m-nav .m-logo img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 768px) {
+  .m-main .m-nav.m-logo img {
+    display: none;
+  }
+}
 .m-main .m-Icon {
   width: 40px;
   border-radius: 50%;
@@ -86,7 +126,8 @@
   width: 100%;
   max-width: 900px;
   padding: 0px 20px;
-  margin: auto;
+  margin-top: 0; /* Reduce the top margin */
+  padding-top: 0;
 }
 
 .m-search-box {
@@ -98,6 +139,8 @@
   padding: 10px 20px;
   border-radius: 50px;
   margin-bottom: 70px;
+  margin-top: 0; /* Reduce the top margin */
+  padding-top: 0;
 }
 
 .m-search-box button {
@@ -119,20 +162,22 @@
   padding: 8px;
   color: #ffffff;
 }
-
+.m-search-box input:focus {
+  outline: none; /* Remove outline when input is focused */
+}
 .m-search-box div {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.m-main .bottom-info {
+/* .m-main .bottom-info {
   color: orange;
   font-size: 13px;
   margin: 15px auto;
   text-align: center;
   font-weight: 300;
-}
+} */
 
 .m-result {
   padding: 0px 5%;
@@ -172,30 +217,34 @@
 }
 
 .m-loader {
-  width: 100%;
+  width: 100%; /* Full width */
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: column; /* Stack children vertically */
+  gap: 10px; /* Space between child elements */
 }
 
 .m-loader hr {
-  z-index: 2;
+  z-index: 2; /* Ensure it's above other content if necessary */
   border-radius: 4px;
   border: none;
-  background-color: #f6f7f8;
-  background: linear-gradient(to right, #d65d5d, #ffffff, #bc1515) !important;
-  background-size: 800px 50px;
-  height: 20px;
-  animation: loader 3s infinite linear;
+  background-color: #f6f7f8; /* Fallback color */
+  background: linear-gradient(
+    to right,
+    #d65d5d,
+    #ffffff,
+    #ff0000
+  ); /* Gradient background */
+  background-size: 800px 50px; /* Background size for gradient */
+  height: 20px; /* Height of the hr element */
+  animation: m-loader 3s infinite linear; /* Animation properties */
 }
 
 @keyframes m-loader {
   0% {
-    background-position: -800px 0px;
+    background-position: -800px 0; /* Start position of gradient animation */
   }
-
   100% {
-    background-position: 800px 0px;
+    background-position: 800px 0; /* End position of gradient animation */
   }
 }
 

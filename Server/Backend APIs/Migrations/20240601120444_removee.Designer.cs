@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend_APIs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240426233346_statusconfig")]
-    partial class statusconfig
+    [Migration("20240601120444_removee")]
+    partial class removee
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,9 +33,6 @@ namespace Backend_APIs.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AdminId")
-                        .HasColumnType("int");
-
                     b.Property<string>("BlogText")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -48,7 +45,7 @@ namespace Backend_APIs.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrainerId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<string>("VideoURL")
@@ -57,14 +54,12 @@ namespace Backend_APIs.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdminId");
-
-                    b.HasIndex("TrainerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Blogs");
                 });
 
-            modelBuilder.Entity("Backend_APIs.Models.Comment", b =>
+            modelBuilder.Entity("Backend_APIs.Models.Certificate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,28 +67,17 @@ namespace Backend_APIs.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CommentText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TrainerId")
-                        .HasColumnType("int");
+                    b.Property<byte[]>("File")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QuestionId");
-
-                    b.HasIndex("TrainerId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Certificates");
                 });
 
             modelBuilder.Entity("Backend_APIs.Models.Exercise", b =>
@@ -132,28 +116,20 @@ namespace Backend_APIs.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrainerId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<byte[]>("Video")
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("YouTubeVideo")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TrainerId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Exercises");
                 });
 
-            modelBuilder.Entity("Backend_APIs.Models.Question", b =>
+            modelBuilder.Entity("Backend_APIs.Models.Transformation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,56 +137,25 @@ namespace Backend_APIs.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("QuestionText")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<byte[]>("File")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("Backend_APIs.Models.Trainer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Specialization")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Trainers");
+                    b.ToTable("Transformations");
                 });
 
             modelBuilder.Entity("Backend_APIs.Models.User", b =>
@@ -224,15 +169,15 @@ namespace Backend_APIs.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<byte[]>("CV")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("Age")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("CvFile")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -241,8 +186,8 @@ namespace Backend_APIs.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
+                    b.Property<string>("Experience")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
                         .HasMaxLength(6)
@@ -270,6 +215,9 @@ namespace Backend_APIs.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -482,67 +430,38 @@ namespace Backend_APIs.Migrations
                 {
                     b.HasOne("Backend_APIs.Models.User", "User")
                         .WithMany("Blogs")
-                        .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("Backend_APIs.Models.Trainer", "Trainer")
-                        .WithMany("Blogs")
-                        .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Trainer");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Backend_APIs.Models.Comment", b =>
+            modelBuilder.Entity("Backend_APIs.Models.Certificate", b =>
                 {
-                    b.HasOne("Backend_APIs.Models.Question", "Question")
-                        .WithMany("Comments")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Backend_APIs.Models.Trainer", "Trainer")
-                        .WithMany("Comments")
-                        .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Backend_APIs.Models.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Question");
-
-                    b.Navigation("Trainer");
+                        .WithMany("Certificates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Backend_APIs.Models.Exercise", b =>
                 {
-                    b.HasOne("Backend_APIs.Models.Trainer", "Trainer")
-                        .WithMany("Exercises")
-                        .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Backend_APIs.Models.User", "User")
                         .WithMany("Exercises")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Trainer");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Backend_APIs.Models.Question", b =>
+            modelBuilder.Entity("Backend_APIs.Models.Transformation", b =>
                 {
                     b.HasOne("Backend_APIs.Models.User", "User")
-                        .WithMany("Questions")
+                        .WithMany("Transformations")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
@@ -609,29 +528,15 @@ namespace Backend_APIs.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Backend_APIs.Models.Question", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("Backend_APIs.Models.Trainer", b =>
-                {
-                    b.Navigation("Blogs");
-
-                    b.Navigation("Comments");
-
-                    b.Navigation("Exercises");
-                });
-
             modelBuilder.Entity("Backend_APIs.Models.User", b =>
                 {
                     b.Navigation("Blogs");
 
-                    b.Navigation("Comments");
+                    b.Navigation("Certificates");
 
                     b.Navigation("Exercises");
 
-                    b.Navigation("Questions");
+                    b.Navigation("Transformations");
 
                     b.Navigation("User_Photos");
                 });

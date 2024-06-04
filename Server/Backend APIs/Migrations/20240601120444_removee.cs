@@ -5,7 +5,7 @@
 namespace Backend_APIs.Migrations
 {
     /// <inheritdoc />
-    public partial class statusconfig : Migration
+    public partial class removee : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

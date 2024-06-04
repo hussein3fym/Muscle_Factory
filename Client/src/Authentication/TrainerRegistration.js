@@ -2,43 +2,72 @@ import React, { useState } from "react";
 import "./Design/TrainerLogin.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import congratulations from "./../Assets/icons/congratulations.png";
 
+const schema = yup.object().shape({
+  UserName: yup
+    .string()
+    .required("Name is required")
+    .min(1, "Name must be at least 1 letter")
+    .max(30, "Name must be at most 30 letters"),
+  email: yup
+    .string()
+    .required("Email is required")
+    .email("Must be a valid email"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,30}$/,
+      "Password must include one uppercase letter, one lowercase letter, one number, and one special character"
+    )
+    .max(30, "Password must be at most 30 characters"),
+  Age: yup
+    .number()
+    .required("Age is required")
+    .positive("Age must be a positive number")
+    .integer("Age must be an integer")
+    .min(18, "Age must be at least 18 years")
+    .max(200, "Age must be at most 200 years"),
+  experience: yup
+    .number()
+    .required("Experience is required")
+    .positive("Experience must be a positive number")
+    .integer("Experience must be an integer")
+    .min(0, "Experience must be at least 0 years")
+    .max(70, "Experience must be at most 70 years"),
+  specialization: yup
+    .string()
+    .required("Specialization is required")
+    .min(2, "Specialization must be at least 2 letters")
+    .max(200, "Specialization must be at most 200 letters"),
+  gender: yup.string().required("Gender is required"),
+  cvFile: yup.mixed().required("CV File is required"),
+});
+
 const TrainerLogin = () => {
-  const [passwordShown, setPasswordShown] = useState(false); // State to toggle password visibility
-  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false); // State for confirm password visibility
+  const [passwordShown, setPasswordShown] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [formData, setFormData] = useState({
-    UserName: "",
-    email: "",
-    password: "",
-    Age: "",
-    experience: "",
-    specialization: "",
-    gender: "",
-  });
+
   const togglePasswordVisiblity = () => {
     setPasswordShown((passwordShown) => !passwordShown);
   };
 
-  const toggleConfirmPasswordVisibility = () => {
-    setConfirmPasswordShown((confirmPasswordShown) => !confirmPasswordShown);
-  };
-  const handleCVFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prevData) => ({ ...prevData, cvFile: file }));
-  };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value })); //}
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    console.log("Form submitted:", formData);
-
+  const onSubmit = async (formData) => {
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("UserName", formData.UserName);
@@ -48,7 +77,7 @@ const TrainerLogin = () => {
       formDataToSend.append("Experience", formData.experience);
       formDataToSend.append("Specialization", formData.specialization);
       formDataToSend.append("Gender", formData.gender);
-      formDataToSend.append("cvFile", formData.cvFile);
+      formDataToSend.append("cvFile", formData.cvFile[0]);
 
       console.log("Form Data to Send:", formDataToSend);
       const response = await axios.post(
@@ -58,18 +87,14 @@ const TrainerLogin = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          // timeout: 10000,
         }
       );
 
-      console.log("trainer Registered successfully:", response.data);
-      /*toast.success(
-        `Please confirm your email before login. Confirmation email sent to ${formData.email}`
-      );*/
+      console.log("Trainer Registered successfully:", response.data);
       setSuccess(true);
     } catch (error) {
       console.error("Error Registering trainer:", error);
-      toast.error("trainer registeration failed");
+      toast.error("Trainer registration failed");
     }
   };
 
@@ -79,7 +104,7 @@ const TrainerLogin = () => {
         <section className="after-signUp">
           <img className="verifyImg" src={congratulations} alt="Auth" />
           <h1>
-            Congratulations wait till your acceptance
+            Congratulations Trainer wait till your acceptance
             <br /> Check your email to get acceptance email.
           </h1>
           <p className="verify-button">
@@ -88,86 +113,102 @@ const TrainerLogin = () => {
         </section>
       ) : (
         <div className="login-container">
-          <form onSubmit={handleSubmit} className="loginForm">
+          <form onSubmit={handleSubmit(onSubmit)} className="loginForm">
             <h2 className="login-title">I am a Trainer </h2>
             <label className="login-label">
               Name :
               <input
                 type="text"
-                name="UserName"
-                required
                 className="login-input"
-                value={formData.UserName}
-                onChange={handleChange}
+                {...register("UserName")}
               />
+              {errors.UserName && (
+                <h3 style={{ color: "red" }}>{errors.UserName.message}</h3>
+              )}
             </label>
             <br />
             <label className="login-label">
               Email:
               <input
                 type="email"
-                name="email"
-                required
                 className="login-input"
-                value={formData.email}
-                onChange={handleChange}
+                {...register("email")}
               />
+              {errors.email && (
+                <h3 style={{ color: "red" }}>{errors.email.message}</h3>
+              )}
             </label>
             <br />
             <label className="login-label">
-              Password:
-              <input
-                type="password"
-                name="password"
-                required
-                className="login-input"
-                value={formData.password}
-                onChange={handleChange}
-              />
+              <div className="input-with-TrainerIcon">
+                Password:
+                <input
+                  type={passwordShown ? "text" : "password"}
+                  className="login-input"
+                  {...register("password")}
+                />
+                <i onClick={togglePasswordVisiblity}>
+                  {passwordShown ? (
+                    <FiEye className="loginIcon" />
+                  ) : (
+                    <FiEyeOff className="loginIcon" />
+                  )}
+                </i>
+                {errors.password && (
+                  <h3 style={{ color: "red" }}>{errors.password.message}</h3>
+                )}
+              </div>
             </label>
             <br />
             <label className="login-label">
               Age :
-              <input
-                type="text"
-                name="Age"
-                required
-                className="login-input"
-                value={formData.Age}
-                onChange={handleChange}
-              />
+              <input type="text" className="login-input" {...register("Age")} />
+              {errors.Age && (
+                <h3 style={{ color: "red" }}>{errors.Age.message}</h3>
+              )}
             </label>
             <br />
             <label className="login-label">
               Years of experience:
               <input
                 type="text"
-                name="experience"
-                required
                 className="login-input"
-                value={formData.experience}
-                onChange={handleChange}
+                {...register("experience")}
               />
+              {errors.experience && (
+                <h3 style={{ color: "red" }}>{errors.experience.message}</h3>
+              )}
             </label>
             <label className="login-label">
               Your Specialization:
               <input
                 type="text"
-                name="specialization"
-                required
                 className="login-input"
-                value={formData.specialization}
-                onChange={handleChange}
+                {...register("specialization")}
               />
+              {errors.specialization && (
+                <h3 style={{ color: "red" }}>
+                  {errors.specialization.message}
+                </h3>
+              )}
             </label>
             <br />
+            <label className="login-label-cv">
+              CV File:
+              <input
+                type="file"
+                className="login-input-cv"
+                {...register("cvFile")}
+              />
+              {errors.cvFile && (
+                <h3 style={{ color: "red" }}>{errors.cvFile.message}</h3>
+              )}
+            </label>
             <label className="login-label">
               Gender :
               <select
                 name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                required
+                {...register("gender")}
                 className="login-input"
               >
                 <option value="" disabled>
@@ -176,18 +217,11 @@ const TrainerLogin = () => {
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
+              {errors.gender && (
+                <h3 style={{ color: "red" }}>{errors.gender.message}</h3>
+              )}
             </label>
-
-            <label className="login-label">
-              CV File:
-              <input
-                type="file"
-                name="cvFile"
-                className="login-input"
-                onChange={handleCVFileChange}
-              />
-            </label>
-
+            <br />
             <button type="submit" className="login-button">
               Submit
             </button>
