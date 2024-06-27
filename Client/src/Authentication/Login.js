@@ -155,23 +155,9 @@ const Login = () => {
             <h3 style={{ color: "red" }}>{errors.password.message}</h3>
           )}
         </label>
-        <div className="forget-password">
-          <Link to="/ResetPassword" className="Link-Login">
-            Forget Password?
-          </Link>
-        </div>
         <button type="submit" className="login-button">
           Log in
         </button>
-        <h4>or</h4>
-        <div className="login-alter">
-          <button onClick={handleGoogleLogin} className="google-login">
-            Google
-          </button>
-          <button onClick={handleFacebookLogin} className="facebook-login">
-            Facebook
-          </button>
-        </div>
       </form>
     </div>
   );

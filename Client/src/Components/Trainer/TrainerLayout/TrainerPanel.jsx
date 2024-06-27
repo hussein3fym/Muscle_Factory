@@ -4,7 +4,7 @@ import blogs from "./../../../Assets/icons/blog (1).png";
 import Certificates from "./../../../Assets/icons/guarantee-certificate.png";
 import Results from "./../../../Assets/icons/change-management.png";
 import whatsapp from "./../../../Assets/icons/whatsapp.png";
-import email from "./../../../Assets/icons/send-mail (1).png";
+import emailImg from "./../../../Assets/icons/send-mail (1).png";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -17,6 +17,17 @@ const TrainerPanel = () => {
   const [trainername, setTrainername] = useState([]);
 
   const adminPhoneNumber = "+201002406468";
+  const email = "musclesfactory101@gmail.com"; // Declare email constant outside the function
+
+  const handleSendEmail = () => {
+    const subject = "Regarding Your Muscle Factory Account";
+    const body = "Dear Admin,\n\n";
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoLink;
+  };
 
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const TrainerId = storedUser.userId;
@@ -136,8 +147,12 @@ const TrainerPanel = () => {
             <div className="email">
               <h3>Contact Us</h3>
               <div className="content">
-                <button type="submit" className="send">
-                  Send <img src={email} alt="email" />
+                <button
+                  type="submit"
+                  className="send"
+                  onClick={handleSendEmail}
+                >
+                  Send <img src={emailImg} alt="email" />
                 </button>
                 <div className="chat">
                   <button

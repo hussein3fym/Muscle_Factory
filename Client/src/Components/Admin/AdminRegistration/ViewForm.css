@@ -1,0 +1,72 @@
+.ViewTrainerDetails {
+  padding: 5rem;
+}
+.ViewTrainerDetails h1 {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: brown;
+  font-family: Azonix;
+}
+
+.ViewTrainerDetails-info img {
+  margin: 5rem 10rem;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+}
+.TrainerDetails-view {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  justify-content: space-around;
+  padding-left: 5.5rem;
+}
+.ViewTrainerDetails-info button {
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 10px; /* Space between text and image */
+}
+.button-sendToCoach {
+  display: flex;
+  margin: 2rem;
+}
+
+.sendToCoach img {
+  width: 7rem;
+}
+.TrainerCertificatesTransformations h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  color: rgb(0, 0, 0);
+}
+.TrainerCertificates-Card {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  justify-content: space-around;
+  padding-left: 5.5rem;
+  margin: 2rem;
+}
+.TrainerCertificates-Card img {
+  border-radius: 10px;
+  margin: 1rem;
+}
+.TrainerTransformations-Card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  justify-content: space-around;
+  padding-left: 5.5rem;
+  margin: 2rem;
+}
+.TrainerTransformations-Card img {
+  border-radius: 10px;
+  margin: 1rem;
+}

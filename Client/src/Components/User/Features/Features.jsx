@@ -12,7 +12,7 @@ const Features = () => {
   return (
     <div className="features">
       <h1 className="features-title">What we offer</h1>
-      <div className="features-content">
+      <div className="features-content-view">
         <div className="features-item">
           <img src={food} alt="food" />
           <h2>
@@ -59,12 +59,13 @@ const Features = () => {
         <div className="features-item">
           <img src={fitness} alt="fitness" />
           <h2>
-            <Link to="/FindGym">Find Gym</Link>
+            <Link to="/FindGym">Gym Information</Link>
           </h2>
           <p>
-            Locate the nearest fitness centers equipped with state-of-the-art
-            facilities and amenities, making it convenient for you to pursue
-            your fitness goals.
+            Gym information provides details on facilities, equipment, and
+            services offered, helping individuals choose the best gym for their
+            fitness needs. Access to this information ensures a well-informed
+            decision, supporting effective and enjoyable workouts..
           </p>
         </div>
         <div className="features-item">

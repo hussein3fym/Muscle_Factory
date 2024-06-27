@@ -74,7 +74,7 @@ const UpdateBlog = () => {
 
           <label className="Creation">
             Blog Description
-            <input
+            <textarea
               type="text"
               name="blogText"
               value={blogs.blogText}

@@ -173,7 +173,8 @@ function App() {
             <Route
               path="/AdminViewExercises/:id"
               element={<AdminViewExercises />}
-            />
+            />{" "}
+            <Route path="/UpdateExercises/:id" element={<UpdateExercises />} />
             <Route
               path="/AdminUpdateExercises/:id"
               element={<AdminUpdateExercises />}
@@ -181,7 +182,6 @@ function App() {
             <Route path="/AllExercises" element={<AllExercises />} />
             {/* Dashboard */}
             <Route path="/Dashboard" element={<Dashboard />} />
-
             {/* Trainer View inside Admin Dashboard */}
             {/* Trainer Blogs */}
             <Route path="/AddBlog" element={<AddBlog />} />

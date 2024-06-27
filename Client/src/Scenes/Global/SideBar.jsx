@@ -1,30 +1,43 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { MdDashboardCustomize } from "react-icons/md";
-import { FaUsers } from "react-icons/fa6";
+import { FaUsers, FaBlogger, FaStopwatch } from "react-icons/fa";
 import { CiDumbbell } from "react-icons/ci";
-import { FaBlogger } from "react-icons/fa";
-import { GiGymBag } from "react-icons/gi";
 import { FiUser, FiUserCheck } from "react-icons/fi";
 import { IoAddCircle } from "react-icons/io5";
-import { LiaDumbbellSolid } from "react-icons/lia";
-import { LiaBloggerB } from "react-icons/lia";
-import { FaStopwatch } from "react-icons/fa";
+import { LiaDumbbellSolid, LiaBloggerB } from "react-icons/lia";
 import adminicon from "./../../Assets/icons/TrainerIcon1.jpeg";
 import "./SideBar.css";
 
 const SideBar = () => {
-  const [showMembersMenu, setShowMembersMenu] = useState(false);
+  const [menuState, setMenuState] = useState({
+    showMembersMenu: false,
+    showExercises: false,
+    showBlogs: false,
+  });
+
   const toggleMembersMenu = () => {
-    setShowMembersMenu(!showMembersMenu);
+    setMenuState((prevState) => ({
+      showMembersMenu: !prevState.showMembersMenu,
+      showExercises: false,
+      showBlogs: false,
+    }));
   };
-  const [showExercises, setShowExercises] = useState(false);
+
   const toggleExercises = () => {
-    setShowExercises(!showExercises);
+    setMenuState((prevState) => ({
+      showMembersMenu: false,
+      showExercises: !prevState.showExercises,
+      showBlogs: false,
+    }));
   };
-  const [showBlogs, setShowBlogs] = useState(false);
+
   const toggleBlogs = () => {
-    setShowBlogs(!showBlogs);
+    setMenuState((prevState) => ({
+      showMembersMenu: false,
+      showExercises: false,
+      showBlogs: !prevState.showBlogs,
+    }));
   };
 
   return (
@@ -42,13 +55,15 @@ const SideBar = () => {
           </li>
           <li>
             <div
-              className={`StyledNavLink ${showMembersMenu ? "active" : ""}`}
+              className={`StyledNavLink ${
+                menuState.showMembersMenu ? "active" : ""
+              }`}
               onClick={toggleMembersMenu}
             >
               <FaUsers />
               <span>CRM</span>
             </div>
-            {showMembersMenu && (
+            {menuState.showMembersMenu && (
               <ul className="DropdownMenu">
                 <li>
                   <NavLink to="/UserForm" className="StyledNavLink">
@@ -74,13 +89,15 @@ const SideBar = () => {
           <p className="p-forSidebar">Services</p>
           <li>
             <div
-              className={`StyledNavLink ${showExercises ? "active" : ""}`}
+              className={`StyledNavLink ${
+                menuState.showExercises ? "active" : ""
+              }`}
               onClick={toggleExercises}
             >
               <CiDumbbell />
               <span>Exercises</span>
             </div>
-            {showExercises && (
+            {menuState.showExercises && (
               <ul className="DropdownMenu">
                 <li>
                   <NavLink to="/AdminExercisesForm" className="StyledNavLink">
@@ -105,13 +122,13 @@ const SideBar = () => {
           </li>
           <li>
             <div
-              className={`StyledNavLink ${showBlogs ? "active" : ""}`}
+              className={`StyledNavLink ${menuState.showBlogs ? "active" : ""}`}
               onClick={toggleBlogs}
             >
               <FaBlogger />
               <span>Blogs</span>
             </div>
-            {showBlogs && (
+            {menuState.showBlogs && (
               <ul className="DropdownMenu">
                 <li>
                   <NavLink to="/AdminBlogs" className="StyledNavLink">
@@ -133,14 +150,6 @@ const SideBar = () => {
                 </li>
               </ul>
             )}
-          </li>
-
-          <p className="p-forSidebar">Features</p>
-          <li>
-            <NavLink to="/AllServices" className="StyledNavLink">
-              <GiGymBag />
-              GYM
-            </NavLink>
           </li>
         </ul>
       </nav>

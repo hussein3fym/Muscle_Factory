@@ -57,6 +57,9 @@ const UpdateAdminBlogs = () => {
       toast.error("Blog update failed");
     }
   };
+  const formatBlogText = (text) => {
+    return text.replace(/<br\s*\/?>/gi, "\n");
+  };
   return (
     <div>
       <div>
@@ -75,11 +78,11 @@ const UpdateAdminBlogs = () => {
 
           <label className="Creation">
             Blog Description
-            <input
+            <textarea
               type="text"
               className="Input"
               name="blogText"
-              value={adminBlogs.blogText}
+              value={formatBlogText(adminBlogs.blogText)}
               onChange={handleChange}
             />
           </label>

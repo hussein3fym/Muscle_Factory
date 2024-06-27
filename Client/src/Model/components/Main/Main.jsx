@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./Main.css";
-import { assets } from "../../assets/assets";
-import { Context } from "../../context/context";
 import axios from "axios";
 import { CgProfile } from "react-icons/cg";
+import { assets } from "../../assets/assets";
+import { Context } from "../../context/context";
 
 const Main = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const UserId = storedUser ? storedUser.userId : null;
   const [user, setUser] = useState([]);
+
   useEffect(() => {
     if (UserId) {
       axios
@@ -49,17 +50,7 @@ const Main = () => {
   const [handleSubmitExerciseCalled, setHandleSubmitExerciseCalled] =
     useState(false);
 
-  const [predictionAndMeals, setPredictionAndMeals] = useState([]);
-  const [prediction, setPrediction] = useState(null);
-  const [recommendedMeals, setRecommendedMeals] = useState([]);
-  const [error, setError] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [mealIndex, setMealIndex] = useState(0);
-  // ..................................................
-  // DELETE non used functions.
-  // ..................................................
-
-  // Handeling submit button of nutrition form
+  // Handel submit button of nutrition form
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
 
@@ -121,7 +112,7 @@ const Main = () => {
   const [trainStyle, setTrainStyle] = useState("recommend style");
   const [unpreferredTrain, setUnpreferredTrain] = useState("");
 
-  // Handeling submit button of exercise form
+  // Handel submit button of exercise form
   const handleSubmitExercise = (e) => {
     setShowFormExercise(false);
     e.preventDefault();
@@ -276,7 +267,6 @@ const Main = () => {
                           />
                         </div>
                       )}
-
                       <p>{checkRecentPrompt(prevPrompt)}</p>
                     </div>
                     <div className="m-result-data">
@@ -314,7 +304,6 @@ const Main = () => {
                       />
                     </div>
                   )}
-
                   <p> {checkRecentPrompt(recentPrompt)}</p>
                 </div>
                 <div className="m-result-data">
@@ -482,9 +471,6 @@ const Main = () => {
             className="m-form-container"
             onSubmit={handleSubmitExercise}
           >
-            {/* Form inputs */}
-
-            {/* Rest Days */}
             <label>
               Avaialble Days:
               <select
@@ -543,7 +529,6 @@ const Main = () => {
             <button type="submit">Submit</button>
             <button onClick={handleCardClickExercise}>Cancel</button>
           </form>
-          {/* <Rec/> */}
         </div>
       )}
     </>

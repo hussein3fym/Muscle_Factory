@@ -18,7 +18,7 @@ const SimilarExercises = ({ targetMuscleExercises, equipmentExercises }) => (
       </span>{" "}
       exercises
     </Typography>
-    <Stack direction="row" sx={{ p: 2, position: "relative" }}>
+    <Stack sx={{ p: 2, position: "relative", padding: "5rem" }}>
       {targetMuscleExercises.length !== 0 ? (
         <HorizontalScrollbar data={targetMuscleExercises} />
       ) : (
@@ -41,7 +41,7 @@ const SimilarExercises = ({ targetMuscleExercises, equipmentExercises }) => (
       </span>{" "}
       exercises
     </Typography>
-    <Stack direction="row" sx={{ p: 2, position: "relative" }}>
+    <Stack sx={{ p: 2, position: "relative", padding: "5rem" }}>
       {equipmentExercises.length !== 0 ? (
         <HorizontalScrollbar data={equipmentExercises} />
       ) : (

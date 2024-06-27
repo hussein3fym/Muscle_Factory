@@ -58,6 +58,9 @@ const AdminUpdateExercises = () => {
       toast.error("Exercise update failed");
     }
   };
+  const formatExercisesText = (text) => {
+    return text.replace(/<br\s*\/?>/gi, "\n");
+  };
   return (
     <div>
       <div>
@@ -130,10 +133,12 @@ const AdminUpdateExercises = () => {
               className="Textarea"
               value={adminExerciseData.instructions}
               onChange={(e) =>
-                setAdminExerciseData({
-                  ...adminExerciseData,
-                  instructions: e.target.value,
-                })
+                setAdminExerciseData(
+                  formatExercisesText({
+                    ...adminExerciseData,
+                    instructions: e.target.value,
+                  })
+                )
               }
             />
           </label>

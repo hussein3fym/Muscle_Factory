@@ -1,5 +1,5 @@
 .features {
-  text-align: center; /* Center align the title */
+  text-align: center;
   background-color: #212123;
   padding: 5rem;
 }
@@ -11,14 +11,15 @@
   font-family: Azonix;
 }
 
-.features-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center !important;
+.features-content-view {
+  margin-left: 5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .features-item {
-  width: 350px; /* Set width of each card */
+  width: 400px; /* Set width of each card */
   margin: 1rem; /* Add margin around each card */
   padding: 1rem; /* Add padding inside each card */
   border: 2px solid #ffffffe1;

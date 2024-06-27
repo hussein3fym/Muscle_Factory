@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
+import "./ViewForm.css";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
@@ -76,37 +77,39 @@ const ViewTrainer = () => {
   if (!trainers) return <p>Loading trainer details...</p>;
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center bg-light vh-100">
+    <div className="ViewTrainerDetails">
       <h1>Trainer Details</h1>
-      <div className="w-50 border bg-white shadow px-5 pt-3 pb-5 rounded">
-        <h4>Name: {trainers.userName}</h4>
-        <p>Email: {trainers.email}</p>
-        <p>Age: {trainers.age}</p>
-        <p>Experience: {trainers.experience}</p>
-        <p>Gender: {trainers.gender}</p>
-        <p>Specialization: {trainers.specialization}</p>
-        <div>
-          {trainers.photo ? (
-            <img
-              src={`data:image/jpg;base64,${trainers.photo}`}
-              alt="Trainer Profile"
-              style={{ maxWidth: "30rem", marginTop: "10px" }}
-            />
-          ) : (
-            <p>No profile photo available</p>
-          )}
+      <div className="ViewTrainerDetails-content">
+        <div className="ViewTrainerDetails-info">
+          <div>
+            {trainers.photo ? (
+              <img
+                src={`data:image/jpg;base64,${trainers.photo}`}
+                alt="Trainer Profile"
+                style={{ maxWidth: "15rem", marginTop: "10px" }}
+              />
+            ) : (
+              <p>No profile photo available</p>
+            )}
+          </div>
+          <div className="TrainerDetails-view">
+            <h4>Name: {trainers.userName}</h4>
+            <p>Email: {trainers.email}</p>
+            <p>Age: {trainers.age}</p>
+            <p>Experience: {trainers.experience}</p>
+            <p>Gender: {trainers.gender}</p>
+            <p>Specialization: {trainers.specialization}</p>
+          </div>
+          <button
+            onClick={() => handleDownloadCv(trainers.id, trainers.userName)}
+          >
+            Download CV
+          </button>
         </div>
-      </div>
-      <div className="w-50 border bg-white shadow px-5 pt-3 pb-5 rounded">
-        <button
-          className="btn btn-sm btn-info me-2"
-          onClick={() => handleDownloadCv(trainers.id, trainers.userName)}
-        >
-          Download CV
-        </button>
-        <div className="CoachCertificatesTransformations">
+        <hr />
+        <div className="TrainerCertificatesTransformations">
           <h2>Certificates</h2>
-          <div className="CoachCertificates-Card">
+          <div className="TrainerCertificates-Card">
             {loadingCertificates ? (
               <p>Loading certificates...</p>
             ) : errorCertificates ? (
@@ -124,8 +127,9 @@ const ViewTrainer = () => {
               <p>No certificates available</p>
             )}
           </div>
+          <hr />
           <h2>Transformations</h2>
-          <div className="CoachTransformations-Card">
+          <div className="TrainerTransformations-Card">
             {loadingTransformations ? (
               <p>Loading transformations...</p>
             ) : errorTransformations ? (

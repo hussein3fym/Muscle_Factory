@@ -80,14 +80,6 @@ const Register = () => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    alert("Google login would be implemented with a backend.");
-  };
-
-  const handleFacebookLogin = () => {
-    alert("Facebook login would be implemented with a backend.");
-  };
-
   return (
     <>
       {success ? (
@@ -195,12 +187,6 @@ const Register = () => {
             <h4>or</h4>
 
             <div className="login-alter">
-              <button onClick={handleGoogleLogin} className="google-login">
-                Google
-              </button>
-              <button onClick={handleFacebookLogin} className="facebook-login">
-                Facebook
-              </button>
               <Link to="/TrainerRegistration">
                 <button className="trainer-login">I am Trainer</button>
               </Link>

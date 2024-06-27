@@ -281,10 +281,10 @@ const CaloriesResult = ({
             medical advice. Always consult with a healthcare professional before
             making any significant changes to your diet or exercise regimen.
           </h5>
-          <button className="print-weight">
+          {/* <button className="print-weight">
             <BiExport />
             Export as pdf
-          </button>
+          </button> */}
         </div>
       )}
     </div>

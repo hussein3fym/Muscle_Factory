@@ -13,6 +13,7 @@ const AllBlogs = () => {
       .then((res) => setBlogs(res.data))
       .catch((error) => console.error("Error fetching blogs:", error));
   }, []);
+
   const handleDelete = (blogId) => {
     const confirm = window.confirm("Would you like to delete?");
     if (confirm) {

@@ -30,10 +30,6 @@ const TrainerProfile = () => {
               alt="trainer"
               id="trainerImg"
             />
-            <button className="edit-info">
-              <FaEdit className="icon" />
-              Edit
-            </button>
           </div>
           <div className="t-info">
             <h2>{trainer.userName}</h2>

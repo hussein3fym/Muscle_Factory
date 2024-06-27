@@ -73,6 +73,7 @@ const ViewCoach = () => {
             <img src={emailIcon} alt="emailCoach" />
           </button>
         </div>
+        <hr />
         <div className="CoachCertificatesTransformations">
           <h2>Certificates</h2>
           <div className="CoachCertificates-Card">
@@ -89,6 +90,7 @@ const ViewCoach = () => {
               <p>No certificates available</p>
             )}
           </div>
+          <hr />
           <h2>Transformations</h2>
           <div className="CoachTransformations-Card">
             {transformations && transformations.length > 0 ? (

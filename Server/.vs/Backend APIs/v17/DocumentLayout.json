@@ -82,7 +82,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -91,18 +91,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CertificatesController.cs",
-              "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\Controllers\\CertificatesController.cs",
-              "RelativeDocumentMoniker": "Backend APIs\\Controllers\\CertificatesController.cs",
-              "ToolTip": "D:\\GP\\Server\\Backend APIs\\Controllers\\CertificatesController.cs",
-              "RelativeToolTip": "Backend APIs\\Controllers\\CertificatesController.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAgwEMAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T20:37:20.391Z"
             },
             {
               "$type": "Document",
@@ -124,10 +112,22 @@
               "RelativeDocumentMoniker": "Backend APIs\\Controllers\\UsersController.cs",
               "ToolTip": "D:\\GP\\Server\\Backend APIs\\Controllers\\UsersController.cs",
               "RelativeToolTip": "Backend APIs\\Controllers\\UsersController.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAswEwAAAAAAAAA",
+              "ViewState": "AQIAADkAAAAAAAAAAAAswEEAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-08T11:59:04.227Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CertificatesController.cs",
+              "DocumentMoniker": "D:\\GP\\Server\\Backend APIs\\Controllers\\CertificatesController.cs",
+              "RelativeDocumentMoniker": "Backend APIs\\Controllers\\CertificatesController.cs",
+              "ToolTip": "D:\\GP\\Server\\Backend APIs\\Controllers\\CertificatesController.cs",
+              "RelativeToolTip": "Backend APIs\\Controllers\\CertificatesController.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAAAgwEMAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T20:37:20.391Z"
             },
             {
               "$type": "Document",
