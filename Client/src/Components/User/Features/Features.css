@@ -1,0 +1,48 @@
+.features {
+  text-align: center;
+  background-color: #212123;
+  padding: 5rem;
+}
+
+.features-title {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  font-family: Azonix;
+}
+
+.features-content-view {
+  margin-left: 5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.features-item {
+  width: 400px; /* Set width of each card */
+  margin: 1rem; /* Add margin around each card */
+  padding: 1rem; /* Add padding inside each card */
+  border: 2px solid #ffffffe1;
+  border-radius: 5px;
+  text-align: center !important;
+}
+
+.features-item h2 {
+  font-size: 2.5rem;
+  margin: 1rem;
+  color: white;
+  font-family: Monterrat;
+}
+
+.features-item p {
+  margin-top: 0.5rem;
+  color: white; /* Add some space between feature name and description */
+}
+.features-item img {
+  width: 150px; /* Set width of each icon */
+  height: 150px; /* Set height of each icon */
+  margin-bottom: 1rem; /* Add margin below each icon */
+}
+.features-item h2:hover {
+  transform: scale(1.3);
+}

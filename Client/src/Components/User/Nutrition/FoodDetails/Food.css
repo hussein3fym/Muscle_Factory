@@ -1,0 +1,123 @@
+.food {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(4, 4, 4, 0.905);
+  min-height: 100vh;
+  padding: 1rem;
+}
+.food h1 {
+  font-size: 5rem;
+  color: white;
+}
+.food p {
+  font-size: 2rem;
+  color: white;
+}
+.food-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+.food-search {
+  text-align: center;
+}
+.food-search input {
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.748);
+  width: 50rem;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+}
+.food-search button {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.748);
+  padding: 1rem 2rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+.food-search button:hover {
+  background-color: rgba(255, 255, 255, 0.748);
+  cursor: pointer;
+}
+.suggestions-list {
+  background-color: rgb(255, 255, 255);
+  margin-top: 0.5rem;
+  border-radius: 3px;
+}
+.suggestions li {
+  display: flex;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.suggestions li:hover {
+  background-color: rgb(205, 205, 205);
+}
+.suggestions h3 {
+  margin-left: 1rem;
+}
+.suggestions-list img {
+  width: 4rem;
+}
+.food-search-results li {
+  display: flex;
+  margin-top: 1rem;
+}
+.food-search-results img {
+  width: 20rem;
+  height: 15rem;
+  margin: 1rem;
+  border-radius: 5px;
+  margin-right: 2rem;
+}
+.food-search-results h2 {
+  color: white;
+  font-size: 3.3rem;
+  margin-top: 2rem;
+}
+.food-search-results h3 {
+  color: white;
+  font-size: 2rem;
+}
+
+.food-details {
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  gap: 2rem;
+  font-size: 4rem;
+  margin-top: 2rem;
+}
+.food-details p {
+  color: white;
+  font-size: 1.7rem;
+}
+.food-details input {
+  background-color: rgb(49, 49, 49);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  margin-left: 0.5rem;
+}
+.food-details-container h2 {
+  color: white;
+  font-size: 4rem;
+  margin-top: 2rem;
+}
+.food button {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.748);
+  padding: 1rem 2rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

@@ -1,0 +1,85 @@
+.DashboardPage {
+  background-color: var(--color-grey-50);
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+.dashboardTitle {
+  font-size: 3rem;
+  font-weight: 600;
+}
+.filterButtons {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  display: inline-block;
+  float: right;
+  gap: 0.5rem;
+}
+.filterButtons button {
+  background-color: #ffffff;
+  border: 1px solid rgba(215, 221, 226, 0.849);
+  border-radius: 5px;
+
+  padding: 0.7rem 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.filterButtons button:hover,
+.filterButtons button:active {
+  background-color: rgb(19, 82, 138);
+  color: #ffffff;
+}
+.DashCard {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 5rem;
+}
+.DashItem {
+  background-color: var(--color-grey-0);
+  border: 1px solid var(--color-grey-100);
+  border-radius: var(--border-radius-md);
+  padding: 1.6rem 5rem;
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 1.6rem;
+  row-gap: 0.4rem;
+}
+.DashItem img {
+  width: 100%;
+  padding: 8px;
+  grid-row: 1 / -1;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Make these dynamic, based on the received prop */
+
+.DashItem h2 {
+  align-self: end;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 600;
+  color: var(--color-grey-500);
+}
+.DashItem p {
+  font-size: 2.4rem;
+  line-height: 1;
+  font-weight: 500;
+}
+.charts {
+  width: 50rem;
+  display: flex;
+  gap: 5rem;
+  margin-left: 8rem;
+  margin-top: 5rem;
+}
+.lineChart {
+  width: 80rem;
+  margin: 5rem;
+  padding: 5rem;
+}

@@ -1,0 +1,75 @@
+.sidebar {
+  background-color: var(--color-grey-0);
+  padding: 3.2rem 2.4rem;
+  border-right: 1px solid var(--color-grey-100);
+  grid-row: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  overflow: auto;
+}
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+.DashName {
+  font-family: Azonix;
+  color: brown;
+  font-size: 2.4rem;
+  font-weight: 400;
+}
+
+.Dash-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.StyledNavLink,
+.StyledNavLink:link,
+.StyledNavLink:visited {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  color: var(--color-grey-600);
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 1.2rem 2.4rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.StyledNavLink:active,
+.StyledNavLink.active:link,
+.StyledNavLink.active:visited {
+  color: var(--color-grey-800);
+  background-color: var(--color-grey-50);
+  border-radius: var(--border-radius-sm);
+}
+
+.StyledNavLink svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--color-grey-400);
+  transition: all 0.3s;
+}
+.StyledNavLink.active svg,
+.DropdownMenu .StyledNavLink.active svg {
+  color: brown;
+}
+
+.StyledNavLink.active span,
+.DropdownMenu .StyledNavLink.active span {
+  color: brown;
+}
+.StyledNavLink:hover svg,
+.StyledNavLink:active svg,
+.StyledNavLink.active:link svg,
+.StyledNavLink.active:visited svg {
+  color: brown;
+}
+
+.p-forSidebar {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: brown;
+}

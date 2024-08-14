@@ -1,0 +1,134 @@
+.View-container {
+  background-image: url("./../../../Assets/images/Background.png");
+  background-size: cover;
+  background-position: center;
+}
+.ExerciseDetails h1 {
+  color: white;
+  font-size: 7rem;
+  font-weight: 00;
+  padding: 2rem;
+  justify-content: center;
+  text-align: center;
+  font-family: Monterrat;
+}
+.ExerciseContainer {
+  display: grid;
+  justify-content: center;
+  gap: 2rem;
+}
+.custom-react-player {
+  width: 100%; /* Adjust the width as needed */
+  max-width: 800px; /* Set a maximum width */
+  height: auto; /* Automatically adjust height based on width */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+}
+.ExerciseDetails h2 {
+  color: white;
+  font-size: 3rem;
+  padding: 2rem;
+
+  font-family: Monterrat;
+}
+.Description {
+  border-top: 7px solid black;
+  background-color: rgb(82, 80, 80);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-bottom: 4rem;
+}
+.Description td {
+  color: white;
+  font-size: 2rem;
+  padding: 1rem;
+  font-family: Monterrat;
+}
+.MediaContainer {
+  display: flex;
+  justify-content: center;
+  padding: 4rem;
+  gap: 2rem;
+}
+.Overview img {
+  width: 70%;
+  height: auto;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  flex: 1;
+  position: relative;
+}
+.Overview {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 2rem;
+  padding: 4rem;
+  gap: 2rem;
+}
+.Overview p {
+  color: rgba(255, 255, 255, 0.878);
+  font-size: 1.5rem;
+  padding: 2rem;
+}
+.Overview h2 {
+  color: white;
+  font-size: 3rem;
+  padding: 2rem;
+  font-family: Monterrat;
+}
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .ExerciseDetails h1 {
+    font-size: 4rem;
+  }
+
+  .ExerciseDetails h2 {
+    font-size: 2rem;
+  }
+
+  .Overview h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .ExerciseDetails h1 {
+    font-size: 3rem;
+  }
+
+  .ExerciseDetails h2 {
+    font-size: 1.5rem;
+  }
+
+  .Overview h2 {
+    font-size: 1.5rem;
+  }
+
+  .Description td {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ExerciseDetails h1 {
+    font-size: 2rem;
+  }
+
+  .ExerciseDetails h2 {
+    font-size: 1.2rem;
+  }
+
+  .Overview h2 {
+    font-size: 1.2rem;
+  }
+
+  .Description td {
+    font-size: 1rem;
+  }
+  .custom-react-player {
+    max-width: 300px;
+    height: auto;
+  }
+  .Overview img {
+    width: 100%;
+  }
+}

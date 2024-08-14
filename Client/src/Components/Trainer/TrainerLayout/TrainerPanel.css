@@ -1,0 +1,221 @@
+.trainer-profile {
+  margin: auto;
+  padding: auto;
+}
+.Dashboard {
+  display: grid;
+  grid-template-columns: 26rem 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+.main {
+  padding: 4rem 4.8rem 6.4rem;
+}
+.container__dashboard {
+  background-color: 363640;
+  max-width: 120rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+/* card */
+.P-card {
+  border-radius: 30px;
+  background: whitesmoke;
+  box-shadow: 15px 15px 30px #aaaaaa;
+  padding: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.P-card:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  box-shadow: -8px -8px 16px rgba(0, 0, 0, 0.233);
+}
+
+.P-card h2 {
+  font-size: 4rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  color: brown;
+}
+
+.P-card p {
+  font-size: 2.5rem;
+  margin: 0.5rem;
+  color: #666;
+}
+
+.P-card img {
+  max-width: 70px;
+}
+
+.Card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 30px;
+}
+.panel-icon {
+  padding-right: 2rem;
+}
+
+.communication h1 {
+  font-size: 5rem;
+  font-weight: 500;
+  padding: 1.5rem;
+  font-family: Monterrat;
+}
+.communication-container {
+  margin: 3rem 0rem;
+}
+.email {
+  max-width: 50rem;
+  padding: 5rem;
+  margin-bottom: 3rem;
+  border-radius: 10px;
+  background-color: #fffefe;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+.OurServices {
+  margin-top: 3.5rem;
+  height: 57rem;
+  max-width: 50rem;
+  padding: 5rem;
+  margin-bottom: 3rem;
+  border-radius: 10px;
+  background-color: #e8e8e8;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+.OurServices h3 {
+  font-size: 3rem;
+  font-weight: 500;
+  padding: 1.5rem;
+  font-family: Monterrat;
+}
+.OurServices h4 {
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 1.5rem;
+}
+.OurServices ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.email h3 {
+  font-size: 3rem;
+  font-weight: 500;
+  padding: 1.5rem;
+  font-family: Monterrat;
+}
+
+.send {
+  padding: 0.7rem 4rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease-in;
+  font-size: 1.8rem !important;
+  margin-left: 1rem;
+  margin-bottom: 3rem;
+  width: fit-content;
+  border-radius: 0.5rem;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+  background-color: black;
+  color: rgb(255, 255, 255);
+}
+.send:hover {
+  background-color: transparent;
+  color: #070707;
+}
+.send img {
+  width: 40px;
+  display: inline;
+  margin-left: 0.5rem;
+}
+
+.button2 {
+  display: inline-block;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: #ffffff;
+  padding: 0.7em 2em 0.7em 1.7em;
+  font-size: 1.8rem !important;
+  border-radius: 0.5em;
+  border: none;
+  background: #009087;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.whatsAppImg {
+  width: 40px;
+  display: inline;
+  margin-left: 1.5rem;
+}
+
+.button2:active {
+  color: #009087;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+  border: none;
+}
+
+.button2:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  border: none;
+  height: 180%;
+  background-color: #009087;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button2:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #009087;
+  border-radius: 50%;
+  border: none;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button2:hover {
+  color: #000000;
+}
+
+.button2:hover:before {
+  top: -35%;
+  background-color: transparent;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.button2:hover:after {
+  top: -45%;
+  background-color: #ffffff;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+.Trainer-Services {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  align-items: stretch;
+}

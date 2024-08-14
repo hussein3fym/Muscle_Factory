@@ -1,0 +1,73 @@
+.t-header {
+  background-color: #ffffff;
+  padding: 1.2rem 4.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align items vertically */
+}
+
+.t-header h1 {
+  font-size: 2rem;
+  font-family: Azonix;
+  color: #000;
+}
+
+.trainerInfo {
+  display: flex;
+  align-items: center;
+}
+
+.t-notification {
+  font-size: 3rem;
+  background-color: rgba(170, 185, 185, 0.455);
+  padding: 0.3rem;
+  border-radius: 50%;
+  color: brown;
+}
+
+.trainerInfo img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin-top: 14rem;
+  margin-right: 6rem;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 0.7rem;
+  border-radius: 10px;
+}
+.dropdown-content h2 {
+  font-size: 1.8rem;
+  justify-content: center;
+  text-align: center;
+}
+.dropdown-content h4 {
+  padding: 7px 14px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content h4:hover {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+.logout {
+  color: rgba(255, 0, 0, 0.775);
+}
+.T-ProfileIcon {
+  width: 5rem;
+  font-size: 3rem;
+  color: #000000;
+  cursor: pointer;
+}

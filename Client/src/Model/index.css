@@ -1,0 +1,24 @@
+.model-container {
+  display: flex;
+}
+/* Styling for the sidebar */
+.sidebar {
+  width: 250px; /* Adjust the width as needed */
+  padding: 20px; /* Add some padding for spacing */
+}
+#root {
+  animation: fadeIn 1.5s;
+}
+/* Styling for the main content */
+.main {
+  flex: 1; /* Take up remaining space in the container */
+  padding: 20px; /* Add some padding for spacing */
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

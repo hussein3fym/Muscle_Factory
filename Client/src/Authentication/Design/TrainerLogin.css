@@ -1,0 +1,175 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url("./../../Assets/image-bg-FAU.png");
+  background-size: cover;
+  background-position: center;
+}
+.loginForm {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 520px;
+  color: aliceblue;
+  border-radius: 10px;
+  padding: 30px 40px;
+  margin: 2rem;
+}
+.login-container h2 {
+  text-align: center;
+  font-size: 36px;
+  font-family: Bebas Neue;
+}
+.login-label {
+  width: 100%;
+  height: 40px;
+  margin: 20px 0;
+  font-size: 25px;
+}
+.login-label input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  font-size: 20px;
+  color: white;
+  padding: 20px 45px 20px 20px;
+}
+.login-label option,
+select {
+  background: #000;
+  padding-left: 1rem;
+  margin-left: 1rem;
+  color: #fff;
+}
+.login-input {
+  margin-left: 0.7rem;
+}
+.Link-register {
+  text-decoration: none;
+  color: #bd2020;
+}
+.Link-register:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+.forget-password {
+  margin-top: 20px;
+}
+.Link-Login {
+  text-decoration: none;
+  color: #ffffff;
+}
+.Link-Login:hover {
+  text-decoration: underline;
+  color: #bd2020;
+}
+
+.login-button {
+  width: 100%;
+  height: 45px;
+  margin-top: 20px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+.login-button:hover {
+  color: #fff;
+  background-color: #bd2020;
+}
+.login-container h4 {
+  font-size: 16px;
+  text-align: center;
+  margin: 20px 0 15px;
+}
+.login-alter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.google-login {
+  width: 110px;
+  height: 38px;
+  border-radius: 40px;
+  background: #a11010;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 600;
+}
+.facebook-login {
+  width: 110px;
+  height: 38px;
+  border-radius: 40px;
+  background: #3b5998;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 600;
+}
+.trainer-login {
+  width: 110px;
+  height: 38px;
+  border-radius: 40px;
+  background: #000000;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-left: 16rem;
+}
+.linklogin {
+  margin: 1rem;
+}
+.linklogin:hover {
+  color: #bd2020;
+}
+.input-with-TrainerIcon {
+  position: relative;
+}
+.input-with-TrainerIcon input {
+  height: 12px !important;
+}
+.input-with-TrainerIcon i {
+  position: absolute;
+  top: 70%;
+  right: 1.8rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.loginIcon {
+  width: 1.8rem;
+}
+.login-input-cv {
+  margin-top: 1rem;
+}
+.login-label-cv {
+  width: 100%;
+  height: 40px;
+  margin: 20px 0;
+  font-size: 25px;
+}

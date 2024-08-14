@@ -1,0 +1,165 @@
+.Nutrition-container {
+  background-image: url("./../../../Assets/images/Background.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  min-height: 120vh;
+  padding: 40px;
+}
+.Nutrition-container h1 {
+  text-align: center;
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: white;
+  font-family: Azonix;
+}
+.Nutrition-container p {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2;
+}
+.Nutrition-container h2 {
+  color: #fff;
+  font-size: 2.7rem;
+  margin-bottom: 1.3rem;
+}
+.C-Calculators {
+  display: flex;
+  justify-content: flex-end; /* Align content to the right */
+  margin-bottom: 3rem;
+}
+
+.Calculators {
+  border-radius: 30px;
+  display: grid;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 15px 15px 20px #000000;
+  padding: 2.5rem;
+  gap: 1.7rem;
+}
+
+.Calculators h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-family: helvetica;
+  cursor: pointer;
+  transition: filter 400ms, transform 400ms; /* Transition both filter and transform properties */
+}
+
+.Calculators h2:hover {
+  transform: scale(1.1);
+}
+.Calculators:hover {
+  transform: scale(1.1);
+}
+
+.Calculators:hover h2:not(:hover) {
+  filter: blur(10px);
+  transform: scale(0.9, 0.9);
+}
+
+.Calculators h2.tip {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.Calculators h2.second-text {
+  font-size: 0.7em;
+}
+
+/* the cards  */
+.nutritionM {
+  margin-top: 6rem;
+  display: grid;
+  grid-gap: 2.2rem; /* This adds space between the cards */
+  grid-template-columns: 1fr; /* Default to 1 column for mobile devices */
+  padding: 20px; /* Optional: Adds some padding around the grid */
+}
+
+/* Media query for larger screens - typically tablet and desktop sizes */
+@media (min-width: 768px) {
+  /* Adjust this breakpoint to suit your design needs */
+  .nutritionM {
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); /* Creates three columns on larger screens */
+  }
+}
+
+.nutrition-option {
+  position: relative;
+  background-image: url("./../../../Assets/images/gym.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out; /* Smooth scale transition for hover */
+  height: 30rem;
+  max-width: 40rem;
+  overflow: hidden;
+}
+
+.nutrition-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9); /* Slightly adjusted for consistency */
+  z-index: 1;
+  transition: background-color 0.3s ease; /* Ensure smooth transition for the background color */
+}
+
+.nutrition-option:hover .nutrition-overlay {
+  background: rgba(0, 0, 0, 0.601); /* Lighter when hovered */
+}
+
+.nutrition-option img {
+  background-color: #ff776f;
+  border-radius: 5px;
+  padding: 0.5rem;
+  position: absolute;
+  bottom: 20px; /* Position it at the bottom of the card */
+  left: 20px; /* Maintain consistent padding */
+  width: 5rem; /* Maintain original image aspect ratio */
+  max-height: 60px; /* Limit the height to keep the UI tidy */
+  z-index: 2; /* Above the overlay */
+}
+
+.link-button {
+  display: flex;
+  align-items: center; /* Aligns items vertically in the center */
+  gap: 6px; /* Creates space between the text and any child components */
+  font-family: Bebas Neue;
+  position: absolute;
+  right: 20px; /* Align to the right */
+  bottom: 20px; /* Positioned at the bottom */
+  z-index: 2; /* Ensure it's clickable and above other elements */
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.nutrition-option h2 {
+  position: relative; /* Needed to ensure they're above the overlay */
+  z-index: 2;
+  font-family: Monterrat;
+  font-size: 3.2rem;
+
+  color: white; /* Ensures text is readable on the dark overlay */
+}
+.nutrition-option h3 {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+/* .nutrition-card:hover {
+  transform: translateY(-5px);
+} */

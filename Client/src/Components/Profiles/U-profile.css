@@ -1,0 +1,127 @@
+.p-body {
+  background-color: #212123;
+  padding: 2rem;
+  height: 120vh;
+}
+
+.userProfile {
+  background-color: #161617;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding-bottom: 8rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.profile {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  flex-direction: column;
+  margin: 0.5rem;
+}
+.profile h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+.profile p {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+.profileInfo {
+  display: flex;
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+.username {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 1rem;
+}
+.profileInfo h3 {
+  font-size: 1.7rem;
+  color: #ffffff;
+}
+.profileInfo img {
+  width: 20rem;
+  padding: 8px;
+  background-color: #332727a9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.editIcon {
+  margin-right: 2px;
+  margin-bottom: 5px;
+}
+.edit {
+  margin-top: 3rem;
+  padding: 1rem 3rem !important;
+  background-color: #1212cb;
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+.edit:hover {
+  background-color: #2323ff;
+}
+.editing {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 1.5rem;
+  padding-top: 3rem;
+
+  width: 30rem;
+  height: 20rem;
+  border-radius: 10px;
+}
+.editing h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+.editing form {
+  width: 100%;
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+.editing input {
+  background-color: #3b3e41;
+  border-radius: 10px;
+  padding: 0.5rem;
+  border: 1px solid #b59393;
+  color: #ffffff;
+}
+.editing label {
+  font-size: 1.7rem;
+  margin: 0.3rem;
+  color: #ffffff;
+}
+/* CSS */
+.fileInputLabel {
+  cursor: pointer; /* Change cursor to pointer on hover */
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px 0px;
+  /* Add some spacing between the icon and the label */
+}
+
+.fileInput {
+  display: none; /* Hide the input visually */
+}
+
+.fileInputIcon {
+  font-size: 30px; /* Adjust icon size as needed */
+  color: #fffbfb; /* Adjust icon color as needed */
+}
+.fileInputIcon:hover {
+  background-color: #ddd6d656; /* Adjust icon color as needed */
+}
+.userGender {
+  color: aliceblue;
+}

@@ -1,0 +1,42 @@
+.ViewTitle {
+  font-size: 4.5rem;
+  color: brown;
+  font-family: Bebas Neue;
+}
+
+.HeadLines {
+  font-size: 2.5rem;
+}
+
+.View-form {
+  padding: 2.4rem 4rem;
+  background-color: var(--color-grey-0);
+  border: 1px solid var(--color-grey-100);
+  border-radius: var(--border-radius-md);
+}
+.ViewImage {
+  width: 500%;
+  padding: 2.4rem 4rem;
+}
+.exerciseImage {
+  width: 300px;
+  padding: 2.4rem 4rem;
+}
+.blogContent {
+  display: flex;
+  align-items: right;
+}
+.exercise-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.HeadLines {
+  margin-right: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.Description {
+  position: relative;
+}

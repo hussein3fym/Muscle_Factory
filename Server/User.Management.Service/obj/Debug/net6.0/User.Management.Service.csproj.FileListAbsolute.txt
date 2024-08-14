@@ -1,0 +1,37 @@
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\bin\Debug\net6.0\User.Management.Service.deps.json
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\bin\Debug\net6.0\User.Management.Service.dll
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\bin\Debug\net6.0\User.Management.Service.pdb
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.csproj.AssemblyReference.cache
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.AssemblyInfoInputs.cache
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.AssemblyInfo.cs
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.csproj.CoreCompileInputs.cache
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.dll
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\obj\Debug\net6.0\refint\User.Management.Service.dll
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.pdb
+C:\Users\COMPUTER SHOP\Downloads\Server (2)\Server\User.Management.Service\obj\Debug\net6.0\ref\User.Management.Service.dll
+D:\GP\Server\User.Management.Service\bin\Debug\net6.0\User.Management.Service.deps.json
+D:\GP\Server\User.Management.Service\bin\Debug\net6.0\User.Management.Service.dll
+D:\GP\Server\User.Management.Service\bin\Debug\net6.0\User.Management.Service.pdb
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.csproj.AssemblyReference.cache
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.AssemblyInfoInputs.cache
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.AssemblyInfo.cs
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.csproj.CoreCompileInputs.cache
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.sourcelink.json
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.dll
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\refint\User.Management.Service.dll
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.pdb
+D:\GP\Server\User.Management.Service\obj\Debug\net6.0\ref\User.Management.Service.dll
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\bin\Debug\net6.0\User.Management.Service.deps.json
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\bin\Debug\net6.0\User.Management.Service.dll
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\bin\Debug\net6.0\User.Management.Service.pdb
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.csproj.AssemblyReference.cache
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.AssemblyInfoInputs.cache
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.AssemblyInfo.cs
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.csproj.CoreCompileInputs.cache
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.dll
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\obj\Debug\net6.0\refint\User.Management.Service.dll
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\obj\Debug\net6.0\User.Management.Service.pdb
+C:\Users\COMPUTER SHOP\Downloads\Muscle_Factory-Front-end (6)\Muscle_Factory-Front-end\Server\User.Management.Service\obj\Debug\net6.0\ref\User.Management.Service.dll

@@ -1,0 +1,239 @@
+.Calories-container {
+  background-image: url("./../../../../Assets/images/Background.png");
+  background-size: cover;
+  position: relative;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.C-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding: 4rem;
+}
+.Calories-Form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 40rem;
+  border-radius: 10px;
+  box-shadow: 20px 20px 60px #000000;
+}
+.C-container h1 {
+  font-size: 3rem;
+  color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  padding: 1.7rem;
+}
+.C-container label {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+.C-container p {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+.input-data {
+  color: rgb(171, 0, 0);
+  margin-bottom: 0.7rem;
+  margin-left: 0.7rem;
+  font-size: 1.8rem;
+  color: white;
+  border: 2px solid rgb(171, 0, 0);
+  border-radius: 10px;
+  padding: 7px 15px;
+  background: transparent;
+  max-width: 190px;
+}
+
+.input-data:active {
+  box-shadow: 2px 2px 15px rgb(171, 0, 0) inset;
+}
+
+.input-data::-webkit-inner-spin-button,
+.input-data::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-radio {
+  margin: 1.2rem;
+}
+.C-container span {
+  font-size: 2.2rem;
+  color: brown;
+  font-weight: 600;
+}
+
+.Reload {
+  padding: 1rem 1rem;
+  margin: 0.7rem;
+  font-size: 1.8rem;
+  border: 2px solid #951616;
+  color: #951616;
+  font-size: 2rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.Reload:hover {
+  transform: scale(1.05);
+}
+.Calculate {
+  padding: 1rem 2rem;
+  margin: 0.7rem;
+  font-size: 1.8rem;
+  background-color: #951616;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.Calculate:hover {
+  background-color: #890808;
+  transform: scale(1.05);
+  color: white;
+}
+.calories-info {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 10px;
+  border: 2px solid #ffffff;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.calories-info h2 {
+  color: #ffffff;
+}
+.calories-info p {
+  color: #ffffff;
+  max-width: 1000px;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  padding: 1.2rem;
+}
+.gain-weight {
+  padding: 1.2rem;
+  margin: 0.7rem;
+  font-size: 1.7rem;
+
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.weight-goal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lose-weight {
+  padding: 1.2rem;
+  margin: 0.7rem;
+  font-size: 1.7rem;
+  border: 1px solid #000000;
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.print-weight {
+  padding: 1.2rem;
+  margin: 0.7rem;
+  font-size: 1.7rem;
+  border: 1px solid #000000;
+  color: #ffffff;
+  background-color: #23b708;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.print-weight:hover {
+  background-color: #1a8c05;
+  transform: scale(1.05);
+}
+.lose-weight:hover {
+  background-color: #ffffffaf;
+  transform: scale(1.05);
+}
+.gain-weight:hover {
+  background-color: #212020;
+  transform: scale(1.05);
+}
+/* BMI Calculate */
+.image-container {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+}
+.month-plan h4 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-right: 1rem;
+}
+.month-plan {
+  width: 100rem;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 1rem auto;
+}
+
+.month-plan p {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin: 1rem;
+}
+.month-plan h3 {
+  font-size: 2.2rem;
+  color: #ffffff;
+}
+.month-plan span {
+  font-size: 1.8rem;
+  margin: 0.5rem;
+  color: #ffffff;
+}
+.Calories-gender {
+  background-color: transparent;
+  margin-left: 1rem !important;
+  border: 2px solid #890808;
+  color: #ffffff;
+}
+.Calories-gender option {
+  background-color: rgb(60, 57, 57);
+  color: white;
+}
+.Calories-Form {
+  color: #ffffff;
+}
+.result {
+  max-width: 100rem;
+  display: flex;
+  justify-content: space-between;
+
+  border: 1px solid #ffffffbd;
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 2rem auto;
+}
+.result span {
+  display: block;
+}
+.result p {
+  display: grid;
+  font-size: 2.2rem;
+  color: #ffffff;
+}
+.month-plan h5 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-right: 1rem;
+}

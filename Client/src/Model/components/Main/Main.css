@@ -1,0 +1,377 @@
+.m-main {
+  background-color: #131314;
+  flex: 1;
+  min-height: 100vh;
+  padding-bottom: 15vh;
+  position: relative;
+}
+
+.m-main .m-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 22px;
+  padding: 20px;
+  color: #585858;
+}
+
+.m-main .m-nav {
+  position: relative;
+}
+
+.m-main .m-nav .m-logo {
+  width: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.m-main .m-nav .m-logo img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 768px) {
+  .m-main .m-nav.m-logo img {
+    display: none;
+  }
+}
+.m-main .m-Icon {
+  width: 40px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.m-main-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.m-main-container .greet {
+  margin: 30px 0;
+  font-size: 56px;
+  color: #c4c7c5;
+  font-weight: 500;
+  padding: 20px;
+}
+
+.m-main .greet span {
+  background: -webkit-linear-gradient(16deg, rgb(255, 0, 0), rgb(255, 0, 0));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.m-main .m-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 5rem;
+  padding: 50px;
+  margin-top: 50px;
+}
+
+.m-main .m-card {
+  height: 200px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: #1e1f20;
+  cursor: pointer;
+  position: relative;
+}
+
+.m-main .m-card img {
+  width: 35px;
+  padding: 5px;
+  position: absolute;
+  background-color: #131314;
+  border-radius: 20px;
+  bottom: 10px;
+  right: 10px;
+}
+
+.m-main .m-card p {
+  color: white;
+  font-size: 17px;
+}
+
+.m-main .m-card:hover {
+  background-color: #484848;
+}
+
+.m-main-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  max-width: 900px;
+  padding: 0px 20px;
+  margin: auto;
+}
+
+.m-search-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background-color: #1e1f20;
+  padding: 10px 20px;
+  border-radius: 50px;
+  margin-bottom: 70px;
+}
+
+.m-search-box button {
+  background: none;
+  border: none;
+}
+
+.m-search-box img {
+  width: 24px;
+  cursor: pointer;
+}
+
+.m-search-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 8px;
+  color: #ffffff;
+}
+.m-search-box input:focus {
+  outline: none; /* Remove outline when input is focused */
+}
+
+.m-search-box div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.m-main .bottom-info {
+  color: orange;
+  font-size: 13px;
+  margin: 15px auto;
+  text-align: center;
+  font-weight: 300;
+}
+
+.m-result {
+  padding: 0px 5%;
+  max-height: 90vh;
+  overflow-y: scroll;
+  margin-bottom: 40px;
+}
+
+.m-result::-webkit-scrollbar {
+  display: none;
+}
+
+.m-result-title {
+  margin: 40px 0px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.m-result-title p {
+  color: white;
+}
+
+.m-result img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.m-result-data {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+}
+
+.m-result-data p {
+  color: white;
+}
+
+.m-loader {
+  width: 100%; /* Full width */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  gap: 10px; /* Space between child elements */
+}
+
+.m-loader hr {
+  z-index: 2; /* Ensure it's above other content if necessary */
+  border-radius: 4px;
+  border: none;
+  background-color: #f6f7f8; /* Fallback color */
+  background: linear-gradient(
+    to right,
+    #d65d5d,
+    #ffffff,
+    #ff0000
+  ); /* Gradient background */
+  background-size: 800px 50px; /* Background size for gradient */
+  height: 20px; /* Height of the hr element */
+  animation: m-loader 3s infinite linear; /* Animation properties */
+}
+
+@keyframes m-loader {
+  0% {
+    background-position: -800px 0; /* Start position of gradient animation */
+  }
+  100% {
+    background-position: 800px 0; /* End position of gradient animation */
+  }
+}
+.m-result-data p {
+  font-size: 17px;
+
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+  .m-main-bottom input {
+    flex: none;
+    width: 150px;
+  }
+
+  .m-main-bottom img {
+    width: 20px;
+  }
+
+  .m-search-box {
+    padding: 5px 10px;
+  }
+
+  .m-search-box div {
+    gap: 5px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.m-form-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.m-form-header h2 {
+  color: black;
+  font-family: Arial, sans-serif;
+}
+
+.m-form-group {
+  margin-bottom: 20px;
+}
+
+.m-form-group label {
+  display: block;
+  font-size: 16px;
+  color: black;
+  font-family: Arial, sans-serif;
+}
+
+.m-form-group input[type="text"],
+.m-form-group input[type="email"],
+.m-form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: black;
+  font-family: Arial, sans-serif;
+}
+
+.m-form-group textarea {
+  height: 100px;
+}
+
+.m-form-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.m-form-btn:hover {
+  background-color: #cc0000;
+}
+.m-form-container {
+  width: 400px;
+  margin: 0 auto;
+  background-color: black;
+  color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out; /* Animation to fade in */
+}
+
+.m-form-container h2 {
+  text-align: center;
+}
+
+.m-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-form-container label {
+  margin-bottom: 5px;
+  width: 15rem;
+}
+
+.m-form-container input {
+  width: 15rem;
+  background-color: transparent;
+  padding: 8px;
+  gap: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.m-form-container select {
+  width: 15rem;
+  background-color: rgb(36, 36, 36);
+  padding: 8px;
+  gap: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.m-form-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
